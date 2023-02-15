@@ -42,18 +42,9 @@ public:
 	// Called before quitting
 	bool CleanUp() final;
 
-	void IncreaseBGScrollSpeed(float x);
-
 	bool HasSaveData() const final;
 	bool LoadState(pugi::xml_node const &data) final;
 	pugi::xml_node SaveState(pugi::xml_node const &) const final;
-
-	iPoint bgPosition = {0, 0};
-	float bgSpeed = 0.2f;
-	float additionalSpeed = 0.0f;
-	float bgScale = 1.0f;
-	std::vector<BGInfo> background;
-	std::unordered_map<std::string, std::pair<std::string, int>, StringHash, std::less_equal<>> backgroundInfo;
 };
 
 #endif // __SCENE_H__

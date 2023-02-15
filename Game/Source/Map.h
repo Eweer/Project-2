@@ -1,13 +1,11 @@
 #ifndef __MAP_H__
 #define __MAP_H__
-
+#include "App.h"
 #include "Module.h"
-#include "Physics.h"
 
-#include "Defs.h"
 #include "Point.h"
-#include "BitMaskNavType.h"
 
+#include <memory>
 
 #include <functional>
 #include <vector>
@@ -17,34 +15,6 @@
 
 using XML_Property_t = std::variant<int, bool, float, std::string>;
 using XML_Properties_Map_t = std::unordered_map<std::string, XML_Property_t, StringHash, std::equal_to<>>;
-
-enum class NavLinkType
-{
-	UNKNOWN = 0x0000,
-	WALK = 0x0001,
-	FALL = 0x0002,
-	JUMP = 0x0004
-};
-
-struct NavLink
-{
-	NavLink() = default;
-	NavLink(iPoint p, int g, NavLinkType n)
-		: destination(p), score(g), movement(n) {};
-	
-	iPoint destination = {0,0};
-	int score = 10;
-	NavLinkType movement = NavLinkType::UNKNOWN;
-};
-
-struct NavPoint
-{
-	NavPoint() = default;
-	CL::NavType type = CL::NavType::NONE;
-	std::vector<NavLink> links;
-};
-
-using navPointMatrix = std::vector<std::vector<NavPoint>>;
 
 enum class MapTypes
 {
@@ -61,8 +31,6 @@ struct TileColliderInfo
 	std::string shape = "";
 	int width = 0;
 	int height = 0;
-	uint16 cat = 0x0000;
-	std::vector<b2Vec2> points;
 };
 
 struct TileAnimationInfo
@@ -103,8 +71,6 @@ struct TileSet
 	
 	SDL_Rect GetTileRect(int gid) const;
 };
-
-
 
 struct TileImage
 {
@@ -205,28 +171,16 @@ public:
 	iPoint MapToWorld(iPoint position) const;
 
 	iPoint WorldToCoordinates(iPoint position) const;
-
 	int WorldXToCoordinates(int n) const;
-
 	int WorldYToCoordinates(int n) const;
 	
 	int GetWidth() const;
-
 	int GetHeight() const;
 
 	int GetTileWidth() const;
-
 	int GetTileHeight() const;
 
 	int GetTileSetSize() const;
-
-	std::unique_ptr<navPointMatrix> CreateWalkabilityMap();
-
-	bool IsWalkable(uint gid) const;
-
-	bool IsTerrain(uint gid) const;
-
-	std::string_view GetMapFolderName() const;
 
 private:
 
@@ -236,7 +190,6 @@ private:
 	std::unique_ptr<TileInfo> LoadTileInfo(const pugi::xml_node &tileInfoNode) const;
 	std::shared_ptr<TileAnimationInfo> LoadAnimationInfo(const pugi::xml_node &tileInfoNode, XML_Properties_Map_t const &properties) const;
 	std::vector<TileColliderInfo> LoadHitboxInfo(const pugi::xml_node &hitbox, XML_Properties_Map_t const &properties = XML_Properties_Map_t()) const;
-	std::unique_ptr<PhysBody> CreateCollider (int gid, int i, int j, TileSet const *tileset) const;
 	
 	bool LoadAllLayers(pugi::xml_node const &mapNode);
 	std::unique_ptr<MapLayer> LoadLayer(pugi::xml_node const &node);
@@ -246,14 +199,10 @@ private:
 
 	void LogLoadedData() const;
 
-	std::unique_ptr<navPointMatrix> CreateWalkabilityNodes() const;
-
 	MapData mapData;
 	std::string mapFileName;
 	std::string mapFolder;
 	bool mapLoaded = false;
-	std::vector<std::unique_ptr<PhysBody>> terrainColliders;
-	
 };
 
 #endif // __MAP_H__

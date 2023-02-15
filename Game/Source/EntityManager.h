@@ -3,20 +3,12 @@
 
 #include "Module.h"
 #include "Entity.h"
+#include "Defs.h"
 
-#include "BitMaskColliderLayers.h"
-
+#include <memory>
 #include <vector>
 
-class Player;
 struct TileInfo;
-
-struct EntityInfo
-{
-	CL::ColliderLayers type = CL::ColliderLayers::UNKNOWN;
-	std::vector<std::unique_ptr<Entity>> entities;
-	std::unordered_map<int, std::shared_ptr<Animation>> animation;
-};
 
 class EntityManager : public Module
 {
@@ -54,28 +46,16 @@ public:
 	// ------ Load Assets
 	bool LoadAllTextures() const;
 	bool LoadEntities(TileInfo const *tileInfo, iPoint pos, int width, int height);
-	void LoadItemAnimations();
 
 private:
 	// ------ Utils
 	// --- Getters
-	Player *GetPlayerCharacter() const;
 	pugi::xml_node SaveState(pugi::xml_node const &data) const final;
 	bool HasSaveData() const final;
 	bool DoesEntityExist(Entity const *entity = nullptr) const;
 	bool IsEntityActive(Entity const *entity = nullptr) const;
-	// --- Constructors
-	void CreateAllColliders() const;
 
-	using EntityMap = std::unordered_map<std::string, EntityInfo, StringHash, std::equal_to<>>;
-	// key1 = ColliderLayer
-	// value 1, key 2 = string type of entity
-	// value2 = <vector of entities, list of empty elements, map of animations>
-	EntityMap allEntities;
-	Player *player;
-	std::string itemPath;
-
-	friend class UI;
+	std::unordered_map<std::string, std::vector<std::unique_ptr<Entity>>, StringHash, std::equal_to<>> allEntities;
 };
 
 

@@ -126,7 +126,7 @@ template <int min, int max> class range
 {
 	static bool contains(int i)
 	{ 
-		return min <= i  && i < max;
+		return min <= i && i < max;
 	} 
 };
 

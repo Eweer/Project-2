@@ -16,9 +16,7 @@ Input::Input() : Module()
 }
 
 // Destructor
-Input::~Input()
-{
-}
+Input::~Input() = default;
 
 // Called before render is available
 bool Input::Awake(pugi::xml_node& config)

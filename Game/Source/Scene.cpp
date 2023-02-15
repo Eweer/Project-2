@@ -7,9 +7,6 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
-#include "BitMaskColliderLayers.h"
-#include "Player.h"
-#include "Pathfinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,25 +26,6 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
-	for(auto const &elem : config.children("background"))
-	{
-		backgroundInfo[elem.attribute("map").as_string()] =
-			std::make_pair<std::string, int>(
-				elem.attribute("path").as_string(),
-				elem.attribute("frames").as_int()
-			);
-
-		bgSpeed = elem.attribute("speed").as_float();
-	}
-
-	// Instantiate the player using the entity manager
-	if (config.child("player"))
-		app->entityManager->CreateEntity("player", config.child("player"));
-
-	for(auto const &elem : config.children("enemy"))
-		for(auto const &id : elem.children("spawn"))
-			app->entityManager->CreateEntity("enemy", elem);
-
 	return true;
 }
 
@@ -55,35 +33,6 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {	
 	// Load map
-	if(app->map->Load()) app->pathfinding->SetWalkabilityMap();
-
-	// Load background
-	if(auto it = backgroundInfo.find("Mountain");
-	   it != backgroundInfo.end())
-	{
-		std::string bgFolder = it->second.first;
-		int frames = it->second.second;
-
-		for(int i = 1; i <= frames; i++)
-		{
-			std::string filePath = std::format("{}{}.png", bgFolder, i);
-			
-			background.emplace_back(BGInfo(app->tex->Load(filePath.c_str()), {0,0}, bgSpeed * i, fPoint(0,0)));
-
-			uint w;
-			uint h;
-			app->tex->GetSize(background.back().texture.get(), w, h);
-			background.back().size.x = static_cast<float>(w);
-		}
-	}
-
-	if(!background.empty())
-	{
-		uint w;
-		uint h;
-		app->tex->GetSize(background.back().texture.get(), w, h);
-		bgScale = static_cast<float>(app->win->GetHeight()) / static_cast<float>(h);
-	}
 
 	// Set the window title with map/tileset info
 	std::string title = std::format(
@@ -110,13 +59,6 @@ bool Scene::PreUpdate()
 
 bool Scene::Pause(int phase)
 {
-	for(auto &elem : background)
-	{
-		app->render->DrawBackground(elem.texture.get(), elem.position + 2 - elem.size * bgScale, bgScale);
-		app->render->DrawBackground(elem.texture.get(), elem.position, bgScale);
-		app->render->DrawBackground(elem.texture.get(), elem.position - 2 + elem.size * bgScale, bgScale);
-	}
-
 	// Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KeyState::KEY_DOWN)
 		app->SaveGameRequest();
@@ -130,24 +72,6 @@ bool Scene::Pause(int phase)
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	for(auto &elem : background)
-	{
-		app->render->DrawBackground(elem.texture.get(), elem.position + 2 - elem.size * bgScale, bgScale);
-		app->render->DrawBackground(elem.texture.get(), elem.position, bgScale);
-		app->render->DrawBackground(elem.texture.get(), elem.position - 2 + elem.size * bgScale, bgScale);
-		elem.position.x -= (elem.increase * additionalSpeed) + elem.increase;
-
-		if(elem.position.x <= elem.size.x * (-1 * bgScale))
-		{
-			elem.position.x = 0;
-		}
-	}
-
-	additionalSpeed = 0.0f;
-
-	//if(app->input->GetKey(SDL_SCANCODE_F3) == KeyState::KEY_DOWN)
-		//app->ResetLevelRequest();
-
 	// Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KeyState::KEY_DOWN)
 		app->SaveGameRequest();
@@ -178,15 +102,6 @@ bool Scene::CleanUp()
 	return true;
 }
 
-void Scene::IncreaseBGScrollSpeed(float x)
-{
-	if(x >= 3.0f) additionalSpeed = 3.0f;
-	else if(x <= -3.0f) additionalSpeed = -3.0f;
-	else additionalSpeed = x;
-
-	if(additionalSpeed == 0) additionalSpeed = 0.1f;
-}
-
 bool Scene::HasSaveData() const
 {
 	return true;
@@ -208,18 +123,6 @@ pugi::xml_node Scene::SaveState(pugi::xml_node const &data) const
 	std::string saveData6OneInt = "<{} {}=\"{}\" {}=\"{:.2f}\" {}=\"{:.2f}\" {}=\"{:.2f}\"/>\n";
 	std::string saveFloatData = "<{} {}=\"{:.2f}\" {}=\"{:.2f}\"/>\n";
 	std::string dataToSave = "<scene>\n";
-	for (int i = 1; auto const &elem : background)
-	{
-		dataToSave += AddSaveData(
-			saveData6OneInt,
-			"layer",
-			"id", i,
-			"x", elem.position.x,
-			"y", elem.position.y,
-			"additionalspeed", additionalSpeed
-		);
-		i++;
-	}
 	dataToSave += "</scene>";
 
 	app->AppendFragment(data, dataToSave.c_str());

@@ -7,10 +7,7 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
-#include "Physics.h"
 #include "Fonts.h"
-#include "UI.h"
-#include "Pathfinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -28,13 +25,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = std::make_unique<Render>();
 	tex = std::make_unique<Textures>();
 	audio = std::make_unique<Audio>();
-	physics = std::make_unique<Physics>();
-	pathfinding = std::make_unique<Pathfinding>();
 	scene = std::make_unique<Scene>();
 	entityManager = std::make_unique<EntityManager>();
 	map = std::make_unique<Map>();
 	fonts = std::make_unique<Fonts>();
-	ui = std::make_unique<UI>();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,13 +36,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win.get());
 	AddModule(tex.get());
 	AddModule(audio.get());
-	AddModule(physics.get());
-	AddModule(pathfinding.get());
 	AddModule(scene.get());
 	AddModule(entityManager.get());
 	AddModule(map.get());
 	AddModule(fonts.get());
-	AddModule(ui.get());
 
 	// Render last to swap buffer
 	AddModule(render.get());
@@ -238,7 +229,6 @@ void App::SaveGameRequest()
 	if(!saveGameRequested)
 	{
 		saveGameRequested = true;
-		ui->ToggleSavingIcon();
 	}
 }
 
@@ -338,7 +328,6 @@ bool App::DoPaused()
 	// PreUpdate
 	int phase = 1;
 	input->Pause(phase);
-	ui->Pause(phase);
 	render->Pause(phase);
 
 	// Update
@@ -349,7 +338,6 @@ bool App::DoPaused()
 
 	// PostUpdate
 	phase++;
-	ui->Pause(phase);
 	render->Pause(phase);
 
 	// FinishUpdate
@@ -362,8 +350,6 @@ bool App::DoPaused()
 bool App::PauseGame()
 {
 	using enum KeyState;
-	physics->ToggleStep();
-	ui->TogglePauseDraw();
 	while (input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
 	{
 		DoPaused();
@@ -374,8 +360,6 @@ bool App::PauseGame()
 		DoPaused();
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
 	}
-	ui->TogglePauseDraw();
-	physics->ToggleStep();
 
 	return true;
 }

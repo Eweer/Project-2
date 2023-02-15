@@ -4,7 +4,6 @@
 // Modules included
 #include "Input.h"
 #include "Render.h"
-#include "Physics.h"
 
 // Utils included
 #include "Log.h"
@@ -45,26 +44,14 @@ bool Entity::CleanUp()
 
 bool Entity::Stop()
 {
-	if(pBody)
-	{
- 		if(pBody->body) app->physics->DestroyBody(pBody->body);
-		pBody.reset();
-	}
 	disableOnNextUpdate = false;
 	return true;
 }
 
-bool Entity::UpdateProjectiles()
-{
-	return false;
-}
-
-// Sets starting Position and creates PhysBody
 void Entity::SpawnEntity()
 {
 	disableOnNextUpdate = false;
 	position = startingPosition;
-	CreatePhysBody();
 }
 
 bool Entity::HasSaveData() const
@@ -103,27 +90,4 @@ void Entity::Disable()
 void Entity::RestartLevel()
 {
 	position = startingPosition;
-	SpecificRestart();
-}
-
-BodyType Entity::BodyTypeStrToEnum(std::string const &str) const
-{
-	std::string bodyType = str;
-	bodyType[0] = std::tolower(bodyType[0], std::locale());
-	using enum BodyType;
-	switch(str2int(bodyType.c_str()))
-	{
-		case str2int("static"):
-			return STATIC;
-			break;
-		case str2int("dynamic"):
-			return DYNAMIC;
-			break;
-		case str2int("kinematic"):
-			return KINEMATIC;
-			break;
-		default:
-			LOG("ERROR: Invalid body type");
-	}
-	return UNKNOWN;
 }

@@ -10,12 +10,6 @@
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Source\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Item.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Audio.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
@@ -26,9 +20,6 @@
       <Filter>Source\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Map.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Physics.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Render.cpp">
@@ -43,9 +34,6 @@
     <ClCompile Include="Source\Window.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Character.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Entity.cpp">
       <Filter>Source\Entities</Filter>
     </ClCompile>
@@ -54,15 +42,6 @@
     </ClCompile>
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Source\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UI.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Source\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Pathfinding.cpp">
-      <Filter>Source\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +72,6 @@
     <ClInclude Include="Source\Module.h">
       <Filter>Headers\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Physics.h">
-      <Filter>Headers\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Render.h">
       <Filter>Headers\Modules</Filter>
     </ClInclude>
@@ -114,19 +90,7 @@
     <ClInclude Include="Source\EntityManager.h">
       <Filter>Headers\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Headers\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Item.h">
-      <Filter>Headers\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Character.h">
-      <Filter>Headers\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\dirent.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BitMaskColliderLayers.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Log.h">
@@ -134,27 +98,6 @@
     </ClInclude>
     <ClInclude Include="Source\Fonts.h">
       <Filter>Headers\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UI.h">
-      <Filter>Headers\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Animation.h">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Headers\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\AdjacencyList.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Projectile.h">
-      <Filter>Source\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Pathfinding.h">
-      <Filter>Headers\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BitMaskNavType.h">
-      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
