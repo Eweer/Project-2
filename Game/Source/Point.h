@@ -1,59 +1,76 @@
 #ifndef __POINT_H__
 #define __POINT_H__
 
-#include "Defs.h"
+#include <cmath>
+#include <compare>
+#include <numbers>
 
-#include <math.h>
-
-template<class TYPE>
+template<class T>
 class Point
 {
 public:
 
-	TYPE x, y;
+	T x = 0;
+	T y = 0;
 
-	Point()
-	{}
-
-	Point(const Point<TYPE>& v)
+	Point& Create(const T& a, const T& b)
 	{
-		this->x = v.x;
-		this->y = v.y;
-	}
+		x = a;
+		y = b;
 
-	Point(const TYPE& x, const TYPE& y)
-	{
-		this->x = x;
-		this->y = y;
-	}
-
-	Point& Create(const TYPE& x, const TYPE& y)
-	{
-		this->x = x;
-		this->y = y;
-
-		return(*this);
+		return *this;
 	}
 
 	// Math ------------------------------------------------
 	Point operator -(const Point &v) const
 	{
-		p2Vector2 r;
+		Point r;
 
 		r.x = x - v.x;
 		r.y = y - v.y;
 
-		return(r);
+		return r;
 	}
 
-	Point operator + (const Point &v) const
+	Point operator +(const Point &v) const
 	{
-		p2Vector2 r;
+		Point r;
 
 		r.x = x + v.x;
 		r.y = y + v.y;
 
-		return(r);
+		return r;
+	}
+
+	Point operator +(T a) const
+	{
+		return {x + a, y + a};
+	}
+	
+
+	Point operator -(T a) const
+	{
+		return {x - a, y - a};
+	}
+
+	Point operator *(T i)
+	{
+		Point r;
+
+		r.x = x * i;
+		r.y = y * i;
+
+		return r;
+	}
+
+	Point operator /(const Point &v) const
+	{
+		return {x / v.x, y / v.y};
+	}
+
+	Point operator /(T i) const
+	{
+		return {x / i, y / i};
 	}
 
 	const Point& operator -=(const Point &v)
@@ -61,7 +78,7 @@ public:
 		x -= v.x;
 		y -= v.y;
 
-		return(*this);
+		return *this;
 	}
 
 	const Point& operator +=(const Point &v)
@@ -69,18 +86,10 @@ public:
 		x += v.x;
 		y += v.y;
 
-		return(*this);
+		return *this;
 	}
 
-	bool operator ==(const Point& v) const
-	{
-		return (x == v.x && y == v.y);
-	}
-
-	bool operator !=(const Point& v) const
-	{
-		return (x != v.x || y != v.y);
-	}
+	auto operator <=>(const Point &v) const = default;
 
 	// Utils ------------------------------------------------
 	bool IsZero() const
@@ -102,30 +111,57 @@ public:
 		return(*this);
 	}
 
-	// Distances ---------------------------------------------
-	TYPE DistanceTo(const Point& v) const
+	Point Left()
 	{
-		TYPE fx = x - v.x;
-		TYPE fy = y - v.y;
-
-		return sqrtf((fx*fx) + (fy*fy));
+		return Point(x - 1, y);
 	}
 
-	TYPE DistanceNoSqrt(const Point& v) const
+	Point Right()
 	{
-		TYPE fx = x - v.x;
-		TYPE fy = y - v.y;
+		return Point(x + 1, y);
+	}
+
+	Point Up()
+	{
+		return Point(x, y - 1);
+	}
+
+	Point Down()
+	{
+		return Point(x, y + 1);
+	}
+
+	// Distances ---------------------------------------------
+	T DistanceTo(const Point& v) const
+	{
+		T fx = x - v.x;
+		T fy = y - v.y;
+
+		return sqrt((fx*fx) + (fy*fy));
+	}
+
+	T DistanceNoSqrt(const Point& v) const
+	{
+		T fx = x - v.x;
+		T fy = y - v.y;
 
 		return (fx*fx) + (fy*fy);
 	}
 
-	TYPE DistanceManhattan(const Point& v) const
+	T DistanceManhattan(const Point& v) const
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	float Degree(const Point &v) const
+	{
+		//Radiants
+		return std::atan(static_cast<float>(v.y-y)/static_cast<float>(v.x-x)) * 360.0f/std::numbers::pi_v<float>;
+	}
 };
 
-typedef Point<int> iPoint;
-typedef Point<float> fPoint;
+using iPoint = Point<int>;
+using fPoint = Point<float>;
+using uPoint = Point<unsigned int>;
 
 #endif // __POINT_H__

@@ -2,9 +2,19 @@
 #define __APP_H__
 
 #include "Module.h"
-#include "List.h"
+#include "Defs.h"
+
+#include <list>
+#include <memory>
 
 #include "PugiXml/src/pugixml.hpp"
+#include "SDL/include/SDL.h"
+#include <format>
+#include <string>
+#include <string_view>
+
+constexpr auto CONFIG_FILENAME = "config.xml";
+constexpr auto SAVE_STATE_FILENAME = "save_game.xml";
 
 // Modules
 class Window;
@@ -13,6 +23,18 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
+class EntityManager;
+class Map;
+class Physics;
+class Fonts;
+class UI;
+class Pathfinding;
+
+template <typename... Args>
+std::string AddSaveData(std::string_view format, Args&&... args)
+{
+	return std::vformat(format, std::make_format_args(args...));
+}
 
 class App
 {
@@ -37,13 +59,49 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(Module* module);
+	void AddModule(Module* mod);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
 	const char* GetArgv(int index) const;
-	const char* GetTitle() const;
-	const char* GetOrganization() const;
+
+	// Getters
+	std::string GetTitle() const;
+	std::string GetOrganization() const;
+	uint GetLevelNumber() const;
+
+	bool AppendFragment(pugi::xml_node target, const char *data) const;
+	
+	// Saving / Loading
+	void LoadGameRequest();
+	void ResetLevelRequest();
+	void SaveGameRequest();
+	void GameSaved();
+	bool LoadFromFile();
+	bool SaveToFile();
+	bool SaveAttributeToConfig(
+		std::string const &moduleName, 
+		std::string const &node, 
+		std::string const &attribute, 
+		std::string const &value
+	);
+	
+	// Utils
+	bool PauseGame();
+
+	// Modules
+	std::unique_ptr<Window> win;
+	std::unique_ptr<Input> input;
+	std::unique_ptr<Render> render;
+	std::unique_ptr<Textures> tex;
+	std::unique_ptr<Audio> audio;
+	std::unique_ptr<Scene> scene;
+	std::unique_ptr<EntityManager> entityManager;
+	std::unique_ptr<Map> map;
+	std::unique_ptr<Physics> physics;
+	std::unique_ptr<Fonts> fonts;
+	std::unique_ptr<UI> ui;
+	std::unique_ptr<Pathfinding> pathfinding;
 
 private:
 
@@ -65,36 +123,29 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
-public:
-
-	// Modules
-	Window* win;
-	Input* input;
-	Render* render;
-	Textures* tex;
-	Audio* audio;
-	Scene* scene;
-
-private:
+	// Calls the pause on modules so they can still render
+	bool DoPaused();
 
 	int argc;
 	char** args;
-	SString title;
-	SString organization;
+	std::string title;
+	std::string organization;
 
-	List<Module *> modules;
-
-	// TODO 2: Create new variables from pugui namespace:
-	// a xml_document to store the config file and
-	// two xml_node to read specific branches of the xml
+	std::list<Module*> modules;
+	
 	pugi::xml_document configFile;
-	pugi::xml_node config;
-	pugi::xml_node configApp;
+	pugi::xml_node configNode;
 
-	uint frames;
+	uint frames = 0;
 	float dt;
+
+	bool saveGameRequested;
+	bool loadGameRequested;
+	bool resetLevelRequested;
+
+	uint levelNumber = 1;
 };
 
-extern App* app;
+extern std::unique_ptr<App> app;
 
 #endif	// __APP_H__

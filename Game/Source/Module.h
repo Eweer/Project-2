@@ -1,18 +1,20 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
-#include "SString.h"
+#include <string>
 
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
+class PhysBody;
 
 class Module
 {
 public:
 
-	Module() : active(false)
-	{}
+	Module() = default;
+	
+	virtual ~Module() = default;
 
 	void Init()
 	{
@@ -20,7 +22,6 @@ public:
 	}
 
 	// Called before render is available
-	// L01: DONE 5: Sending config file to all modules
 	virtual bool Awake(pugi::xml_node&)
 	{
 		return true;
@@ -50,17 +51,40 @@ public:
 		return true;
 	}
 
+	// Called when game is paused
+	virtual bool Pause(int phase)
+	{
+		return true;
+	}
+
 	// Called before quitting
 	virtual bool CleanUp()
 	{
 		return true;
 	}
+	
+	virtual bool LoadState(pugi::xml_node const &)
+	{
+		return true;
+	}
 
-public:
+	virtual pugi::xml_node SaveState(pugi::xml_node const &)  const
+	{
+		return pugi::xml_node();
+	}
 
-	SString name;
-	bool active;
+	virtual void OnCollisionStart(PhysBody* bodyA, PhysBody* bodyB)
+	{
+		// To Override
+	}
 
+	virtual bool HasSaveData() const
+	{
+		return false;
+	}
+
+	std::string name;
+	bool active = false;
 };
 
 #endif // __MODULE_H__

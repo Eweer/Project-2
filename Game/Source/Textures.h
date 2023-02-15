@@ -3,7 +3,8 @@
 
 #include "Module.h"
 
-#include "List.h"
+#include <list>
+#include <functional>
 
 struct SDL_Texture;
 struct SDL_Surface;
@@ -15,26 +16,23 @@ public:
 	Textures();
 
 	// Destructor
-	virtual ~Textures();
+	~Textures() final;
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node&) final;
 
 	// Called before the first frame
-	bool Start();
+	bool Start() final;
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp() final;
 
 	// Load Texture
-	SDL_Texture* const Load(const char* path);
-	SDL_Texture* const LoadSurface(SDL_Surface* surface);
-	bool UnLoad(SDL_Texture* texture);
-	void GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
+	std::shared_ptr<SDL_Texture> Load(const char* path);
+	bool Unload(SDL_Texture const *texture);
+	void GetSize(SDL_Texture* const texture, uint& width, uint& height) const;
 
-public:
-
-	List<SDL_Texture*> textures;
+	std::list<std::shared_ptr<SDL_Texture>>textures;
 };
 
 
