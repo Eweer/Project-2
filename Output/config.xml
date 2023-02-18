@@ -17,4 +17,9 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
+
+  <scene>
+    <general assetpath="Assets/Maps/"/>
+    <level name="Base"/>
+  </scene>
 </config>

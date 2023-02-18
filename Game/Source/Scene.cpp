@@ -26,6 +26,12 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
+	mapsPath = config.child("general").attribute("assetpath").as_string();
+
+	for (auto const& child : config.children("level"))
+	{
+		maps.emplace_back(child.attribute("name").as_string());
+	}
 	return true;
 }
 
@@ -33,7 +39,12 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {	
 	// Load map
-
+	std::string mapToLoad = maps.front() + ".tmx";
+	if (!app->map->Load(mapsPath, mapToLoad))
+	{
+		LOG("Map %s couldn't be loaded.", mapToLoad);
+		return false;
+	}
 	// Set the window title with map/tileset info
 	std::string title = std::format(
 		"Map:{}x{} Tiles:{}x{} Tilesets:{}",

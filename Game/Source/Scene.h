@@ -45,6 +45,9 @@ public:
 	bool HasSaveData() const final;
 	bool LoadState(pugi::xml_node const &data) final;
 	pugi::xml_node SaveState(pugi::xml_node const &) const final;
+
+	std::string mapsPath;
+	std::vector<std::string> maps;
 };
 
 #endif // __SCENE_H__

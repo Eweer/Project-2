@@ -43,6 +43,12 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TileSet.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MapLayer.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -97,6 +103,12 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Fonts.h">
+      <Filter>Headers\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapLayer.h">
+      <Filter>Headers\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TileSet.h">
       <Filter>Headers\Modules</Filter>
     </ClInclude>
   </ItemGroup>
