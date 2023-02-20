@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "TileSet.h"
 #include "MapLayer.h"
+#include "ObjectLayer.h"
 
 #include "Defs.h"
 
@@ -35,8 +36,14 @@ public:
 
 	bool Load(const std::string& directory, const std::string& level);
 
+	uPoint MapToWorld(uint x, uint y) const;
+
+	uint MapXToWorld(uint x) const;
+
+	uPoint MapToWorld(uPoint position) const;
+
 	// Called each loop iteration
-	void Draw() const {};
+	void Draw() const;
 
 	// Called before quitting
 	bool CleanUp() final { return true; };
@@ -58,6 +65,8 @@ public:
 
 private:
 	std::vector<TileSet> tilesets;
+	std::vector<MapLayer> tileLayers;
+	std::vector<ObjectLayer> objectLayers;
 };
 
 #endif // __MAP_H__

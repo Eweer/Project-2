@@ -335,7 +335,6 @@ bool Render::DrawFont(SDL_Texture *texture, iPoint position, fPoint scale, const
 	return true;
 }
 
-
 // Blit to screen
 bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY, SDL_RendererFlip flip) const
 {

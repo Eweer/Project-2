@@ -19,9 +19,6 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Render.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
@@ -43,11 +40,17 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TileSet.cpp">
-      <Filter>Source\Modules</Filter>
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\MapLayer.cpp">
-      <Filter>Source\Modules</Filter>
+      <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TileSet.cpp">
+      <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ObjectLayer.cpp">
+      <Filter>Source\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +73,6 @@
       <Filter>Headers\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input.h">
-      <Filter>Headers\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map.h">
       <Filter>Headers\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Module.h">
@@ -105,11 +105,17 @@
     <ClInclude Include="Source\Fonts.h">
       <Filter>Headers\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MapLayer.h">
-      <Filter>Headers\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\TileSet.h">
-      <Filter>Headers\Modules</Filter>
+      <Filter>Headers\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapLayer.h">
+      <Filter>Headers\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map.h">
+      <Filter>Headers\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ObjectLayer.h">
+      <Filter>Headers\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,12 @@
     </Filter>
     <Filter Include="Utils\XML\Maps">
       <UniqueIdentifier>{23cba917-080a-4b7f-9c07-f46725fb2734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Map">
+      <UniqueIdentifier>{a9e5ac6d-4793-46fc-a920-f0ccdd8436a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Map">
+      <UniqueIdentifier>{db2a1c10-ca41-434d-9f66-53a0cf80b4ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

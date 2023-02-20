@@ -1,4 +1,7 @@
 #include "TileSet.h"
+#include "App.h"
+
+#include "Textures.h"
 
 #include "Log.h"
 
@@ -21,22 +24,22 @@ TileSet::TileSet(const pugi::xml_node& node, const std::string& directory) :
 	tileCount = currentNode.attribute("tilecount").as_uint();
 	columns = currentNode.attribute("columns").as_uint();
 
-	currentNode = currentNode.child("grid");
-	if (currentNode.empty())
+	if (auto gridNode = currentNode.child("grid"); gridNode.empty())
 	{
 		// Default values if grid child doesn't exist
-		orientation = TiledOrientation::ORTHOGONAL;
+		orientation = MapOrientation::ORTHOGONAL;
 		size = tileSize;
 	}
 	else
 	{
 		// TODO read XML attribute
-		orientation = TiledOrientation::ORTHOGONAL;
-		size = { currentNode.attribute("width").as_uint(), currentNode.attribute("height").as_uint() };
+		orientation = MapOrientation::ORTHOGONAL;
+		size = { gridNode.attribute("width").as_uint(), gridNode.attribute("height").as_uint() };
 	}
 
-	currentNode = currentNode.next_sibling("image");
-	imageSource = currentNode.attribute("source").as_string();
-	sourceSize = { currentNode.attribute("width").as_uint(), currentNode.attribute("height").as_uint() };
+	auto imgNode = currentNode.child("image");
+	imageSource = imgNode.attribute("source").as_string();
+	sourceSize = { imgNode.attribute("width").as_uint(), imgNode.attribute("height").as_uint() };
+	texture = app->tex->Load((directory + imageSource).c_str()).get();
 }
 
