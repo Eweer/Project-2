@@ -6,7 +6,7 @@
 
 ObjectLayer::ObjectLayer(const pugi::xml_node& node) :
 	name(node.attribute("name").as_string())
-	{
+{
 	for (auto const& child : node.children("object"))
 	{
 		Object obj;

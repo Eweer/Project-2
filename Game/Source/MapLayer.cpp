@@ -20,3 +20,13 @@ MapLayer::MapLayer(const pugi::xml_node& node) :
 		tiles.emplace_back(stoul(match[0].str()));
 	}
 }
+
+uPoint MapLayer::GetSize() const
+{
+	return size;
+}
+
+uint MapLayer::GetTileGid(uint x, uint y) const
+{
+	return tiles[(y * size.x) + x].gid;
+}

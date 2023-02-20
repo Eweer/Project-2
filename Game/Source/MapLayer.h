@@ -17,7 +17,7 @@ struct Tile
 
 		if (n & FLIPPED_HORIZONTALLY_FLAG)
 			flipFlag += 1;
-		
+
 		if (n & FLIPPED_VERTICALLY_FLAG)
 			flipFlag += 2;
 
@@ -25,7 +25,7 @@ struct Tile
 			flipFlag += 4;
 
 		gid = n & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG);
-	}
+	};
 	uint gid = 0;
 	uint flipFlag = 0;
 };
@@ -35,15 +35,9 @@ class MapLayer
 public:
 	explicit MapLayer(const pugi::xml_node& node);
 
-	uPoint GetSize() const
-	{
-		return size;
-	}
+	uPoint GetSize() const;
 
-	uint GetTileGid(uint x, uint y)
-	{
-		return tiles[(y * size.x) + x].gid;
-	}
+	uint GetTileGid(uint x, uint y) const;
 
 private:
 	std::string name = "";

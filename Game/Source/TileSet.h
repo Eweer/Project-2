@@ -21,28 +21,11 @@ class TileSet
 public:
 	explicit TileSet(const pugi::xml_node& node, const std::string& directory);
 
-	uint ContainsGid(uint gid) const
-	{
-		return gid >= firstGid && gid < firstGid + tileCount;
-	}
+	uint ContainsGid(uint gid) const;
 
-	SDL_Rect GetTileRect(uint gid) const
-	{
-		SDL_Rect rect = { 0 };
-		uint relativeIndex = gid - firstGid;
+	SDL_Rect GetTileRect(uint gid) const;
 
-		rect.w = tileSize.x;
-		rect.h = tileSize.y;
-		rect.x = margin + (tileSize.x + spacing) * (relativeIndex % columns);
-		rect.y = margin + (tileSize.y + spacing) * (relativeIndex / columns);
-
-		return rect;
-	}
-
-	SDL_Texture* GetTexture() const
-	{
-		return texture;
-	}
+	SDL_Texture* GetTexture() const;
 
 private:
 	uint firstGid = 0;

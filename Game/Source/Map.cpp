@@ -5,6 +5,7 @@
 #include "Log.h"
 
 #include "SDL_image/include/SDL_image.h"
+
 Map::Map() : Module()
 {
 	name = "map";
@@ -23,6 +24,31 @@ bool Map::Load(const std::string& directory, const std::string& level)
 		return false;
 	}
 
+	pugi::xml_node map = mapFile.child("map");
+
+	if (!map)
+	{
+		LOG("Error parsing map xml file: Cannot find 'map' tag.");
+		return false;
+	}
+
+	if (StrEquals(map.attribute("orientation").as_string(),"orthogonal"))
+		orientation = MapTypes::MAPTYPE_ORTHOGONAL;
+	else if (StrEquals(map.attribute("orientation").as_string(),"isometric"))
+		orientation = MapTypes::MAPTYPE_ISOMETRIC;
+	else if (StrEquals(map.attribute("orientation").as_string(), "staggered"))
+		orientation = MapTypes::MAPTYPE_STAGGERED;
+	else
+	{
+		LOG("Error parsing xml file: 'orientation' attribute is unknown.");
+		return false;
+	}
+
+	size.x = map.attribute("height").as_uint();
+	size.y = map.attribute("width").as_uint();
+	tileSize.x = map.attribute("tileheight").as_uint();
+	tileSize.y = map.attribute("tilewidth").as_uint();
+
 	for (auto const& child : mapFile.child("map"))
 	{
 		if (StrEquals(child.name(), "tileset"))
@@ -36,6 +62,10 @@ bool Map::Load(const std::string& directory, const std::string& level)
 		else if (StrEquals(child.name(), "objectgroup"))
 		{
 			objectLayers.emplace_back(child);
+		}
+		else
+		{
+			LOG("Error parsing xml file: '%s' tag not implemented.", child.name());
 		}
 	}
 	return true;
@@ -74,17 +104,23 @@ void Map::Draw() const
 // Translates x,y coordinates from map positions to world positions
 uPoint Map::MapToWorld(uint x, uint y) const
 {
-	return { x * 16, y * 16 };
+	return { x * tileSize.x, y * tileSize.y };
 }
 
-// Translates x,y coordinates from map positions to world positions
+// Translates x coordinates from map positions to world positions
 uint Map::MapXToWorld(uint x) const
 {
-	return x * 16;
+	return x * tileSize.x;
 }
 
 // Translates x,y coordinates from map positions to world positions
 uPoint Map::MapToWorld(uPoint position) const
 {
-	return { position.x * 16, position.y * 16 };
+	return { position.x * tileSize.x, position.y * tileSize.y };
 }
+
+int Map::GetWidth() const { return size.x; };
+int Map::GetHeight() const { return size.y; };
+int Map::GetTileWidth() const { return tileSize.x; };
+int Map::GetTileHeight() const { return tileSize.y; };
+int Map::GetTileSetSize() const { return tilesets.size(); };

@@ -43,3 +43,25 @@ TileSet::TileSet(const pugi::xml_node& node, const std::string& directory) :
 	texture = app->tex->Load((directory + imageSource).c_str()).get();
 }
 
+uint TileSet::ContainsGid(uint gid) const
+{
+	return gid >= firstGid && gid < firstGid + tileCount;
+}
+
+SDL_Rect TileSet::GetTileRect(uint gid) const
+{
+	SDL_Rect rect = { 0 };
+	uint relativeIndex = gid - firstGid;
+
+	rect.w = tileSize.x;
+	rect.h = tileSize.y;
+	rect.x = margin + (tileSize.x + spacing) * (relativeIndex % columns);
+	rect.y = margin + (tileSize.y + spacing) * (relativeIndex / columns);
+
+	return rect;
+}
+
+SDL_Texture* TileSet::GetTexture() const
+{
+	return texture;
+}

@@ -53,20 +53,23 @@ public:
 		return true;
 	};
 
-	int GetWidth() const { return 24*16; };
-	int GetHeight() const { return 24 * 16; };
+	int GetWidth() const;
+	int GetHeight() const;
 
-	int GetTileWidth() const { return 16; };
-	int GetTileHeight() const { return 16; };
+	int GetTileWidth() const;
+	int GetTileHeight() const;
 
-	int GetTileSetSize() const {
-		return 40;
-	};
+	int GetTileSetSize() const;
 
 private:
 	std::vector<TileSet> tilesets;
 	std::vector<MapLayer> tileLayers;
 	std::vector<ObjectLayer> objectLayers;
+
+	MapTypes orientation = MapTypes::MAPTYPE_UNKNOWN;
+
+	uPoint size = { 0, 0 };
+	uPoint tileSize = { 0, 0 };
 };
 
 #endif // __MAP_H__
