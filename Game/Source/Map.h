@@ -41,7 +41,7 @@ public:
 	uint MapXToWorld(uint x) const;
 
 	uPoint MapToWorld(uPoint position) const;
-
+	
 	// Called each loop iteration
 	void Draw() const;
 

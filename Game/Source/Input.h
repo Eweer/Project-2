@@ -71,6 +71,7 @@ public:
 
 	// Get mouse / axis position
 	iPoint GetMousePosition() const;
+	uPoint GetUnsignedMousePosition() const;
 	void GetMousePosition(int &x, int &y) const;
 	void GetMouseMotion(int& x, int& y) const;
 

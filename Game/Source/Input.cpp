@@ -159,6 +159,11 @@ iPoint Input::GetMousePosition() const
 	return mousePosition;
 }
 
+uPoint Input::GetUnsignedMousePosition() const
+{
+	return { (uint)mousePosition.x, (uint)mousePosition.y };
+}
+
 void Input::GetMousePosition(int& x, int& y) const
 {
 	x = mousePosition.x;

@@ -46,7 +46,6 @@ public:
 	{
 		return {x + a, y + a};
 	}
-	
 
 	Point operator -(T a) const
 	{

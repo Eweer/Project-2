@@ -10,11 +10,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1,
-            "selectedLayer": 2,
+            "scale": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 197,
-                "y": 302
+                "x": 166.5,
+                "y": 205.5
             }
         },
         "Props.tsx": {
@@ -42,14 +42,15 @@
     "openFiles": [
         "Base.tmx",
         "Props.tsx",
-        "Tiles.tsx"
+        "Tiles.tsx",
+        "player.tsx"
     ],
     "project": "project-II.tiled-project",
     "recentFiles": [
+        "player.tsx",
         "Tiles.tsx",
         "Props.tsx",
         "Base.tmx",
-        "test.tmx",
-        "player.tsx"
+        "test.tmx"
     ]
 }
