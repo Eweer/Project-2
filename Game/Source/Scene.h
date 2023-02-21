@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+#include "GuiScreen.h"
+
 struct SDL_Texture;
 
 struct BGInfo
@@ -48,6 +50,7 @@ public:
 
 	std::string mapsPath;
 	std::vector<std::string> maps;
+	std::vector<GuiScreen> windows;
 };
 
 #endif // __SCENE_H__

@@ -32,6 +32,12 @@ bool Scene::Awake(pugi::xml_node& config)
 	{
 		maps.emplace_back(child.attribute("name").as_string());
 	}
+
+	for (auto const& child : config.children("scren"))
+	{
+		windows.emplace_back(child);
+	}
+
 	return true;
 }
 

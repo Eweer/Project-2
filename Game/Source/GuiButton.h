@@ -18,7 +18,6 @@ enum class ButtonState
 class GuiButton : public GuiElement
 {
 public:
-
 	explicit GuiButton(
 		uPoint pos,
 		uPoint size,
