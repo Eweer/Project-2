@@ -18,6 +18,8 @@ enum class ButtonState
 class GuiButton : public GuiElement
 {
 public:
+	GuiButton() = default;
+	~GuiButton() override = default;
 	explicit GuiButton(
 		uPoint pos,
 		uPoint size,

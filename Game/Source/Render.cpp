@@ -501,21 +501,3 @@ SDL_Rect Render::GetCamera() const
 {
 	return camera;
 }
-
-void Render::AdjustCamera(iPoint position)
-{
-	if(position.x > 4 * app->map->GetTileWidth())
-		camera.x = -position.x + 4 * app->map->GetTileWidth();
-	else
-		camera.x = 0;
-
-	if(-1 * camera.x > app->map->GetWidth() * app->map->GetTileWidth() - camera.w)
-		camera.x = -1 * (app->map->GetWidth() * app->map->GetTileWidth()) + camera.w;
-
-	if(position.y > (app->map->GetHeight() - 7) * app->map->GetTileHeight())
-		camera.y = -1 * (app->map->GetHeight() * app->map->GetTileHeight() - camera.h);
-	else
-		camera.y = -position.y + app->win->GetHeight() - 7 * app->map->GetTileHeight();
-
-	if(camera.y > 0) camera.y = 0;
-}

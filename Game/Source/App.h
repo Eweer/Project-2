@@ -22,9 +22,8 @@ class Input;
 class Render;
 class Textures;
 class Audio;
-class Scene;
+class SceneManager;
 class EntityManager;
-class Map;
 class Fonts;
 
 template <typename... Args>
@@ -92,9 +91,8 @@ public:
 	std::unique_ptr<Render> render;
 	std::unique_ptr<Textures> tex;
 	std::unique_ptr<Audio> audio;
-	std::unique_ptr<Scene> scene;
+	std::unique_ptr<SceneManager> scene;
 	std::unique_ptr<EntityManager> entityManager;
-	std::unique_ptr<Map> map;
 	std::unique_ptr<Fonts> fonts;
 
 private:

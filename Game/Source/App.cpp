@@ -4,7 +4,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
-#include "Scene.h"
+#include "SceneManager.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Fonts.h"
@@ -25,9 +25,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = std::make_unique<Render>();
 	tex = std::make_unique<Textures>();
 	audio = std::make_unique<Audio>();
-	scene = std::make_unique<Scene>();
+	scene = std::make_unique<SceneManager>();
 	entityManager = std::make_unique<EntityManager>();
-	map = std::make_unique<Map>();
 	fonts = std::make_unique<Fonts>();
 
 	// Ordered for awake / Start / Update
@@ -38,7 +37,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio.get());
 	AddModule(scene.get());
 	AddModule(entityManager.get());
-	AddModule(map.get());
 	AddModule(fonts.get());
 
 	// Render last to swap buffer
@@ -333,7 +331,6 @@ bool App::DoPaused()
 	// Update
 	phase++;
 	scene->Pause(phase);
-	map->Pause(phase);
 	entityManager->Pause(phase);
 
 	// PostUpdate

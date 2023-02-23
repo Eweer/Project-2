@@ -22,9 +22,6 @@
     <ClCompile Include="Source\Render.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Textures.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
@@ -53,10 +50,16 @@
       <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\GuiButton.cpp">
-      <Filter>Source\GUI</Filter>
+      <Filter>Source\Scenes\Windows\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GuiScreen.cpp">
-      <Filter>Source\GUI</Filter>
+    <ClCompile Include="Source\Window_Base.cpp">
+      <Filter>Source\Scenes\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene_Map.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Source\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,9 +88,6 @@
       <Filter>Headers\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render.h">
-      <Filter>Headers\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene.h">
       <Filter>Headers\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Textures.h">
@@ -124,13 +124,22 @@
       <Filter>Headers\Map</Filter>
     </ClInclude>
     <ClInclude Include="Source\GuiElement.h">
-      <Filter>Headers\GUI</Filter>
+      <Filter>Headers\Scenes\Windows\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Source\GuiButton.h">
-      <Filter>Headers\GUI</Filter>
+      <Filter>Headers\Scenes\Windows\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GuiScreen.h">
-      <Filter>Headers\GUI</Filter>
+    <ClInclude Include="Source\Window_Base.h">
+      <Filter>Headers\Scenes\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene_Base.h">
+      <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene_Map.h">
+      <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManager.h">
+      <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,14 +179,26 @@
     <Filter Include="Source\Map">
       <UniqueIdentifier>{db2a1c10-ca41-434d-9f66-53a0cf80b4ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\GUI">
-      <UniqueIdentifier>{6125e119-a46f-486e-97ab-94af96818f3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Entities">
       <UniqueIdentifier>{4a83ab1c-6599-4948-99f5-58b87b211d84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\GUI">
+    <Filter Include="Headers\Scenes">
+      <UniqueIdentifier>{65a14a5f-69b7-43f4-9cac-f433ea82007b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Scenes\Windows">
+      <UniqueIdentifier>{d3113b8f-5f6a-474a-8e01-cfdead9386df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Scenes\Windows\GUI">
       <UniqueIdentifier>{2454c6bb-76d3-44d5-b57c-35a1c6ebc6ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes">
+      <UniqueIdentifier>{ad31252d-91d4-40d5-b58a-b73de12851d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes\Windows">
+      <UniqueIdentifier>{610718e3-7fee-4cc2-a5b0-2bf6f5c96573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes\Windows\GUI">
+      <UniqueIdentifier>{6125e119-a46f-486e-97ab-94af96818f3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

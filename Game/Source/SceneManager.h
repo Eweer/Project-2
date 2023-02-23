@@ -2,27 +2,19 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "Scene_Base.h"
+#include <vector>
 
-#include "GuiScreen.h"
+class Window_Base;
 
-struct SDL_Texture;
-
-struct BGInfo
-{
-	std::shared_ptr<SDL_Texture>texture;
-	fPoint position;
-	float increase;
-	fPoint size;
-};
-
-class Scene : public Module
+class SceneManager : public Module
 {
 public:
 
-	Scene();
+	SceneManager();
 
 	// Destructor
-	~Scene() final;
+	~SceneManager() final;
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config) final;
@@ -48,9 +40,9 @@ public:
 	bool LoadState(pugi::xml_node const &data) final;
 	pugi::xml_node SaveState(pugi::xml_node const &) const final;
 
-	std::string mapsPath;
-	std::vector<std::string> maps;
-	std::vector<GuiScreen> windows;
+	std::string assetPath;
+	std::unique_ptr<Scene_Base> currentScene;
+	std::unique_ptr<Scene_Base> nextScene;
 };
 
 #endif // __SCENE_H__

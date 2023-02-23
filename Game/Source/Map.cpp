@@ -6,9 +6,8 @@
 
 #include "SDL_image/include/SDL_image.h"
 
-Map::Map() : Module()
+Map::Map()
 {
-	name = "map";
 }
 
 // Destructor

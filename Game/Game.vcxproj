@@ -101,7 +101,8 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
-    <ClCompile Include="Source\GuiScreen.cpp" />
+    <ClCompile Include="Source\Scene_Map.cpp" />
+    <ClCompile Include="Source\Window_Base.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -109,7 +110,7 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\MapLayer.cpp" />
     <ClCompile Include="Source\ObjectLayer.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TileSet.cpp" />
@@ -120,11 +121,13 @@
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiElement.h" />
-    <ClInclude Include="Source\GuiScreen.h" />
+    <ClInclude Include="Source\Scene_Base.h" />
+    <ClInclude Include="Source\Scene_Map.h" />
+    <ClInclude Include="Source\Window_Base.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MapLayer.h" />
     <ClInclude Include="Source\ObjectLayer.h" />
-    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\App.h" />

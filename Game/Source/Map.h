@@ -25,14 +25,14 @@ enum class MapTypes
 	MAPTYPE_STAGGERED
 };
 
-class Map : public Module
+class Map
 {
 public:
 
 	Map();
 
 	// Destructor
-	~Map() final;
+	~Map();
 
 	bool Load(const std::string& directory, const std::string& level);
 
@@ -44,14 +44,6 @@ public:
 	
 	// Called each loop iteration
 	void Draw() const;
-
-	// Called before quitting
-	bool CleanUp() final { return true; };
-
-	// Load new map
-	bool Load() {
-		return true;
-	};
 
 	int GetWidth() const;
 	int GetHeight() const;
