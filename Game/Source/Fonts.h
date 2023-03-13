@@ -85,8 +85,6 @@ private:
 	std::string path;
 	std::vector<Font> fonts;
 	std::priority_queue<int, std::vector<int>, std::greater<int>> freeVectorElements;
-
-	friend class UI;
 };
 
 
