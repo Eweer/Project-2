@@ -6,14 +6,176 @@
     "folders": [
         "."
     ],
-    "objectTypesFile": "",
     "propertyTypes": [
         {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 17,
+            "members": [
+                {
+                    "name": "SFX",
+                    "type": "file",
+                    "value": ""
+                },
+                {
+                    "name": "Trigger",
+                    "propertyType": "Helper Trigger",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "Base Event",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ff694828",
+            "drawFill": true,
+            "id": 13,
+            "members": [
+                {
+                    "name": "Base",
+                    "propertyType": "Base Event",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "Loot",
+                    "propertyType": "Helper Loot",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "isLocked",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "isOpen",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Event Chest",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
+        },
+        {
+            "color": "#ffff0000",
+            "drawFill": true,
+            "id": 15,
+            "members": [
+                {
+                    "name": "Base",
+                    "propertyType": "Base Event",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "Global Switch",
+                    "propertyType": "Global Switch",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "State",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Event Lever",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
+        },
+        {
+            "color": "#ff00fff7",
+            "drawFill": true,
+            "id": 14,
+            "members": [
+                {
+                    "name": "Base",
+                    "propertyType": "Base Event",
+                    "type": "class",
+                    "value": {
+                        "Trigger": 1
+                    }
+                },
+                {
+                    "name": "Destination",
+                    "propertyType": "Helper Destination",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "Direction",
+                    "propertyType": "Helper Direction",
+                    "type": "string",
+                    "value": "Retain"
+                },
+                {
+                    "name": "Fade",
+                    "propertyType": "Helper Fade",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Event Teleport",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 12,
+            "members": [
+                {
+                    "name": "Function",
+                    "propertyType": "Helper Switch Function",
+                    "type": "string",
+                    "value": "None"
+                },
+                {
+                    "name": "ID",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Name",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Global Switch",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 6,
             "members": [
                 {
                     "name": "Destination Map",
-                    "propertyType": "Maps",
+                    "propertyType": "Helper Maps",
                     "type": "string",
                     "value": "Base"
                 },
@@ -28,12 +190,14 @@
                     "value": 0
                 }
             ],
-            "name": "Destination",
-            "type": "class"
+            "name": "Helper Destination",
+            "type": "class",
+            "useAs": [
+            ]
         },
         {
             "id": 3,
-            "name": "Direction",
+            "name": "Helper Direction",
             "storageType": "string",
             "type": "enum",
             "values": [
@@ -46,6 +210,8 @@
             "valuesAsFlags": false
         },
         {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 7,
             "members": [
                 {
@@ -59,32 +225,18 @@
                     "value": "#ff000000"
                 }
             ],
-            "name": "Fade",
-            "type": "class"
-        },
-        {
-            "id": 12,
-            "members": [
-                {
-                    "name": "ID",
-                    "type": "int",
-                    "value": 0
-                },
-                {
-                    "name": "Name",
-                    "type": "string",
-                    "value": ""
-                }
-            ],
-            "name": "Global Switch",
-            "type": "class"
+            "name": "Helper Fade",
+            "type": "class",
+            "useAs": [
+            ]
         },
         {
             "id": 10,
-            "name": "Items",
+            "name": "Helper Items",
             "storageType": "string",
             "type": "enum",
             "values": [
+                "Undefined",
                 "HP Potion",
                 "MP Potion",
                 "Revive",
@@ -93,8 +245,30 @@
             "valuesAsFlags": false
         },
         {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 9,
+            "members": [
+                {
+                    "name": "Item",
+                    "propertyType": "Helper Items",
+                    "type": "string",
+                    "value": "Undefined"
+                },
+                {
+                    "name": "Quantity",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "Helper Loot",
+            "type": "class",
+            "useAs": [
+            ]
+        },
+        {
             "id": 4,
-            "name": "Maps",
+            "name": "Helper Maps",
             "storageType": "string",
             "type": "enum",
             "values": [
@@ -104,36 +278,31 @@
             "valuesAsFlags": false
         },
         {
-            "id": 9,
-            "members": [
-                {
-                    "name": "Item",
-                    "propertyType": "Items",
-                    "type": "string",
-                    "value": "HP Potion"
-                },
-                {
-                    "name": "Quantity",
-                    "type": "int",
-                    "value": 1
-                }
+            "id": 16,
+            "name": "Helper Trigger",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "Action Button",
+                "Player Touch",
+                "Event Touch",
+                "Autorrun",
+                "Parallel"
             ],
-            "name": "Loot",
-            "type": "class"
+            "valuesAsFlags": false
         },
         {
-            "id": 11,
-            "members": [
-                {
-                    "name": "Item",
-                    "propertyType": "Loot",
-                    "type": "class",
-                    "value": {
-                    }
-                }
+            "id": 18,
+            "name": "Helper Switch Function",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "None",
+                "Set",
+                "Toggle",
+                "Unlock"
             ],
-            "name": "Unlock Via",
-            "type": "class"
+            "valuesAsFlags": false
         }
     ]
 }

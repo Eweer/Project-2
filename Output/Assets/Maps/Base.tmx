@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="17">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="17">
  <tileset firstgid="1" source="Tiles.tsx"/>
  <tileset firstgid="626" source="Props.tsx"/>
  <tileset firstgid="1251" source="player.tsx"/>
@@ -88,36 +88,49 @@
 </data>
  </layer>
  <objectgroup id="3" name="Events">
-  <object id="1" name="10 Gold" type="Chest" gid="955" x="224" y="176" width="16" height="16">
+  <object id="1" name="10 Gold" type="Event Chest" gid="955" x="224" y="176" width="16" height="16">
    <properties>
-    <property name="Locked" type="bool" value="true"/>
-    <property name="Loot" type="class" propertytype="Loot">
+    <property name="Global Switch" type="class" propertytype="Global Switch">
      <properties>
-      <property name="Item" propertytype="Items" value="Coins"/>
+      <property name="Function" propertytype="Helper Switch Function" value="Unlock"/>
+      <property name="ID" type="int" value="1"/>
+      <property name="Name" value="DungeonChest"/>
+     </properties>
+    </property>
+    <property name="Loot" type="class" propertytype="Helper Loot">
+     <properties>
+      <property name="Item" propertytype="Helper Items" value="Coins"/>
       <property name="Quantity" type="int" value="10"/>
      </properties>
     </property>
+    <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="2" name="UnlockChest" type="Lever" gid="781" x="336" y="192" width="16" height="16">
+  <object id="2" name="Unlock Chest" type="Event Lever" gid="781" x="336" y="192" width="16" height="16">
    <properties>
-    <property name="SameMapDestination" type="object" value="0"/>
-   </properties>
-  </object>
-  <object id="15" name="BossRoom" type="Teleport" x="29" y="144" width="35" height="16">
-   <properties>
-    <property name="Destination" type="class" propertytype="Destination">
+    <property name="Global Switch" type="class" propertytype="Global Switch">
      <properties>
-      <property name="Destination Map" propertytype="Maps" value="test"/>
-      <property name="Destination X" type="int" value="12"/>
-      <property name="Destination Y" type="int" value="10"/>
-      <property name="Direction" propertytype="Direction" value="Up"/>
+      <property name="Function" propertytype="Helper Switch Function" value="Set"/>
+      <property name="ID" type="int" value="1"/>
+      <property name="Name" value="DungeonChest"/>
      </properties>
     </property>
-    <property name="Fade" type="class" propertytype="Fade">
+   </properties>
+  </object>
+  <object id="15" name="BossRoom" type="Event Teleport" x="29" y="144" width="35" height="16">
+   <properties>
+    <property name="Destination" type="class" propertytype="Helper Destination">
      <properties>
-      <property name="Active" type="bool" value="false"/>
-      <property name="Fade Color" type="color" value="#640c0c0c"/>
+      <property name="Destination Map" propertytype="Helper Maps" value="test"/>
+      <property name="Destination X" type="int" value="12"/>
+      <property name="Destination Y" type="int" value="10"/>
+     </properties>
+    </property>
+    <property name="Direction" propertytype="Helper Direction" value="Up"/>
+    <property name="Fade" type="class" propertytype="Helper Fade">
+     <properties>
+      <property name="Active" type="bool" value="true"/>
+      <property name="Fade Color" type="color" value="#ffffffff"/>
      </properties>
     </property>
    </properties>
