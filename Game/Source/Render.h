@@ -115,8 +115,6 @@ public:
 
 	SDL_Rect GetCamera() const;
 
-	void AdjustCamera(iPoint position);
-
 private:
 
 	void SetViewPort(const SDL_Rect &rect) const;
@@ -151,8 +149,6 @@ private:
 	uint32 fpsCounter = 0;
 	// Last tick in which we updated the current fps
 	uint32 fpsLast = 0;
-
-	friend class UI;
 };
 
 #endif // __RENDER_H__

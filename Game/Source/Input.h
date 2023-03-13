@@ -81,8 +81,6 @@ private:
 	std::array<KeyState, NUM_MOUSE_BUTTONS> mouseButtons{};
 	iPoint mouseMotion;
 	iPoint mousePosition;
-	
-	friend class UI;
 };
 
 #endif // __INPUT_H__
