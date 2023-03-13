@@ -127,6 +127,7 @@ class Event_Base
 public:
 	Event_Base() = default;
 	virtual ~Event_Base() = default;
+	virtual void parseXMLProperties(pugi::xml_node const& node) = 0;
 
 	virtual void Initialize(pugi::xml_node const &node) {
 		name = node.attribute("name").as_string();
@@ -135,8 +136,6 @@ public:
 		size = { node.attribute("width").as_uint(), node.attribute("height").as_uint() };
 		gid = node.attribute("gid").as_uint();
 	};
-
-	virtual void parseXMLProperties(pugi::xml_node const& node) = 0;
 
 	std::string name = "";
 	uint id = 0;
