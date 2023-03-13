@@ -3,6 +3,8 @@
 
 #include "Event_Chest.h"
 
+#include "Log.h"
+
 EventManager::EventManager() = default;
 
 // Destructor
@@ -19,7 +21,11 @@ bool EventManager::CreateEvent(pugi::xml_node const& node)
 			event = std::make_unique<Event_Chest>();
 		}
 
-		if (!event) return false;
+		if (!event)
+		{
+			LOG("Event \"%s\" not yet implemented.", child.attribute("type").as_string());
+			continue;
+		}
 
 		event->Initialize(child);
 		events.push_back(std::move(event));
