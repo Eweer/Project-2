@@ -6,35 +6,10 @@
     "folders": [
         "."
     ],
+    "objectTypesFile": "",
     "propertyTypes": [
         {
-            "id": 3,
-            "name": "Direction",
-            "storageType": "string",
-            "type": "enum",
-            "values": [
-                "Retain",
-                "Up",
-                "Down",
-                "Left",
-                "Right"
-            ],
-            "valuesAsFlags": false
-        },
-        {
-            "id": 4,
-            "name": "Maps",
-            "storageType": "string",
-            "type": "enum",
-            "values": [
-                "Base",
-                "test"
-            ],
-            "valuesAsFlags": false
-        },
-        {
-            "color": "#ffa0a0a4",
-            "id": 2,
+            "id": 6,
             "members": [
                 {
                     "name": "Destination Map",
@@ -51,30 +26,114 @@
                     "name": "Destination Y",
                     "type": "int",
                     "value": 0
-                },
+                }
+            ],
+            "name": "Destination",
+            "type": "class"
+        },
+        {
+            "id": 3,
+            "name": "Direction",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Retain",
+                "Up",
+                "Down",
+                "Left",
+                "Right"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 7,
+            "members": [
                 {
-                    "name": "Direction",
-                    "propertyType": "Direction",
-                    "type": "string",
-                    "value": "Retain"
-                },
-                {
-                    "name": "Fade",
+                    "name": "Active",
                     "type": "bool",
                     "value": true
                 },
                 {
-                    "name": "FadeColor",
+                    "name": "Fade Color",
                     "type": "color",
                     "value": "#ff000000"
                 }
             ],
-            "name": "Teleport",
-            "type": "class",
-            "useAs": [
-                "property",
-                "object"
-            ]
+            "name": "Fade",
+            "type": "class"
+        },
+        {
+            "id": 12,
+            "members": [
+                {
+                    "name": "ID",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Name",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Global Switch",
+            "type": "class"
+        },
+        {
+            "id": 10,
+            "name": "Items",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "HP Potion",
+                "MP Potion",
+                "Revive",
+                "Coins"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 4,
+            "name": "Maps",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Base",
+                "test"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 9,
+            "members": [
+                {
+                    "name": "Item",
+                    "propertyType": "Items",
+                    "type": "string",
+                    "value": "HP Potion"
+                },
+                {
+                    "name": "Quantity",
+                    "type": "int",
+                    "value": 1
+                }
+            ],
+            "name": "Loot",
+            "type": "class"
+        },
+        {
+            "id": 11,
+            "members": [
+                {
+                    "name": "Item",
+                    "propertyType": "Loot",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Unlock Via",
+            "type": "class"
         }
     ]
 }

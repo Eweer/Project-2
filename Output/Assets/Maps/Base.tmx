@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="11">
+<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="17">
  <tileset firstgid="1" source="Tiles.tsx"/>
  <tileset firstgid="626" source="Props.tsx"/>
  <tileset firstgid="1251" source="player.tsx"/>
@@ -87,20 +87,37 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Interactive">
-  <object id="1" name="Chest" gid="955" x="224" y="176" width="16" height="16"/>
-  <object id="2" gid="781" x="336" y="192" width="16" height="16">
+ <objectgroup id="3" name="Events">
+  <object id="1" name="10 Gold" type="Chest" gid="955" x="224" y="176" width="16" height="16">
    <properties>
-    <property name="Unlock" type="object" value="1"/>
+    <property name="Locked" type="bool" value="true"/>
+    <property name="Loot" type="class" propertytype="Loot">
+     <properties>
+      <property name="Item" propertytype="Items" value="Coins"/>
+      <property name="Quantity" type="int" value="10"/>
+     </properties>
+    </property>
    </properties>
   </object>
-  <object id="10" x="32" y="144" width="32" height="16">
+  <object id="2" name="UnlockChest" type="Lever" gid="781" x="336" y="192" width="16" height="16">
    <properties>
-    <property name="Teleport" type="class" propertytype="Teleport">
+    <property name="SameMapDestination" type="object" value="0"/>
+   </properties>
+  </object>
+  <object id="15" name="BossRoom" type="Teleport" x="29" y="144" width="35" height="16">
+   <properties>
+    <property name="Destination" type="class" propertytype="Destination">
      <properties>
       <property name="Destination Map" propertytype="Maps" value="test"/>
-      <property name="Destination X" type="int" value="6"/>
-      <property name="Destination Y" type="int" value="9"/>
+      <property name="Destination X" type="int" value="12"/>
+      <property name="Destination Y" type="int" value="10"/>
+      <property name="Direction" propertytype="Direction" value="Up"/>
+     </properties>
+    </property>
+    <property name="Fade" type="class" propertytype="Fade">
+     <properties>
+      <property name="Active" type="bool" value="false"/>
+      <property name="Fade Color" type="color" value="#640c0c0c"/>
      </properties>
     </property>
    </properties>

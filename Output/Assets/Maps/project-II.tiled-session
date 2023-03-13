@@ -10,14 +10,15 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
+            "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 236,
-                "y": 224.5
+                "x": 231.99999999999997,
+                "y": 183.99999999999997
             }
         },
         "Props.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1.5,
             "scaleInEditor": 2
         },
@@ -54,12 +55,12 @@
         "test.tmx"
     ],
     "project": "project-II.tiled-project",
-    "property.type": "object",
+    "property.type": "bool",
     "recentFiles": [
+        "Base.tmx",
         "test.tmx",
         "player.tsx",
         "Tiles.tsx",
-        "Props.tsx",
-        "Base.tmx"
+        "Props.tsx"
     ]
 }
