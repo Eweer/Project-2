@@ -5,6 +5,7 @@
 #include "TileSet.h"
 #include "MapLayer.h"
 #include "ObjectLayer.h"
+#include "EventManager.h"
 
 #include "Defs.h"
 
@@ -57,6 +58,7 @@ private:
 	std::vector<TileSet> tilesets;
 	std::vector<MapLayer> tileLayers;
 	std::vector<ObjectLayer> objectLayers;
+	EventManager eventManager;
 
 	MapTypes orientation = MapTypes::MAPTYPE_UNKNOWN;
 

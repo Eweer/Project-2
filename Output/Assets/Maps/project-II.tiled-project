@@ -43,7 +43,7 @@
                     }
                 },
                 {
-                    "name": "Loot",
+                    "name": "Loot1",
                     "propertyType": "Helper Loot",
                     "type": "class",
                     "value": {
@@ -148,8 +148,8 @@
                 {
                     "name": "Function",
                     "propertyType": "Helper Switch Function",
-                    "type": "string",
-                    "value": "None"
+                    "type": "int",
+                    "value": 0
                 },
                 {
                     "name": "ID",
@@ -157,7 +157,7 @@
                     "value": 0
                 },
                 {
-                    "name": "Name",
+                    "name": "SwitchName",
                     "type": "string",
                     "value": ""
                 }
@@ -264,6 +264,7 @@
             "name": "Helper Loot",
             "type": "class",
             "useAs": [
+                "property"
             ]
         },
         {
@@ -294,15 +295,28 @@
         {
             "id": 18,
             "name": "Helper Switch Function",
-            "storageType": "string",
+            "storageType": "int",
             "type": "enum",
             "values": [
                 "None",
                 "Set",
                 "Toggle",
-                "Unlock"
+                "Unlock",
+                "Lock"
             ],
             "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 19,
+            "members": [
+            ],
+            "name": "Layer of Events",
+            "type": "class",
+            "useAs": [
+                "layer"
+            ]
         }
     ]
 }

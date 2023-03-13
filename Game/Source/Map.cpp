@@ -60,7 +60,12 @@ bool Map::Load(const std::string& directory, const std::string& level)
 		}
 		else if (StrEquals(child.name(), "objectgroup"))
 		{
-			objectLayers.emplace_back(child);
+			// If the name of the ObjectGroup is Events use 
+			// the EventManager to create and store them
+			if (StrEquals("Layer of Events", child.attribute("class").as_string()))
+				eventManager.CreateEvent(child);
+			else 
+				objectLayers.emplace_back(child);
 		}
 		else
 		{

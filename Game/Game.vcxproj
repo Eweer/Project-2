@@ -97,8 +97,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Entity.cpp" />
-    <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\EventManager.cpp" />
+    <ClCompile Include="Source\Event_Chest.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\Scene_Map.cpp" />
@@ -115,8 +115,9 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TileSet.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="Source\Entity.h" />
-    <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\Event_Base.h" />
+    <ClInclude Include="Source\EventManager.h" />
+    <ClInclude Include="Source\Event_Chest.h" />
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiElement.h" />
