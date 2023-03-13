@@ -8,9 +8,6 @@
 // Utils included
 #include "Log.h"
 
-// Libraries included
-#include "dirent.h"
-
 #include <regex>
 
 Entity::Entity(pugi::xml_node const &itemNode, int newId) : id(newId), parameters(itemNode) {}

@@ -115,7 +115,6 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TileSet.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="Source\dirent.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Fonts.h" />
@@ -152,9 +151,6 @@
     <None Include="..\Output\Assets\Maps\hello.tmx" />
     <None Include="..\Output\Assets\Maps\iso.tmx" />
     <None Include="..\Output\Assets\Maps\MapTemplate.tmx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Keeper.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
