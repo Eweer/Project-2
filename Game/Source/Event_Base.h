@@ -27,6 +27,7 @@ namespace EventProperties
 	{
 		std::string sfxPath = "";
 		EventTriggerOn trigger = EventTriggerOn::ACTION_BUTTON;
+		bool isActive = true;
 
 		void ReadProperty(pugi::xml_node const& node) override
 		{
@@ -42,6 +43,10 @@ namespace EventProperties
 				else if (StrEquals("Trigger", attributeName))
 				{
 					trigger = static_cast<EventTriggerOn>(child.attribute("value").as_int());
+				}
+				else if (StrEquals("isActive", attributeName))
+				{
+					isActive = child.attribute("value").as_bool();
 				}
 			}
 		}
@@ -109,10 +114,32 @@ namespace EventProperties
 		}
 	};
 
-	struct DestinationProperty
+	struct DestinationProperty : public Property
 	{
 		std::string destinationMap = "";
 		uPoint destination{ 0, 0 };
+
+		void ReadProperty(pugi::xml_node const& node) override
+		{
+			auto propertiesNode = node.child("properties");
+
+			for (auto const& child : propertiesNode.children("property"))
+			{
+				auto attributeName = child.attribute("name").as_string();
+				if (StrEquals("Destination Map", attributeName))
+				{
+					destinationMap = child.attribute("value").as_string();
+				}
+				else if (StrEquals("Destination X", attributeName))
+				{
+					destination.x = child.attribute("value").as_int();
+				}
+				else if (StrEquals("Destination Y", attributeName))
+				{
+					destination.y = child.attribute("value").as_int();
+				}
+			}
+		}
 	};
 
 	struct FadeProperty
@@ -135,7 +162,18 @@ public:
 		position = { node.attribute("x").as_uint(), node.attribute("y").as_uint() };
 		size = { node.attribute("width").as_uint(), node.attribute("height").as_uint() };
 		gid = node.attribute("gid").as_uint();
+
+		if (auto propertiesNode = node.child("properties");
+			!propertiesNode.empty())
+		{
+			parseXMLProperties(propertiesNode);
+		}
 	};
+
+	virtual bool IsEventActive() const
+	{
+		return common.isActive;
+	}
 
 	std::string name = "";
 	uint id = 0;

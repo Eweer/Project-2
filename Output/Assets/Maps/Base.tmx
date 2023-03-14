@@ -119,21 +119,23 @@
    <properties>
     <property name="Base" type="class" propertytype="Base Event">
      <properties>
-      <property name="Trigger" type="int" propertytype="Helper Trigger" value="1"/>
+      <property name="SFX" type="file" value="../Audio/Fx/hello_man.wav"/>
+      <property name="Trigger" type="qlonglong" propertytype="Helper Trigger" value="1"/>
+      <property name="isActive" type="bool" value="false"/>
      </properties>
     </property>
     <property name="Destination" type="class" propertytype="Helper Destination">
      <properties>
       <property name="Destination Map" propertytype="Helper Maps" value="test"/>
       <property name="Destination X" type="int" value="12"/>
-      <property name="Destination Y" type="int" value="10"/>
+      <property name="Destination Y" type="int" value="11"/>
      </properties>
     </property>
     <property name="Direction" propertytype="Helper Direction" value="Up"/>
     <property name="Fade" type="class" propertytype="Helper Fade">
      <properties>
-      <property name="Active" type="bool" value="true"/>
-      <property name="Fade Color" type="color" value="#ffffffff"/>
+      <property name="Active" type="bool" value="false"/>
+      <property name="Fade Color" type="color" value="#7affffff"/>
      </properties>
     </property>
    </properties>

@@ -3,17 +3,6 @@
 #include <format>
 #include <string>
 
-void Event_Chest::Initialize(pugi::xml_node const& node)
-{
-	Event_Base::Initialize(node);
-
-	if (auto propertiesNode = node.child("properties");
-		!propertiesNode.empty())
-	{
-		parseXMLProperties(propertiesNode);
-	}	
-}
-
 void Event_Chest::parseXMLProperties(pugi::xml_node const& node)
 {
 	for (auto const& child : node.children())

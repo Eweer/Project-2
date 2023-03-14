@@ -9,9 +9,7 @@
 #include <ranges>
 
 
-Map::Map()
-{
-}
+Map::Map() = default;
 
 // Destructor
 Map::~Map() = default;

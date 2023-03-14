@@ -1,11 +1,11 @@
-#ifndef __EVENT_CHEST_H__
-#define __EVENT_CHEST_H__
+#ifndef __EVENT_TELEPORT_H__
+#define __EVENT_TELEPORT_H__
 
 #include "Event_Base.h"
 
 #include <memory>
 
-class Event_Chest : public Event_Base
+class Event_Teleport : public Event_Base
 {
 public:
 	// Inherited via Scene_Base
@@ -13,11 +13,8 @@ public:
 	// No longer inherited
 
 private:
-	std::vector<std::unique_ptr<EventProperties::LootProperty>> loot;
+	EventProperties::DestinationProperty destination;
 	std::vector<std::unique_ptr<EventProperties::GlobalSwitchProperty>> globalSwitch;
-
-	bool isLocked = false;
-	bool isOpen = false;
 };
 
-#endif __EVENT_CHEST_H__
+#endif __EVENT_TELEPORT_H__

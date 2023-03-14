@@ -61,6 +61,9 @@
     <ClCompile Include="Source\Event_Chest.cpp">
       <Filter>Source\Map\Events</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Event_Teleport.cpp">
+      <Filter>Source\Map\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -139,6 +142,9 @@
       <Filter>Headers\Map\Events</Filter>
     </ClInclude>
     <ClInclude Include="Source\Event_Chest.h">
+      <Filter>Headers\Map\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Event_Teleport.h">
       <Filter>Headers\Map\Events</Filter>
     </ClInclude>
   </ItemGroup>

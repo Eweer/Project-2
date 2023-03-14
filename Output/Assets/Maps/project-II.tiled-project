@@ -22,6 +22,11 @@
                     "propertyType": "Helper Trigger",
                     "type": "int",
                     "value": 0
+                },
+                {
+                    "name": "isActive",
+                    "type": "bool",
+                    "value": true
                 }
             ],
             "name": "Base Event",
@@ -193,6 +198,7 @@
             "name": "Helper Destination",
             "type": "class",
             "useAs": [
+                "property"
             ]
         },
         {
@@ -228,6 +234,7 @@
             "name": "Helper Fade",
             "type": "class",
             "useAs": [
+                "property"
             ]
         },
         {
@@ -279,20 +286,6 @@
             "valuesAsFlags": false
         },
         {
-            "id": 16,
-            "name": "Helper Trigger",
-            "storageType": "int",
-            "type": "enum",
-            "values": [
-                "Action Button",
-                "Player Touch",
-                "Event Touch",
-                "Autorrun",
-                "Parallel"
-            ],
-            "valuesAsFlags": false
-        },
-        {
             "id": 18,
             "name": "Helper Switch Function",
             "storageType": "int",
@@ -303,6 +296,20 @@
                 "Toggle",
                 "Unlock",
                 "Lock"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 16,
+            "name": "Helper Trigger",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "Action Button",
+                "Player Touch",
+                "Event Touch",
+                "Autorrun",
+                "Parallel"
             ],
             "valuesAsFlags": false
         },

@@ -2,6 +2,7 @@
 #include "App.h"
 
 #include "Event_Chest.h"
+#include "Event_Teleport.h"
 
 #include "Log.h"
 
@@ -19,6 +20,10 @@ bool EventManager::CreateEvent(pugi::xml_node const& node)
 		if (StrEquals("Event Chest", child.attribute("type").as_string()))
 		{
 			event = std::make_unique<Event_Chest>();
+		}
+		else if (StrEquals("Event Teleport", child.attribute("type").as_string()))
+		{
+			event = std::make_unique<Event_Teleport>();
 		}
 
 		if (!event)
