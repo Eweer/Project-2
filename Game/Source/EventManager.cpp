@@ -33,4 +33,9 @@ bool EventManager::CreateEvent(pugi::xml_node const& node)
 	return true;
 }
 
+int EventManager::GetEventLayerSize() const
+{
+	return events.size();
+}
+
 

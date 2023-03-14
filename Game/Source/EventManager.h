@@ -22,6 +22,7 @@ public:
 	// --- Constructors
 	bool CreateEvent(pugi::xml_node const &node = pugi::xml_node());
 
+	int GetEventLayerSize() const;
 private:
 	std::vector<std::unique_ptr<Event_Base>> events;
 };

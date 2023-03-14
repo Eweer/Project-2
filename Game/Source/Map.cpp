@@ -6,6 +6,9 @@
 
 #include "SDL_image/include/SDL_image.h"
 
+#include <ranges>
+
+
 Map::Map()
 {
 }
@@ -56,6 +59,7 @@ bool Map::Load(const std::string& directory, const std::string& level)
 		}
 		else if (StrEquals(child.name(), "layer"))
 		{
+			drawOrder.emplace_back(LayerType::TILE_LAYER, tileLayers.size());
 			tileLayers.emplace_back(child);
 		}
 		else if (StrEquals(child.name(), "objectgroup"))
@@ -63,46 +67,75 @@ bool Map::Load(const std::string& directory, const std::string& level)
 			// If the name of the ObjectGroup is Events use 
 			// the EventManager to create and store them
 			if (StrEquals("Layer of Events", child.attribute("class").as_string()))
+			{
+				drawOrder.emplace_back(LayerType::EVENT_LAYER, eventManager.GetEventLayerSize());
 				eventManager.CreateEvent(child);
+			}
 			else 
+			{
+				drawOrder.emplace_back(LayerType::OBJECT_LAYER, objectLayers.size());
 				objectLayers.emplace_back(child);
+			}
 		}
 		else
 		{
 			LOG("Error parsing xml file: '%s' tag not implemented.", child.name());
+			continue;
 		}
+
 	}
 	return true;
 }
 
 void Map::Draw() const
 {
-	for (MapLayer layer : tileLayers)
+	for (auto const& [type, index] : drawOrder)
 	{
-		for (uint x = 0; x < layer.GetSize().x; x++)
+		using enum LayerType;
+		switch (type)
 		{
-			for (uint y = 0; y < layer.GetSize().y; y++)
-			{
-				uint gid = layer.GetTileGid(x, y);
-				
-				if (gid <= 0) continue;
-
-				uint tileset = 0;
-				while (tileset < tilesets.size() && !tilesets[tileset].ContainsGid(gid))
-					tileset++;
-
-				if (tileset >= tilesets.size())
-				{
-					LOG("Tileset for tile gid %s not found.", gid);
-					continue;
-				}
-				SDL_Rect r = tilesets[tileset].GetTileRect(gid);
-				uPoint pos = MapToWorld(x, y);
-
-				app->render->DrawTexture(tilesets[tileset].GetTexture(), pos.x, pos.y, &r);
-			}
+			case TILE_LAYER:
+				DrawTileLayer(tileLayers[index]);
+				break;
+			case EVENT_LAYER:
+				break;
+			case OBJECT_LAYER:
+				break;
 		}
 	}
+}
+
+void Map::DrawTileLayer(const MapLayer& layer) const
+{
+	for (uint x = 0; x < layer.GetSize().x; x++)
+	{
+		for (uint y = 0; y < layer.GetSize().y; y++)
+		{
+			uint gid = layer.GetTileGid(x, y);
+
+			if (gid == 0) continue;
+
+			DrawTile(gid, MapToWorld(x, y));
+		}
+	}
+}
+
+void Map::DrawTile(uint gid, uPoint pos) const
+{
+	auto result = std::ranges::find_if(
+		tilesets,
+		[gid](const TileSet& t) { return t.ContainsGid(gid); }
+	);
+
+	if (result == tilesets.end())
+	{
+		LOG("Tileset for tile gid %s not found.", gid);
+		return;
+	}
+
+	SDL_Rect r = (*result).GetTileRect(gid);
+
+	app->render->DrawTexture((*result).GetTexture(), pos.x, pos.y, &r);
 }
 
 // Translates x,y coordinates from map positions to world positions

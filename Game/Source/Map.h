@@ -26,6 +26,13 @@ enum class MapTypes
 	MAPTYPE_STAGGERED
 };
 
+enum class LayerType
+{
+	TILE_LAYER,
+	EVENT_LAYER,
+	OBJECT_LAYER
+};
+
 class Map
 {
 public:
@@ -45,7 +52,9 @@ public:
 	
 	// Called each loop iteration
 	void Draw() const;
-
+	void DrawTileLayer(const MapLayer& layer) const;
+	void DrawTile(uint gid, uPoint pos) const;
+	
 	int GetWidth() const;
 	int GetHeight() const;
 
@@ -59,6 +68,8 @@ private:
 	std::vector<MapLayer> tileLayers;
 	std::vector<ObjectLayer> objectLayers;
 	EventManager eventManager;
+
+	std::vector<std::pair<LayerType, int>> drawOrder;
 
 	MapTypes orientation = MapTypes::MAPTYPE_UNKNOWN;
 
