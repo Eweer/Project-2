@@ -11,6 +11,12 @@ EventManager::EventManager() = default;
 // Destructor
 EventManager::~EventManager() = default;
 
+void EventManager::Initialize()
+{
+	if (!events.empty())
+		drawIterator = events.begin();
+}
+
 bool EventManager::CreateEvent(pugi::xml_node const& node)
 {
 	for (auto const& child : node.children("object"))
@@ -41,6 +47,23 @@ bool EventManager::CreateEvent(pugi::xml_node const& node)
 int EventManager::GetEventLayerSize() const
 {
 	return events.size();
+}
+ 
+std::tuple<uint, uPoint, bool> EventManager::GetDrawEventInfo([[maybe_unused]] int index)
+{
+	if (drawIterator != events.end())
+	{
+		auto gid = drawIterator->get()->gid;
+		auto pos = drawIterator->get()->position;
+
+		++drawIterator;
+		return std::make_tuple(gid, pos, true);
+	}
+	else
+	{
+		if (!events.empty()) drawIterator = events.begin();
+		return std::make_tuple(0, uPoint(0, 0), false);
+	}
 }
 
 

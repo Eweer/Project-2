@@ -51,7 +51,8 @@ public:
 	uPoint MapToWorld(uPoint position) const;
 	
 	// Called each loop iteration
-	void Draw() const;
+	void Draw();
+	bool DrawObjectLayer(int index);
 	void DrawTileLayer(const MapLayer& layer) const;
 	void DrawTile(uint gid, uPoint pos) const;
 	

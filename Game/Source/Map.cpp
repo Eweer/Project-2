@@ -80,12 +80,14 @@ bool Map::Load(const std::string& directory, const std::string& level)
 			LOG("Error parsing xml file: '%s' tag not implemented.", child.name());
 			continue;
 		}
-
 	}
+
+	eventManager.Initialize();
+
 	return true;
 }
 
-void Map::Draw() const
+void Map::Draw()
 {
 	for (auto const& [type, index] : drawOrder)
 	{
@@ -96,11 +98,21 @@ void Map::Draw() const
 				DrawTileLayer(tileLayers[index]);
 				break;
 			case EVENT_LAYER:
+				while(DrawObjectLayer(index));
 				break;
 			case OBJECT_LAYER:
 				break;
 		}
 	}
+}
+
+bool Map::DrawObjectLayer(int index)
+{
+	auto [gid, pos, keepDrawing] = eventManager.GetDrawEventInfo(index);
+	
+	if (gid > 0 && keepDrawing) DrawTile(gid, pos);
+
+	return keepDrawing;
 }
 
 void Map::DrawTileLayer(const MapLayer& layer) const

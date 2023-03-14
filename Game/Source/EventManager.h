@@ -18,13 +18,20 @@ public:
 	// Destructor
 	~EventManager();
 
+	void Initialize();
+
 	// ------ Event
 	// --- Constructors
 	bool CreateEvent(pugi::xml_node const &node = pugi::xml_node());
 
 	int GetEventLayerSize() const;
+
+	// Returns Gid, position, keepDrawing ? true : false;
+	std::tuple<uint, uPoint, bool> GetDrawEventInfo(int index = 0);
 private:
 	std::vector<std::unique_ptr<Event_Base>> events;
+
+	std::vector<std::unique_ptr<Event_Base>>::const_iterator drawIterator;
 };
 
 
