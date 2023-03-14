@@ -15,9 +15,6 @@
 
 #include "PugiXml/src/pugixml.hpp"
 
-using XML_Property_t = std::variant<int, bool, float, std::string>;
-using XML_Properties_Map_t = std::unordered_map<std::string, XML_Property_t, StringHash, std::equal_to<>>;
-
 enum class MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,

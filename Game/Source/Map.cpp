@@ -110,7 +110,7 @@ bool Map::DrawObjectLayer(int index)
 {
 	auto [gid, pos, keepDrawing] = eventManager.GetDrawEventInfo(index);
 	
-	if (gid > 0 && keepDrawing) DrawTile(gid, pos);
+	if (gid > 0) DrawTile(gid, pos);
 
 	return keepDrawing;
 }
