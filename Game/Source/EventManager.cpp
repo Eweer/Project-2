@@ -51,19 +51,23 @@ int EventManager::GetEventLayerSize() const
  
 std::tuple<uint, uPoint, bool> EventManager::GetDrawEventInfo([[maybe_unused]] int index)
 {
-	if (drawIterator != events.end())
-	{
-		auto gid = drawIterator->get()->gid;
-		auto pos = drawIterator->get()->position;
-
-		++drawIterator;
-		return std::make_tuple(gid, pos, true);
-	}
-	else
-	{
-		if (!events.empty()) drawIterator = events.begin();
+	if (events.empty() || drawIterator == events.end())
 		return std::make_tuple(0, uPoint(0, 0), false);
-	}
+	
+	auto gid = drawIterator->get()->gid;
+	auto pos = drawIterator->get()->position;
+
+	do {
+		++drawIterator;
+		if (drawIterator == events.end())
+		{
+			drawIterator = events.begin();
+			return std::make_tuple(gid, pos, false);
+		}
+	} while (!drawIterator->get()->IsEventActive());
+
+	return std::make_tuple(gid, pos, true);
+	
 }
 
 
