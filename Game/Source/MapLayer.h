@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __MAPLAYER_H__
+#define __MAPLAYER_H__
 
 #include <vector>
 
@@ -45,3 +46,4 @@ private:
 	std::vector<Tile> tiles;
 };
 
+#endif __MAPLAYER_H__

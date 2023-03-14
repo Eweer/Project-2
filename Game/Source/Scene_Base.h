@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __WINDOW_BASE_H__
+#define __WINDOW_BASE_H__
 
 #include "Window_Base.h"
 
@@ -21,3 +22,5 @@ public:
 
 };
 
+
+#endif __WINDOW_BASE_H__

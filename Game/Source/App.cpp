@@ -5,7 +5,6 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "SceneManager.h"
-#include "EntityManager.h"
 #include "Map.h"
 #include "Fonts.h"
 
@@ -26,7 +25,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = std::make_unique<Textures>();
 	audio = std::make_unique<Audio>();
 	scene = std::make_unique<SceneManager>();
-	entityManager = std::make_unique<EntityManager>();
 	fonts = std::make_unique<Fonts>();
 
 	// Ordered for awake / Start / Update
@@ -36,7 +34,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex.get());
 	AddModule(audio.get());
 	AddModule(scene.get());
-	AddModule(entityManager.get());
 	AddModule(fonts.get());
 
 	// Render last to swap buffer
@@ -130,7 +127,6 @@ void App::FinishUpdate()
 {
 	if (loadGameRequested) LoadFromFile();
 	if (saveGameRequested) SaveToFile();
-	if(resetLevelRequested) entityManager->RestartLevel();
 }
 
 // Call modules before each loop iteration
@@ -331,7 +327,6 @@ bool App::DoPaused()
 	// Update
 	phase++;
 	scene->Pause(phase);
-	entityManager->Pause(phase);
 
 	// PostUpdate
 	phase++;
