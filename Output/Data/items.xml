@@ -1,0 +1,28 @@
+<0 />
+<1>
+	<id>1</id>
+	<general>
+		<name>Potion</name>
+		<iconIndex>176</iconIndex>
+		<description>Recovers HP by 500 points.</description>
+		<itypeId>1</itypeId>
+		<price>100</price>
+		<consumable>true</consumable>
+		<scope>7</scope>
+		<occasion>0</occasion>
+	</general>
+	<invocation>
+		<speed>0</speed>
+		<successRate>100</successRate>
+		<repeats>1</repeats>
+		<hitType>0</hitType>
+		<animationId>41</animationId>
+	</invocation>
+	<effects>
+		<code>0</code>
+		<dataId>0</dataId>
+		<value1>500</value1>
+		<value2>0</value2>
+	</effects>
+	<note>TODO Implement function: Heal target. Arg1: Flat healing, Arg2: % healing.</note>
+</1>

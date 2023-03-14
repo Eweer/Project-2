@@ -1,4 +1,8 @@
 {
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
     "activeFile": "Base.tmx",
     "expandedProjectPaths": [
     ],
@@ -10,17 +14,25 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 242.66666666666663,
-                "y": 246
+                "x": 366,
+                "y": 244
             }
         },
         "Props.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1.5,
             "scaleInEditor": 2
+        },
+        "Test2.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 70,
+                "y": 272
+            }
         },
         "Tiles.tsx": {
             "dynamicWrapping": false,
@@ -35,11 +47,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 102.66666666666663,
-                "y": 166.66666666666669
+                "x": -36,
+                "y": 578
             }
         }
     },
@@ -47,6 +59,7 @@
     "loadedWorlds": [
         "C:/Users/oriol/Documents/GitHub/Project-2/Output/Assets/Maps/world.world"
     ],
+    "map.lastUsedFormat": "tmx",
     "openFiles": [
         "Base.tmx",
         "Props.tsx",
