@@ -37,6 +37,11 @@ private:
     std::string text = "";
 	int font = 0;
     std::shared_ptr<SDL_Texture> texture = nullptr;
+
+	int xAdvance = 4;
+	SDL_Rect rect{ 0,0,32,32 };
+	iPoint offset;
+
 	ButtonState currentState = ButtonState::DISABLED;
 };
 
