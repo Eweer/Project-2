@@ -28,49 +28,43 @@ bool GuiButton::Draw()
 {
 	if (!texture) return false;
 	
+	SDL_Rect currentSlice(rect);
 
-
-	iPoint texturePos(rect.x, rect.y);
-	texturePos.x += xAdvance;
-	texturePos.y += xAdvance;
-
-	iPoint textureSize(rect.w, rect.h);
+	currentSlice.x += xAdvance;
+	currentSlice.y += xAdvance;
 
 	iPoint currentPos(GetPosition().x, GetPosition().y);
 	iPoint buttonSize(GetSize().x, GetSize().y);
 
-	auto yRepeats = (buttonSize.y % textureSize.y);
+	auto yRepeats = (buttonSize.y % currentSlice.h);
 
 	for (int j = 0; j < yRepeats; j++)
 	{
-		SDL_Rect currentSlice{ texturePos.x, texturePos.y, textureSize.x, textureSize.y };
 
 		app->render->DrawTexture(texture.get(), currentPos.x, currentPos.y, &currentSlice);
 
-		auto xRepeats = (buttonSize.x % textureSize.x) - 2;
+		auto xRepeats = (buttonSize.x % currentSlice.w) - 2;
 
-		currentPos.x += textureSize.x;
-		texturePos.x += textureSize.x + xAdvance;
+		currentPos.x += currentSlice.w;
+		currentSlice.x += currentSlice.w + xAdvance;
 
-		currentSlice = SDL_Rect(texturePos.x, texturePos.y, textureSize.x, textureSize.y);
 
 		for (int i = 0; i < xRepeats; i++)
 		{
 			app->render->DrawTexture(texture.get(), currentPos.x, currentPos.y, &currentSlice);
-			currentPos.x += textureSize.x;
+			currentPos.x += currentSlice.w;
 		}
 
-		texturePos.x += textureSize.x + xAdvance;
-		currentSlice = SDL_Rect(texturePos.x, texturePos.y, textureSize.x, textureSize.y);
+		currentSlice.x += currentSlice.w + xAdvance;
 
 		app->render->DrawTexture(texture.get(), currentPos.x, currentPos.y, &currentSlice);
 
 		currentPos.x = GetPosition().x;
-		texturePos.x = rect.x + xAdvance;
-		currentPos.y += textureSize.y;
+		currentSlice.x = rect.x + xAdvance;
+		currentPos.y += currentSlice.h;
 		if (j == yRepeats - 2 || j == 0)
 		{
-			texturePos.y += textureSize.y + xAdvance;
+			currentSlice.y += currentSlice.h + xAdvance;
 		}
 	}
 
