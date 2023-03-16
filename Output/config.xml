@@ -1,5 +1,3 @@
-<!-- Config file for the game -->
-<!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
     <title>Game Development Testbed</title>
@@ -19,10 +17,24 @@
   </window>
 
   <scene>
-    <general assetpath="Assets/Maps/"/>
-    <level name="Base"/>
-    <screen name="Test" x="50" y="50" width="200" height="100">
-      <button x="25" y="25" width="20" height="10" text="Play"/>
-    </screen>
+    <general assetpath="Assets/"/>
+
+    <map_info>
+      <map id="0" name="Base"/>
+      <map id="1" name="Test"/>
+    </map_info>
+
+    <scene_info>
+      <scene name="Title">
+        <window name="MainMenu"/>
+      </scene>
+    </scene_info>
+
+    <window_info>
+      <window name="MainMenu" class="List" type="Base" x="50" y="50" width="200" height="100">
+        <button x="25" y="25" width="20" height="10" text="New Game" function="Play"/>
+      </window>
+    </window_info>
+
   </scene>
 </config>

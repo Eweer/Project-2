@@ -4,6 +4,9 @@
 #include "Window_Base.h"
 
 #include <stack>
+#include <memory>
+
+using LookUpXMLNodeFromString = std::unordered_map<std::string, pugi::xml_node, StringHash, std::equal_to<>>;
 
 class Scene_Base
 {
@@ -12,13 +15,17 @@ public:
 	virtual ~Scene_Base() = default;
 
 	virtual bool isReady() = 0;
-	virtual void Load(std::string const& path) = 0;
+	virtual void Load(
+		std::string const& path,
+		LookUpXMLNodeFromString const &info,
+		LookUpXMLNodeFromString const &windowInfo
+	) = 0;
 	virtual void Start() = 0;
 	virtual void Update() = 0;
 
 	bool bActive = false;
 	// TODO Fade-in/Fade-out variables (colour, duration)
-	std::stack<Window_Base> windows;
+	std::stack<std::unique_ptr<Window_Base>> windows;
 
 };
 

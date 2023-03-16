@@ -3,6 +3,9 @@
 
 #include "Module.h"
 #include "Scene_Base.h"
+
+#include "Defs.h"		//StringHash
+
 #include <vector>
 
 class Window_Base;
@@ -43,6 +46,10 @@ public:
 	std::string assetPath;
 	std::unique_ptr<Scene_Base> currentScene;
 	std::unique_ptr<Scene_Base> nextScene;
+
+	LookUpXMLNodeFromString windowInfo;
+	LookUpXMLNodeFromString sceneInfo;
+	LookUpXMLNodeFromString mapInfo;
 };
 
 #endif // __SCENE_H__

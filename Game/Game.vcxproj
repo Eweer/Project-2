@@ -103,6 +103,7 @@
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\Scene_Map.cpp" />
+    <ClCompile Include="Source\Scene_Title.cpp" />
     <ClCompile Include="Source\Window_Base.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TileSet.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClCompile Include="Source\Window_List.cpp" />
     <ClInclude Include="Source\Event_Base.h" />
     <ClInclude Include="Source\EventManager.h" />
     <ClInclude Include="Source\Event_Chest.h" />
@@ -125,6 +127,7 @@
     <ClInclude Include="Source\GuiElement.h" />
     <ClInclude Include="Source\Scene_Base.h" />
     <ClInclude Include="Source\Scene_Map.h" />
+    <ClInclude Include="Source\Scene_Title.h" />
     <ClInclude Include="Source\Window_Base.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MapLayer.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
+    <ClInclude Include="Source\Window_List.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Output\config.xml" />

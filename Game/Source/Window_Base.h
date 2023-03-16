@@ -11,14 +11,16 @@
 class Window_Base
 {
 public:
-
+	Window_Base() = default;
 	explicit Window_Base(pugi::xml_node const &node);
+	virtual ~Window_Base() = default;
 
 	bool IsMouseHovering() const;
 
+	virtual void InitializeFunctionPointerMap() {};
 protected:
 
-	void InitializeFunctionPointerMap();
+	void CreateButtons(pugi::xml_node const &node);
 
 	// If string is not found in pointer map, it fallbacks to this
 	void FallbackFunction() const;

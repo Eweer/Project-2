@@ -64,6 +64,12 @@
     <ClCompile Include="Source\Event_Teleport.cpp">
       <Filter>Source\Map\Events</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene_Title.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Window_List.cpp">
+      <Filter>Source\Scenes\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -146,6 +152,12 @@
     </ClInclude>
     <ClInclude Include="Source\Event_Teleport.h">
       <Filter>Headers\Map\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene_Title.h">
+      <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Window_List.h">
+      <Filter>Headers\Scenes\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

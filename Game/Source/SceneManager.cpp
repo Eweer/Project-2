@@ -6,6 +6,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "Scene_Map.h"
+#include "Scene_Title.h"
 #include "Scene_Base.h"
 
 #include <format>
@@ -25,14 +26,27 @@ bool SceneManager::Awake(pugi::xml_node& config)
 
 	assetPath = config.child("general").attribute("assetpath").as_string();
 
-	currentScene = std::make_unique<Scene_Map>();
+	for (auto const& node : config.child("window_info").children("window"))
+	{
+		windowInfo[node.attribute("name").as_string()] = node;
+	}
+	for (auto const& node : config.child("scene_info").children("scene"))
+	{
+		sceneInfo[node.attribute("name").as_string()] = node;
+	}
+	for (auto const& node : config.child("map_info").children("map"))
+	{
+		mapInfo[node.attribute("name").as_string()] = node;
+	}
+
+	currentScene = std::make_unique<Scene_Title>();
 	return true;
 }
 
 // Called before the first frame
 bool SceneManager::Start()
 {
-	currentScene.get()->Load(assetPath);
+	currentScene.get()->Load(assetPath + "UI/", sceneInfo, windowInfo);
 
 	return true;
 }
