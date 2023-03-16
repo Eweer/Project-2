@@ -25,9 +25,6 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Modules\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneManager.cpp">
-      <Filter>Scenes\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Event_Chest.cpp">
       <Filter>Map\Source\Events</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="Source\Window_Factory.cpp">
       <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +138,6 @@
     <ClInclude Include="Source\Scene_Title.h">
       <Filter>Scenes\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneManager.h">
-      <Filter>Scenes\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Log.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -164,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Source\Window_Factory.h">
       <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManager.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -51,6 +51,7 @@ public:
 	~Fonts() final;
 
 	bool Awake(pugi::xml_node &config) final;
+	bool Start() final;
 
 	// Load Font
 	int Load(std::string const &fontName);

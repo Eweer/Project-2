@@ -26,6 +26,14 @@ bool Window_Base::IsMouseHovering() const
 	return false;
 }
 
+void Window_Base::Draw()
+{
+	for (auto const &elem : widgets)
+	{
+		elem->Draw();
+	}
+}
+
 void Window_Base::CreateButtons(pugi::xml_node const& node)
 {
 	for (auto const& child : node.children("button"))

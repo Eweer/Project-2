@@ -15,6 +15,7 @@ public:
 
 private:
 	LookUpXMLNodeFromString info;
+	int fCleanCraters;
 };
 
 #endif __Window_Factory_H__

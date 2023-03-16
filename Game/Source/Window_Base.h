@@ -21,6 +21,9 @@ public:
 	bool IsMouseHovering() const;
 
 	virtual void InitializeFunctionPointerMap() {};
+
+	virtual void Draw();
+
 protected:
 
 	void CreateButtons(pugi::xml_node const &node);

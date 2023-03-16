@@ -35,6 +35,7 @@ public:
 
 private:
     std::string text = "";
+	int font = 0;
     std::shared_ptr<SDL_Texture> texture = nullptr;
 	ButtonState currentState = ButtonState::DISABLED;
 };

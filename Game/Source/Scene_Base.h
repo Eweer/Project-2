@@ -3,7 +3,7 @@
 
 #include "Window_Factory.h"
 
-#include <stack>
+#include <vector>
 #include <memory>
 
 class Scene_Base
@@ -23,7 +23,7 @@ public:
 
 	bool bActive = false;
 	// TODO Fade-in/Fade-out variables (colour, duration)
-	std::stack<std::unique_ptr<Window_Base>> windows;
+	std::vector<std::unique_ptr<Window_Base>> windows;
 
 };
 

@@ -1,12 +1,15 @@
 #include "GuiButton.h"
 #include "App.h"
+#include "Render.h"
 #include "Input.h"
+#include "Fonts.h"
 
 GuiButton::GuiButton(uPoint pos, uPoint size, std::string const &str, std::function<void()> const& funcPtr) :
 	text(str),
 	currentState(ButtonState::NORMAL)
 {
 	Initialize(funcPtr, pos, size);
+	texture = app->tex->Load("Assets/UI/Portrait_frame.png");
 }
 
 void GuiButton::Update()
@@ -23,7 +26,12 @@ void GuiButton::Update()
 
 bool GuiButton::Draw()
 {
-	return false;
+	if (!texture) return false;
+	
+	app->render->DrawTexture(texture.get(), GetPosition().x, GetPosition().y);
+	app->fonts->Draw(text, iPoint(GetPosition().x, GetPosition().y), font);
+
+	return true;
 }
 
 void GuiButton::MouseEnterHandler()

@@ -23,7 +23,7 @@ void Scene_Title::Load(std::string const& path, LookUpXMLNodeFromString const& i
 		if (auto result = windowFactory.CreateWindow(window.attribute("name").as_string());
 			result != nullptr)
 		{
-			windows.emplace(std::move(result));
+			windows.push_back(std::move(result));
 		}
 	}
 }
@@ -34,4 +34,8 @@ void Scene_Title::Start()
 
 void Scene_Title::Update()
 {
+	for (auto const& elem : windows)
+	{
+		elem->Draw();
+	}
 }

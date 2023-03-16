@@ -37,4 +37,7 @@
     </window_info>
 
   </scene>
+  <fonts>
+    <property path="Assets/Textures/Fonts/" />
+  </fonts>
 </config>

@@ -25,6 +25,12 @@ bool Fonts::Awake(pugi::xml_node &config)
 	return true;
 }
 
+bool Fonts::Start()
+{
+	app->fonts->Load("CleanCraters");
+	return true;
+}
+
 // Loads the font named fontName with the folder path specified in config.xml.
 // Returns:
 // new font id, the font id if it was already loaded, or -1 if the texture or xml could not be loaded.
