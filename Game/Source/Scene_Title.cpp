@@ -1,7 +1,5 @@
 #include "Scene_Title.h"
 
-#include "Window_List.h"
-
 #include "Log.h"
 
 bool Scene_Title::isReady()
@@ -9,7 +7,7 @@ bool Scene_Title::isReady()
 	return false;
 }
 
-void Scene_Title::Load(std::string const& path, LookUpXMLNodeFromString const& info, LookUpXMLNodeFromString const& windowInfo)
+void Scene_Title::Load(std::string const& path, LookUpXMLNodeFromString const& info, Window_Factory const &windowFactory)
 {
 	auto sceneHash = info.find("Title");
 	if (sceneHash == info.end())
@@ -22,19 +20,10 @@ void Scene_Title::Load(std::string const& path, LookUpXMLNodeFromString const& i
 
 	for (auto const& window : scene.children("window"))
 	{
-		auto windowHash = windowInfo.find(window.attribute("name").as_string());
-		if (windowHash == windowInfo.end())
+		if (auto result = windowFactory.CreateWindow(window.attribute("name").as_string());
+			result != nullptr)
 		{
-			LOG("Window information for %s not found in XML.", window.attribute("name").as_string());
-			continue;
-		}
-
-		if (StrEquals("List", windowHash->second.attribute("class").as_string()))
-		{
-			if (StrEquals("Base", windowHash->second.attribute("type").as_string()))
-			{
-				windows.emplace(std::make_unique<Window_List>(windowHash->second));
-			}
+			windows.emplace(std::move(result));
 		}
 	}
 }

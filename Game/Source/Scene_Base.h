@@ -1,12 +1,10 @@
-#ifndef __WINDOW_BASE_H__
-#define __WINDOW_BASE_H__
+#ifndef __SCENE_BASE_H__
+#define __SCENE_BASE_H__
 
-#include "Window_Base.h"
+#include "Window_Factory.h"
 
 #include <stack>
 #include <memory>
-
-using LookUpXMLNodeFromString = std::unordered_map<std::string, pugi::xml_node, StringHash, std::equal_to<>>;
 
 class Scene_Base
 {
@@ -18,7 +16,7 @@ public:
 	virtual void Load(
 		std::string const& path,
 		LookUpXMLNodeFromString const &info,
-		LookUpXMLNodeFromString const &windowInfo
+		Window_Factory const &windowFactory
 	) = 0;
 	virtual void Start() = 0;
 	virtual void Update() = 0;
@@ -30,4 +28,4 @@ public:
 };
 
 
-#endif __WINDOW_BASE_H__
+#endif __SCENE_BASE_H__

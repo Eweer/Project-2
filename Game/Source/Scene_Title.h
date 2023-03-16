@@ -11,7 +11,7 @@ public:
     void Load(
         std::string const& path,
         LookUpXMLNodeFromString const& info,
-        LookUpXMLNodeFromString const& windowInfo
+        Window_Factory const& windowFactory
     ) override;
     void Start() override;
     void Update() override;

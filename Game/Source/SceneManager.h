@@ -2,6 +2,7 @@
 #define __SCENE_H__
 
 #include "Module.h"
+
 #include "Scene_Base.h"
 
 #include "Defs.h"		//StringHash
@@ -47,7 +48,7 @@ public:
 	std::unique_ptr<Scene_Base> currentScene;
 	std::unique_ptr<Scene_Base> nextScene;
 
-	LookUpXMLNodeFromString windowInfo;
+	std::unique_ptr<Window_Factory> windowFactory;
 	LookUpXMLNodeFromString sceneInfo;
 	LookUpXMLNodeFromString mapInfo;
 };

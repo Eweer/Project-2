@@ -70,6 +70,9 @@
     <ClCompile Include="Source\Window_Base.cpp">
       <Filter>GUI\Windows\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Window_Factory.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Source\GuiElement.h">
       <Filter>GUI\Widgets\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Window_Factory.h">
+      <Filter>GUI\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

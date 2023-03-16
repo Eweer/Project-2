@@ -8,4 +8,3 @@ Window_List::Window_List(pugi::xml_node const& node) : Window_Base(node)
 void Window_List::InitializeFunctionPointerMap()
 {
 }
-

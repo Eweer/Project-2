@@ -7,7 +7,7 @@ bool Scene_Map::isReady()
 	return false;
 }
 
-void Scene_Map::Load(std::string const& path, LookUpXMLNodeFromString const& info, LookUpXMLNodeFromString const& windowInfo)
+void Scene_Map::Load(std::string const& path, LookUpXMLNodeFromString const& info, Window_Factory const& windowFactory)
 {
 	// Load map
 	currentMap = "Base";

@@ -2,6 +2,7 @@
 #define __WINDOW_LIST_H__
 
 #include "Window_Base.h"
+
 class Window_List : public Window_Base
 {
 public:

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __WINDOW_BASE_H__
+#define __WINDOW_BASE_H__
 
 #include "GuiElement.h"
 #include "Textures.h"
@@ -7,6 +8,8 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
+
+using LookUpXMLNodeFromString = std::unordered_map<std::string, pugi::xml_node, StringHash, std::equal_to<>>;
 
 class Window_Base
 {
@@ -39,3 +42,5 @@ private:
 	std::unordered_map<std::string, std::function<void()>, StringHash, std::equal_to<>> strToFuncPtr;
 };
 
+
+#endif __WINDOW_BASE_H__

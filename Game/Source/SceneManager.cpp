@@ -1,13 +1,12 @@
 #include "App.h"
 #include "SceneManager.h"
 #include "Input.h"
-#include "Map.h"
+
+#include "Scene_Map.h"
+#include "Scene_Title.h"
 
 #include "Defs.h"
 #include "Log.h"
-#include "Scene_Map.h"
-#include "Scene_Title.h"
-#include "Scene_Base.h"
 
 #include <format>
 
@@ -26,10 +25,8 @@ bool SceneManager::Awake(pugi::xml_node& config)
 
 	assetPath = config.child("general").attribute("assetpath").as_string();
 
-	for (auto const& node : config.child("window_info").children("window"))
-	{
-		windowInfo[node.attribute("name").as_string()] = node;
-	}
+	windowFactory = std::make_unique<Window_Factory>(config);
+
 	for (auto const& node : config.child("scene_info").children("scene"))
 	{
 		sceneInfo[node.attribute("name").as_string()] = node;
@@ -46,7 +43,7 @@ bool SceneManager::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneManager::Start()
 {
-	currentScene.get()->Load(assetPath + "UI/", sceneInfo, windowInfo);
+	currentScene.get()->Load(assetPath + "UI/", sceneInfo, *windowFactory);
 
 	return true;
 }
