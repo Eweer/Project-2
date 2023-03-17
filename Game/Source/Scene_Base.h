@@ -1,9 +1,12 @@
-#ifndef __WINDOW_BASE_H__
-#define __WINDOW_BASE_H__
+#ifndef __SCENE_BASE_H__
+#define __SCENE_BASE_H__
 
-#include "Window_Base.h"
+#include "Window_Factory.h"
 
-#include <stack>
+#include "Log.h"
+
+#include <vector>
+#include <memory>
 
 class Scene_Base
 {
@@ -12,15 +15,21 @@ public:
 	virtual ~Scene_Base() = default;
 
 	virtual bool isReady() = 0;
-	virtual void Load(std::string const& path) = 0;
+	virtual void Load(
+		std::string const& path,
+		LookUpXMLNodeFromString const &info,
+		Window_Factory const &windowFactory
+	) = 0;
 	virtual void Start() = 0;
-	virtual void Update() = 0;
+	virtual int Update() = 0;
+	virtual void Draw() = 0;
+	virtual int CheckNextScene() = 0;
 
 	bool bActive = false;
 	// TODO Fade-in/Fade-out variables (colour, duration)
-	std::stack<Window_Base> windows;
+	std::vector<std::unique_ptr<Window_Base>> windows;
 
 };
 
 
-#endif __WINDOW_BASE_H__
+#endif __SCENE_BASE_H__

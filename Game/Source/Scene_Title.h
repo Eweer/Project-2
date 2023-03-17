@@ -1,10 +1,11 @@
-#ifndef __SCENE_MAP_H__
-#define __SCENE_MAP_H__
+#ifndef __SCENE_TITLE_H__
+#define __SCENE_TITLE_H__
 
 #include "Scene_Base.h"
-#include "Map.h"
+#include "Textures.h"
+#include "Log.h"
 
-class Scene_Map : public Scene_Base
+class Scene_Title : public Scene_Base
 {
 public:
     bool isReady() override;
@@ -19,10 +20,7 @@ public:
     int CheckNextScene() override;
 
 private:
-    std::string currentMap = "";
-
-    Map map;
+    std::shared_ptr<SDL_Texture> background = nullptr;
 };
 
-
-#endif __SCENE_MAP_H__
+#endif __SCENE_TITLE_H__

@@ -2,7 +2,11 @@
 #define __SCENE_H__
 
 #include "Module.h"
+
 #include "Scene_Base.h"
+
+#include "Defs.h"		//StringHash
+
 #include <vector>
 
 class Window_Base;
@@ -43,6 +47,12 @@ public:
 	std::string assetPath;
 	std::unique_ptr<Scene_Base> currentScene;
 	std::unique_ptr<Scene_Base> nextScene;
+
+	std::unique_ptr<Window_Factory> windowFactory;
+	LookUpXMLNodeFromString sceneInfo;
+	LookUpXMLNodeFromString mapInfo;
+
+	bool CurrentlyMainMenu = true;
 };
 
 #endif // __SCENE_H__

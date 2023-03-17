@@ -1,6 +1,7 @@
 {
     "activeFile": "Base.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "": {
@@ -10,17 +11,25 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 242.66666666666663,
-                "y": 246
+                "x": 5,
+                "y": 90
             }
         },
         "Props.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1.5,
             "scaleInEditor": 2
+        },
+        "Test2.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 70,
+                "y": 272
+            }
         },
         "Tiles.tsx": {
             "dynamicWrapping": false,
@@ -35,11 +44,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 102.66666666666663,
-                "y": 166.66666666666669
+                "x": -38,
+                "y": 576
             }
         }
     },
@@ -57,10 +66,11 @@
     "project": "project-II.tiled-project",
     "property.type": "Global Switch",
     "recentFiles": [
-        "Base.tmx",
         "test.tmx",
         "player.tsx",
         "Tiles.tsx",
-        "Props.tsx"
+        "Props.tsx",
+        "Base.tmx",
+        "Test2.tmx"
     ]
 }

@@ -1,12 +1,12 @@
 #include "App.h"
 #include "SceneManager.h"
 #include "Input.h"
-#include "Map.h"
+
+#include "Scene_Map.h"
+#include "Scene_Title.h"
 
 #include "Defs.h"
 #include "Log.h"
-#include "Scene_Map.h"
-#include "Scene_Base.h"
 
 #include <format>
 
@@ -25,14 +25,25 @@ bool SceneManager::Awake(pugi::xml_node& config)
 
 	assetPath = config.child("general").attribute("assetpath").as_string();
 
-	currentScene = std::make_unique<Scene_Map>();
+	windowFactory = std::make_unique<Window_Factory>(config);
+
+	for (auto const& node : config.child("scene_info").children("scene"))
+	{
+		sceneInfo[node.attribute("name").as_string()] = node;
+	}
+	for (auto const& node : config.child("map_info").children("map"))
+	{
+		mapInfo[node.attribute("name").as_string()] = node;
+	}
+
+	currentScene = std::make_unique<Scene_Title>();
 	return true;
 }
 
 // Called before the first frame
 bool SceneManager::Start()
 {
-	currentScene.get()->Load(assetPath);
+	currentScene.get()->Load(assetPath + "UI/", sceneInfo, *windowFactory);
 
 	return true;
 }
@@ -66,7 +77,15 @@ bool SceneManager::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KeyState::KEY_DOWN)
 		app->LoadGameRequest();
 
-	currentScene->Update();
+	currentScene->Draw();
+
+	if (currentScene->Update() == 1 || app->input->GetKey(SDL_SCANCODE_Q) == KeyState::KEY_UP)
+	{
+		if (CurrentlyMainMenu)
+			nextScene = std::make_unique<Scene_Map>();
+		else
+			nextScene = std::make_unique<Scene_Title>();
+	}
 	
 	return true;
 }
@@ -74,6 +93,19 @@ bool SceneManager::Update(float dt)
 // Called each loop iteration
 bool SceneManager::PostUpdate()
 {
+	if (nextScene && nextScene->isReady())
+	{
+		if(CurrentlyMainMenu)
+			nextScene.get()->Load(assetPath + "Maps/", mapInfo, *windowFactory);
+		else
+			nextScene.get()->Load(assetPath + "UI/", sceneInfo, *windowFactory);
+
+		CurrentlyMainMenu = !CurrentlyMainMenu;
+
+		currentScene = std::move(nextScene);
+	}
+
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KeyState::KEY_DOWN)
 		return false;
 	

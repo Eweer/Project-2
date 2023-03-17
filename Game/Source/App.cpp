@@ -24,8 +24,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = std::make_unique<Render>();
 	tex = std::make_unique<Textures>();
 	audio = std::make_unique<Audio>();
-	scene = std::make_unique<SceneManager>();
 	fonts = std::make_unique<Fonts>();
+	scene = std::make_unique<SceneManager>();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -33,8 +33,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win.get());
 	AddModule(tex.get());
 	AddModule(audio.get());
-	AddModule(scene.get());
 	AddModule(fonts.get());
+	AddModule(scene.get());
 
 	// Render last to swap buffer
 	AddModule(render.get());

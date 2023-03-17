@@ -80,7 +80,6 @@ bool Textures::Unload(SDL_Texture const *texture)
 		{
 			(*it).reset();
 			textures.erase(it);
-			texture = nullptr;
 			return true;
 		}
 	}
