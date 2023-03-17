@@ -2,6 +2,7 @@
 #define __GUIBUTTON_H__
 
 #include "GuiElement.h"
+#include "GuiPanelSegmented.h"
 #include "TextureManager.h"
 
 #include <memory>
@@ -11,8 +12,8 @@ enum class ButtonState
 {
 	DISABLED,
 	NORMAL,
-	FOCUSED,
 	PRESSED,
+	FOCUSED,
 	SELECTED
 };
 
@@ -20,10 +21,9 @@ class GuiButton : public GuiElement
 {
 public:
 	GuiButton() = default;
-	~GuiButton() override
-	{
-		app->tex->Unload(textureID);
-	}
+	~GuiButton() override;
+
+
 	explicit GuiButton(
 		uPoint pos,
 		uPoint size,
@@ -34,8 +34,6 @@ public:
 
 	int Update() override;
 	bool Draw() const override;
-	void DrawHorizontalSegment(iPoint topLeftPosition, SDL_Rect currentSlice) const;
-	void DrawHorizontalBox(iPoint topLeftPosition, SDL_Rect currentSlice) const;
 
 	void MouseEnterHandler() override;
 	void MouseLeaveHandler() override;
@@ -45,13 +43,9 @@ public:
 private:
     std::string text = "";
 	int font = 0;
-    int textureID;
 
-	int xAdvance = 4;
-	SDL_Rect normalRect;
-	SDL_Rect pressedRect;
-	SDL_Rect focusedRect;
-	iPoint textureSegments{ 3,3 };
+	std::map<int, GuiPanelSegmented> panels;
+
 	iPoint offset;
 
 	ButtonState currentState = ButtonState::DISABLED;
