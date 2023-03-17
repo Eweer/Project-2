@@ -9,7 +9,6 @@
 #include <functional>
 #include "SDL_image/include/SDL_image.h"
 
-
 class TextureManager : public Module
 {
 public:
