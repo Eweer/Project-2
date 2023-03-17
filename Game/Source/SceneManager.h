@@ -51,6 +51,8 @@ public:
 	std::unique_ptr<Window_Factory> windowFactory;
 	LookUpXMLNodeFromString sceneInfo;
 	LookUpXMLNodeFromString mapInfo;
+
+	bool CurrentlyMainMenu = true;
 };
 
 #endif // __SCENE_H__

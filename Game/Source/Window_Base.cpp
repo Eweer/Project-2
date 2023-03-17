@@ -9,8 +9,7 @@ Window_Base::Window_Base(pugi::xml_node const& node) :
 	position({ node.attribute("x").as_uint(), node.attribute("y").as_uint() }),
 	size({ node.attribute("width").as_uint(), node.attribute("height").as_uint() })
 {
-	strToFuncPtr["Fallback"] = std::bind_front(&Window_Base::FallbackFunction, this);
-
+	AddFunctionToMap("Fallback", std::bind_front(&Window_Base::FallbackFunction, this));
 }
 
 bool Window_Base::IsMouseHovering() const
@@ -26,12 +25,25 @@ bool Window_Base::IsMouseHovering() const
 	return false;
 }
 
-void Window_Base::Draw()
+void Window_Base::Draw() const
 {
 	for (auto const &elem : widgets)
 	{
 		elem->Draw();
 	}
+}
+
+int Window_Base::Update() const
+{
+	for (auto const& elem : widgets)
+	{
+		if (auto result = elem->Update();
+			result != 0)
+		{
+			return result;
+		}
+	}
+	return 0;
 }
 
 void Window_Base::CreateButtons(pugi::xml_node const& node)
@@ -51,12 +63,30 @@ void Window_Base::CreateButtons(pugi::xml_node const& node)
 			result = strToFuncPtr.find("Fallback");
 		}
 
-		widgets.emplace_back(std::make_unique<GuiButton>(pos, s, name, result->second));
+		std::vector<SDL_Rect> buttonStateTexture;
+
+		for (auto const& state : child.children("state_texture"))
+		{
+			buttonStateTexture.emplace_back(
+				state.attribute("x").as_int(),
+				state.attribute("y").as_int(),
+				child.attribute("segmentwidth").as_int(),
+				child.attribute("segmentheight").as_int()
+			);
+		}
+
+		widgets.emplace_back(std::make_unique<GuiButton>(pos, s, name, result->second, buttonStateTexture));
 	}
 }
 
-void Window_Base::FallbackFunction() const
+void Window_Base::AddFunctionToMap(std::string const& str, std::function<int()> const &funcPtr)
+{
+	strToFuncPtr[str] = funcPtr;
+}
+
+int Window_Base::FallbackFunction() const
 {
 	LOG("No function found for widget.");
+	return 0;
 }
 

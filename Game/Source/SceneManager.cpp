@@ -77,7 +77,15 @@ bool SceneManager::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KeyState::KEY_DOWN)
 		app->LoadGameRequest();
 
-	currentScene->Update();
+	currentScene->Draw();
+
+	if (currentScene->Update() == 1 || app->input->GetKey(SDL_SCANCODE_Q) == KeyState::KEY_UP)
+	{
+		if (CurrentlyMainMenu)
+			nextScene = std::make_unique<Scene_Map>();
+		else
+			nextScene = std::make_unique<Scene_Title>();
+	}
 	
 	return true;
 }
@@ -85,6 +93,19 @@ bool SceneManager::Update(float dt)
 // Called each loop iteration
 bool SceneManager::PostUpdate()
 {
+	if (nextScene && nextScene->isReady())
+	{
+		if(CurrentlyMainMenu)
+			nextScene.get()->Load(assetPath + "Maps/", mapInfo, *windowFactory);
+		else
+			nextScene.get()->Load(assetPath + "UI/", sceneInfo, *windowFactory);
+
+		CurrentlyMainMenu = !CurrentlyMainMenu;
+
+		currentScene = std::move(nextScene);
+	}
+
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KeyState::KEY_DOWN)
 		return false;
 	

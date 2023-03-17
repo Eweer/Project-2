@@ -5,6 +5,7 @@
 
 #include "Point.h"
 #include "Defs.h"
+#include "Log.h"
 
 #include <functional>	//std::function
 
@@ -15,12 +16,12 @@ public:
 	GuiElement() = default;
 	virtual ~GuiElement() = default;
 
-	virtual void Update()
+	virtual int Update()
 	{
-		return;
+		return 0;
 	}
 
-	virtual bool Draw()
+	virtual bool Draw() const
 	{
 		return true;
 	}
@@ -66,16 +67,20 @@ public:
 
 protected:
 
-	void Initialize(std::function<void()> const& funcPtr, uPoint pos, uPoint widthHeight)
+	void Initialize(std::function<int()> const& funcPtr, uPoint pos, uPoint widthHeight)
 	{
 		func = funcPtr;
 		position = pos;
+		if (!(widthHeight % 32).IsZero())
+		{
+			widthHeight += uPoint(32, 32) - (widthHeight % 32);
+		}
 		size = widthHeight;
 	}
 
-	void ExecuteFunction() const
+	int ExecuteFunction() const
 	{
-		func();
+		return func();
 	}
 
 	uPoint GetPosition() const
@@ -92,7 +97,7 @@ private:
 
 	bool bIsHovered = false;		//If mouse is hovering
 
-	std::function<void()> func;
+	std::function<int()> func;
 	uPoint position = { 0, 0 };
 	uPoint size = { 0, 0 };
 

@@ -14,7 +14,9 @@ public:
         Window_Factory const& windowFactory
     ) override;
     void Start() override;
-    void Update() override;
+    void Draw() override;
+    int Update() override;
+    int CheckNextScene() override;
 
 private:
     std::string currentMap = "";

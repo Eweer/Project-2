@@ -4,7 +4,7 @@
 
 bool Scene_Title::isReady()
 {
-	return false;
+	return true;
 }
 
 void Scene_Title::Load(std::string const& path, LookUpXMLNodeFromString const& info, Window_Factory const &windowFactory)
@@ -32,10 +32,26 @@ void Scene_Title::Start()
 {
 }
 
-void Scene_Title::Update()
+void Scene_Title::Draw()
 {
 	for (auto const& elem : windows)
 	{
 		elem->Draw();
 	}
+}
+
+int Scene_Title::Update()
+{
+	for (auto const& elem : windows)
+	{
+		if (auto result = elem->Update();
+			result != 0)
+			return result;
+	}
+	return 0;
+}
+
+int Scene_Title::CheckNextScene()
+{
+	return 1;
 }

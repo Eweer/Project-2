@@ -3,6 +3,7 @@
 
 #include "GuiElement.h"
 #include "Textures.h"
+#include "Log.h"
 
 #include <functional>
 #include <memory>
@@ -17,19 +18,17 @@ public:
 	Window_Base() = default;
 	explicit Window_Base(pugi::xml_node const &node);
 	virtual ~Window_Base() = default;
-
 	bool IsMouseHovering() const;
+	virtual void Draw() const;
 
-	virtual void InitializeFunctionPointerMap() {};
-
-	virtual void Draw();
+	int Update() const;
 
 protected:
 
 	void CreateButtons(pugi::xml_node const &node);
-
+	void AddFunctionToMap(std::string const& str, std::function<int()> const& funcPtr);
 	// If string is not found in pointer map, it fallbacks to this
-	void FallbackFunction() const;
+	int FallbackFunction() const;
 
 private:
 	uPoint position = { 0, 0 };
@@ -42,7 +41,7 @@ private:
 	std::shared_ptr<SDL_Texture> background = nullptr;
 	std::vector<std::unique_ptr<GuiElement>> widgets;
 
-	std::unordered_map<std::string, std::function<void()>, StringHash, std::equal_to<>> strToFuncPtr;
+	std::unordered_map<std::string, std::function<int()>, StringHash, std::equal_to<>> strToFuncPtr;
 };
 
 

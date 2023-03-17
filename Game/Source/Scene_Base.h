@@ -3,6 +3,8 @@
 
 #include "Window_Factory.h"
 
+#include "Log.h"
+
 #include <vector>
 #include <memory>
 
@@ -19,7 +21,9 @@ public:
 		Window_Factory const &windowFactory
 	) = 0;
 	virtual void Start() = 0;
-	virtual void Update() = 0;
+	virtual int Update() = 0;
+	virtual void Draw() = 0;
+	virtual int CheckNextScene() = 0;
 
 	bool bActive = false;
 	// TODO Fade-in/Fade-out variables (colour, duration)

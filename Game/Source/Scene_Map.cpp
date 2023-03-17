@@ -4,7 +4,7 @@
 
 bool Scene_Map::isReady()
 {
-	return false;
+	return true;
 }
 
 void Scene_Map::Load(std::string const& path, LookUpXMLNodeFromString const& info, Window_Factory const& windowFactory)
@@ -23,7 +23,17 @@ void Scene_Map::Start()
 {
 }
 
-void Scene_Map::Update()
+void Scene_Map::Draw()
 {
 	map.Draw();
+}
+
+int Scene_Map::Update()
+{
+	return 0;
+}
+
+int Scene_Map::CheckNextScene()
+{
+	return 0;
 }
