@@ -20,12 +20,14 @@ class TileSet
 {
 public:
 	explicit TileSet(const pugi::xml_node& node, const std::string& directory);
+	
+	void Unload() const;
 
 	uint ContainsGid(uint gid) const;
 
 	SDL_Rect GetTileRect(uint gid) const;
 
-	SDL_Texture* GetTexture() const;
+	int GetTextureID() const;
 
 private:
 	uint firstGid = 0;
@@ -38,7 +40,7 @@ private:
 	uPoint size = { 0, 0 };
 	std::string imageSource = "";
 	uPoint sourceSize = { 0, 0 };
-	SDL_Texture *texture = nullptr;
+	int textureID = -1;
 
 	uint margin = 0;
 	uint spacing = 0;

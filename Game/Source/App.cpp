@@ -361,6 +361,16 @@ uint App::GetLevelNumber() const
 	return levelNumber;
 }
 
+SDL_Texture* App::GetTexture(int id) const
+{
+	return tex->GetTexture(id);
+}
+
+SDL_Renderer* App::GetRender() const
+{
+	return render->GetRender();
+}
+
 bool App::AppendFragment(pugi::xml_node target, const char *data) const
 {
 	pugi::xml_document doc;

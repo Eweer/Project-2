@@ -65,6 +65,9 @@ public:
 	std::string GetOrganization() const;
 	uint GetLevelNumber() const;
 
+	SDL_Texture* GetTexture(int id) const;
+	SDL_Renderer* GetRender() const;
+
 	bool AppendFragment(pugi::xml_node target, const char *data) const;
 	
 	// Saving / Loading

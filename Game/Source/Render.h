@@ -37,7 +37,7 @@ public:
 
 	// Drawing
 	bool DrawTexture(
-		SDL_Texture *texture,
+		int textureID,
 		int x,
 		int y,
 		const SDL_Rect *section = nullptr,
@@ -49,7 +49,7 @@ public:
 	) const;
 
 	bool DrawCharacterTexture(
-		SDL_Texture *texture,
+		int textureID,
 		iPoint const &pos,
 		const bool flip = false,
 		SDL_Point pivot = SDL_Point(INT_MAX, INT_MAX),
@@ -59,19 +59,19 @@ public:
 	) const;
 
 	bool DrawBackground(
-		SDL_Texture *texture,
+		int textureID,
 		fPoint pos,
 		float scale
 	) const;
 
 	bool DrawImage(
-		SDL_Texture *texture,
+		int textureID,
 		iPoint position,
 		float scale
 	) const;
 
 	bool DrawFont(
-		SDL_Texture *texture,
+		int textureID,
 		iPoint position,
 		fPoint scale,
 		const SDL_Rect *section,
@@ -111,9 +111,9 @@ public:
 
 	bool HasSaveData() const final;
 
-	std::shared_ptr<SDL_Texture> LoadTexture(SDL_Surface *surface);
-
 	SDL_Rect GetCamera() const;
+
+	SDL_Renderer* GetRender() const;
 
 private:
 

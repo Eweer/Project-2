@@ -36,7 +36,7 @@ struct Font
 {
 	// Key: chararacter || Value: <position in the texture, xAdvance>
 	std::unordered_map<char,FontCharacter> fontTable;
-	SDL_Texture *graphic = nullptr;
+	int textureID;
 	std::string name = "";
 	int lineHeight = 0;
 	Point<float> scale = {0,0};

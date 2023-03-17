@@ -20,7 +20,7 @@ public:
     int CheckNextScene() override;
 
 private:
-    std::shared_ptr<SDL_Texture> background = nullptr;
+    int backgroundTexture;
 };
 
 #endif __SCENE_TITLE_H__

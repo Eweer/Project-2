@@ -1,14 +1,10 @@
 #include "App.h"
-#include "Render.h"
 #include "Textures.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-#include <functional>
-#include <list>
-#include <memory>
-
+#include <utility>
 #include "SDL_image/include/SDL_image.h"
 
 Textures::Textures() : Module()
@@ -50,45 +46,104 @@ bool Textures::CleanUp()
 	return true;
 }
 
-// Load new texture from file path
-std::shared_ptr<SDL_Texture> Textures::Load(const char* path)
+int Textures::Load(std::string const &path)
 {
-	if(SDL_Surface* surface = IMG_Load(path)) 
+	if (auto result = pathToInfo.find(path);
+		result != pathToInfo.end())
 	{
-		auto texture = app->render->LoadTexture(surface);
-		SDL_FreeSurface(surface);
-		if(texture)
-		{
-			textures.push_back(std::move(texture));
-
-			return textures.back();
-		}
-		else LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
-
-	}	
-	else LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
-
-	return nullptr;
-}
-
-// Unload texture
-bool Textures::Unload(SDL_Texture const *texture)
-{
-	for(auto it = textures.begin(); it != textures.end(); it++)
-	{
-		if ((*it).get() == texture)
-		{
-			(*it).reset();
-			textures.erase(it);
-			return true;
-		}
+		LOG("Texture [ %s ] already loaded", path);
+		result->second.second++;
+		return result->second.first;
 	}
 
-	return false;
+	SDL_Surface* surface = IMG_Load(path.c_str());
+
+	if (!surface)
+	{
+		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
+		return -1;
+	}
+
+	auto texture = (
+		SDL_CreateTextureFromSurface(app->GetRender(), surface)
+	);
+
+	SDL_FreeSurface(surface);
+
+	if (texture)
+	{
+		// Get first available ID
+		auto texIter = availableIDs.begin();
+		auto texID = *texIter;
+
+		// Add texture with key ID
+		textures[texID] = (texture);
+
+		// Add texture path/id to look up maps
+		auto pairToEmplace = std::make_pair(texID, 1);
+		pathToInfo[path] = pairToEmplace;
+		indexToPath[texID] = path;
+
+		// Remove the used ID from the available IDs
+		availableIDs.erase(texIter);
+
+		// If there are no more available IDs we add a new one
+		if (availableIDs.empty())
+		{
+			availableIDs.emplace(textures.size());
+		}
+
+		LOG("Texture loaded succesfully [ %s ]", path.c_str());
+		return texID;
+	}
+	
+	LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
+
+	return 0;
+}
+
+void Textures::Unload(int index)
+{
+	if (auto result = textures.find(index);
+		result != textures.end() && result->second)
+	{
+		auto path = indexToPath.find(index);
+		auto info = pathToInfo.find(path->second);
+
+		info->second.second--;
+
+		if (info->second.second == 0)
+		{
+			SDL_DestroyTexture(result->second);
+			LOG("Texture [ %s ] destroyed.", path->second);
+			pathToInfo.erase(path->second);
+			indexToPath.erase(index);
+
+			// Remove map element
+			textures.erase(result);
+
+			// Add index to list of available indexes
+			availableIDs.insert(index);
+		}
+		else
+		{
+			LOG("Removed reference to texture [ %s ].", path->second);
+		}
+	}
 }
 
 // Retrieve size of a texture
 void Textures::GetSize(SDL_Texture* const texture, uint &width, uint &height) const
 {
 	SDL_QueryTexture(texture, nullptr, nullptr, (int*) &width, (int*) &height);
+}
+
+SDL_Texture *Textures::GetTexture(int textureID) const
+{
+	if (auto result = textures.find(textureID);
+		result != textures.end())
+	{
+		return result->second;
+	}
+	return nullptr;
 }

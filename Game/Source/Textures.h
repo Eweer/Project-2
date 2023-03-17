@@ -3,11 +3,12 @@
 
 #include "Module.h"
 
-#include <list>
+#include <map>
+#include <memory>
+#include <set>
 #include <functional>
+#include "SDL_image/include/SDL_image.h"
 
-struct SDL_Texture;
-struct SDL_Surface;
 
 class Textures : public Module
 {
@@ -28,11 +29,16 @@ public:
 	bool CleanUp() final;
 
 	// Load Texture
-	std::shared_ptr<SDL_Texture> Load(const char* path);
-	bool Unload(SDL_Texture const *texture);
+	int Load(std::string const &path);
+	void Unload(int index);
 	void GetSize(SDL_Texture* const texture, uint& width, uint& height) const;
+	SDL_Texture* GetTexture(int textureID) const;
 
-	std::list<std::shared_ptr<SDL_Texture>>textures;
+	// Path to pair<Index, references> look up table
+	std::unordered_map<std::string, std::pair<int, int>, StringHash, std::equal_to<>> pathToInfo;
+	std::unordered_map<int, std::string> indexToPath;
+	std::map<int, SDL_Texture*> textures;
+	std::set<int> availableIDs{ 0 };
 };
 
 

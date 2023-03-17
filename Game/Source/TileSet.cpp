@@ -40,7 +40,12 @@ TileSet::TileSet(const pugi::xml_node& node, const std::string& directory) :
 	auto imgNode = currentNode.child("image");
 	imageSource = imgNode.attribute("source").as_string();
 	sourceSize = { imgNode.attribute("width").as_uint(), imgNode.attribute("height").as_uint() };
-	texture = app->tex->Load((directory + imageSource).c_str()).get();
+	textureID = app->tex->Load((directory + imageSource).c_str());
+}
+
+void TileSet::Unload() const
+{
+	app->tex->Unload(textureID);
 }
 
 uint TileSet::ContainsGid(uint gid) const
@@ -61,7 +66,7 @@ SDL_Rect TileSet::GetTileRect(uint gid) const
 	return rect;
 }
 
-SDL_Texture* TileSet::GetTexture() const
+int TileSet::GetTextureID() const
 {
-	return texture;
+	return textureID;
 }

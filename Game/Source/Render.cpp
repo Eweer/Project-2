@@ -4,7 +4,6 @@
 #include "Input.h"
 #include "Map.h"
 
-#include "Defs.h"
 #include "Log.h"
 
 #include <string>
@@ -207,8 +206,10 @@ void Render::ResetViewPort() const
 	SDL_RenderSetViewport(renderer.get(), &viewport);
 }
 
-bool Render::DrawCharacterTexture(SDL_Texture *texture, iPoint const &pos, const bool flip, SDL_Point pivot, const iPoint offset, const double angle, int flipValue) const
+bool Render::DrawCharacterTexture(int textureID, iPoint const &pos, const bool flip, SDL_Point pivot, const iPoint offset, const double angle, int flipValue) const
 {
+	auto texture = app->GetTexture(textureID);
+
 	SDL_Rect rect{0};
 
 	SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
@@ -245,8 +246,10 @@ bool Render::DrawCharacterTexture(SDL_Texture *texture, iPoint const &pos, const
 }
 
 // Blit to screen
-bool Render::DrawBackground(SDL_Texture *texture, fPoint pos, float scale) const
+bool Render::DrawBackground(int textureID, fPoint pos, float scale) const
 {
+	auto texture = app->GetTexture(textureID);
+
 	iPoint position = {
 		static_cast<int>(floor(pos.x)),
 		static_cast<int>(floor(pos.y))
@@ -274,8 +277,10 @@ bool Render::DrawBackground(SDL_Texture *texture, fPoint pos, float scale) const
 }
 
 // Blit to screen
-bool Render::DrawImage(SDL_Texture *texture, iPoint position, float scale) const
+bool Render::DrawImage(int textureID, iPoint position, float scale) const
 {
+	auto texture = app->GetTexture(textureID);
+
 	SDL_Rect rect = {
 		.x = position.x,
 		.y = position.y,
@@ -298,8 +303,10 @@ bool Render::DrawImage(SDL_Texture *texture, iPoint position, float scale) const
 }
 
 // Blit to screen
-bool Render::DrawFont(SDL_Texture *texture, iPoint position, fPoint scale, const SDL_Rect *section, double angle, SDL_Point pivot) const
+bool Render::DrawFont(int textureID, iPoint position, fPoint scale, const SDL_Rect *section, double angle, SDL_Point pivot) const
 {
+	auto texture = app->GetTexture(textureID);
+
 	SDL_Rect rect = {
 		.x = position.x + camera.x,
 		.y = position.y + camera.y,
@@ -335,8 +342,10 @@ bool Render::DrawFont(SDL_Texture *texture, iPoint position, fPoint scale, const
 }
 
 // Blit to screen
-bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY, SDL_RendererFlip flip) const
+bool Render::DrawTexture(int textureID, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY, SDL_RendererFlip flip) const
 {
+	auto texture = app->GetTexture(textureID);
+
 	uint scale = app->win->GetScale();
 
 	SDL_Rect rect = {
@@ -487,16 +496,12 @@ bool Render::HasSaveData() const
 	return true;
 }
 
-std::shared_ptr<SDL_Texture> Render::LoadTexture(SDL_Surface *surface)
-{
-	std::shared_ptr<SDL_Texture>texturePtr(
-			SDL_CreateTextureFromSurface(renderer.get(), surface),
-			[](SDL_Texture *tex) { if(tex) SDL_DestroyTexture(tex); }
-	);
-	return texturePtr;
-}
-
 SDL_Rect Render::GetCamera() const
 {
 	return camera;
+}
+
+SDL_Renderer* Render::GetRender() const
+{
+	return renderer.get();
 }
