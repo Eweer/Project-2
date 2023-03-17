@@ -96,7 +96,7 @@ public:
 
 private:
 	iPoint GetAnchorPosition(iPoint position, AnchorTo anchor) const;
-	iPoint GetAlignPosition(iPoint position, AlignTo align) const;
+	iPoint GetAlignPosition(std::string_view text, iPoint position, AlignTo align, Font const& font) const;
 	int GetDistanceToNextDrawingPositon(int advance, int spacing, int offset, float scale = 1.0f) const;
 
 	std::string path;

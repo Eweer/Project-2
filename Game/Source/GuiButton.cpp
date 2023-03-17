@@ -138,6 +138,14 @@ bool GuiButton::Draw() const
 	auto centerPoint = iPoint(GetPosition().x, GetPosition().y);
 	centerPoint += iPoint(GetSize().x/2, GetSize().y/2);
 
+	TextParameters params(0, DrawParameters(0, centerPoint));
+	params.align = AlignTo::ALIGN_CENTER;
+
+	app->fonts->DrawText(
+		text,
+		params
+	);
+
 	return true;
 }
 

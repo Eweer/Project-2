@@ -147,15 +147,12 @@ void TextManager::DrawText(std::string_view text, TextParameters const &textPara
 		return;
 	}
 
+	Font const &fontInUse = fonts[fontId];
+
 	// Get starting drawing position
-	if (textParams.align != AlignTo::ALIGN_TOP_LEFT)
-	{
-		params.position = GetAlignPosition(params.position, textParams.align);
-	}
-	
+	params.position = GetAlignPosition(text, params.position, textParams.align, fontInUse);
 	params.position = GetAnchorPosition(params.position, textParams.anchor);
 	
-	Font const &fontInUse = fonts[fontId];
 	
 	for (auto const& elem : text)
 	{
@@ -206,8 +203,26 @@ inline iPoint TextManager::GetAnchorPosition(iPoint position, AnchorTo anchor) c
 	}
 }
 
-iPoint TextManager::GetAlignPosition(iPoint position, AlignTo align) const
+iPoint TextManager::GetAlignPosition(std::string_view text, iPoint position, AlignTo align, Font const &font) const
 {
+	if (align == AlignTo::ALIGN_TOP_LEFT)
+		return position;
+
+	iPoint totalSize{ 0 };
+
+	for (auto const& elem : text)
+	{
+		if (auto it = font.charMap.find(elem);
+			it != font.charMap.end())
+		{
+			totalSize.x += it->second.rect.w + it->second.xAdvance + font.spacing.x;
+		}
+	}
+
+	if (align == AlignTo::ALIGN_CENTER)
+	{
+		return iPoint(position.x - (totalSize.x / 4), position.y - (font.lineHeight / 2));
+	}
 	return position;
 }
 
