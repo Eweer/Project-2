@@ -1,6 +1,7 @@
 ﻿#include "Map.h"
 #include "App.h"
 #include "Render.h"
+#include "TextManager.h"
 
 #include "Log.h"
 
@@ -110,6 +111,39 @@ void Map::Draw()
 				break;
 		}
 	}
+	
+	 
+	TextParameters t0(0, DrawParameters(0, iPoint(25, 400)));
+	TextParameters t1(0, DrawParameters(0, iPoint(25, 450)));
+	t1.Anchor(AnchorTo::SCREEN);
+	TextParameters t2(0, DrawParameters(0, iPoint(25, 500)));
+	t2.Align(AlignTo::ALIGN_CENTER);
+	TextParameters t3(0, DrawParameters(0, iPoint(25, 550)));
+	t3.Anchor(AnchorTo::WORLD);
+	TextParameters t4(0, DrawParameters(0, iPoint(25, 600)));
+	t4.Align(AlignTo::ALIGN_CENTER);
+	t4.Anchor(AnchorTo::WORLD);
+
+	app->fonts->DrawText(
+		"Potato",
+		t0
+	);
+	app->fonts->DrawText(
+		"abcdefghijklmnopqrstuvwxyz",
+		t1
+	);
+	app->fonts->DrawText(
+		"Pear",
+		t2
+	);
+	app->fonts->DrawText(
+		"Banana",
+		t3
+	);
+	app->fonts->DrawText(
+		"Orange",
+		t4
+	);
 }
 
 bool Map::DrawObjectLayer(int index)

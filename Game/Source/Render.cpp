@@ -250,16 +250,18 @@ bool Render::DrawTexture(DrawParameters const &params) const
 {
 	auto texture = app->GetTexture(params.textureID);
 
-	float scale = (params.scale == 0) ? app->win->GetScale() : params.scale;
+	fPoint scale = (params.scale.IsZero())
+		? fPoint(app->win->GetScale(), app->win->GetScale())
+		: params.scale;
 
 	SDL_Rect rect{ 0 };
-	// (camera * parallaxSpeed) + (position * scale)
-	rect.x = 
+	// (camera * parallaxSpeed) + position
+	rect.x =
 		static_cast<int>(std::floor(static_cast<float>(camera.x) * params.parallaxSpeed.x))
-		+ static_cast<int>(static_cast<float>(params.position.x) * scale);
+		+ params.position.x;
 	rect.y =
 		static_cast<int>(std::floor(static_cast<float>(camera.y) * params.parallaxSpeed.y))
-		+ static_cast<int>(static_cast<float>(params.position.y) * scale);
+		+ params.position.y;
 
 	if (params.rectOffset != iPoint(INT_MAX, INT_MAX))
 	{
@@ -275,6 +277,17 @@ bool Render::DrawTexture(DrawParameters const &params) const
 	else
 	{
 		SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
+	}
+
+	if (scale.x > 1.0f)
+	{
+		rect.w = static_cast<int>(std::floor(static_cast<float>(rect.w) * scale.x));
+		rect.x -= (rect.w / 2);
+	}
+	if (scale.y > 1.0f)
+	{
+		rect.h = static_cast<int>(std::floor(static_cast<float>(rect.h) * scale.y));
+		rect.y -= (rect.h / 2);
 	}
 
 	SDL_Point const* center = nullptr;

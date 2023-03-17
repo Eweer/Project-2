@@ -20,7 +20,7 @@ struct DrawParameters
 	SDL_Point center = SDL_Point(INT_MAX, INT_MAX);
 	iPoint rectOffset = iPoint(INT_MAX, INT_MAX);
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	float scale = 0.0f;
+	fPoint scale = { 0.0f, 0.0f };
 
 	DrawParameters(int tex, iPoint pos)
 		: textureID(tex), position(pos) {}
@@ -55,7 +55,7 @@ struct DrawParameters
 		flip = f;
 		return *this;
 	}
-	DrawParameters& Scale(float s)
+	DrawParameters& Scale(fPoint s)
 	{
 		scale = s;
 		return *this;
@@ -87,7 +87,7 @@ public:
 	// Called before quitting
 	bool CleanUp() final;
 
-	bool DrawT(DrawParameters const& params) const;
+	bool DrawTexture(DrawParameters const& params) const;
 
 	bool DrawFont(
 		int textureID,

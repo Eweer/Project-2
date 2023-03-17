@@ -2,7 +2,7 @@
 #include "App.h"
 #include "Render.h"
 #include "Input.h"
-#include "Fonts.h"
+#include "TextManager.h"
 
 #include "Log.h"
 
@@ -137,8 +137,6 @@ bool GuiButton::Draw() const
 
 	auto centerPoint = iPoint(GetPosition().x, GetPosition().y);
 	centerPoint += iPoint(GetSize().x/2, GetSize().y/2);
-
-	app->fonts->DrawMiddlePoint(text, centerPoint, font);
 
 	return true;
 }

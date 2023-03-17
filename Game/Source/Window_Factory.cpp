@@ -1,5 +1,5 @@
 #include "Window_Factory.h"
-#include "Fonts.h"
+#include "TextManager.h"
 
 #include "Log.h"
 

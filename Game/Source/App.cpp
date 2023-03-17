@@ -6,7 +6,7 @@
 #include "Audio.h"
 #include "SceneManager.h"
 #include "Map.h"
-#include "Fonts.h"
+#include "TextManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -24,7 +24,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = std::make_unique<Render>();
 	tex = std::make_unique<TextureManager>();
 	audio = std::make_unique<Audio>();
-	fonts = std::make_unique<Fonts>();
+	fonts = std::make_unique<TextManager>();
 	scene = std::make_unique<SceneManager>();
 
 	// Ordered for awake / Start / Update

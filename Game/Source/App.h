@@ -23,7 +23,7 @@ class Render;
 class TextureManager;
 class Audio;
 class SceneManager;
-class Fonts;
+class TextManager;
 
 template <typename... Args>
 std::string AddSaveData(std::string_view format, Args&&... args)
@@ -94,7 +94,7 @@ public:
 	std::unique_ptr<TextureManager> tex;
 	std::unique_ptr<Audio> audio;
 	std::unique_ptr<SceneManager> scene;
-	std::unique_ptr<Fonts> fonts;
+	std::unique_ptr<TextManager> fonts;
 
 private:
 

@@ -22,7 +22,7 @@
     <ClCompile Include="Source\Window.cpp">
       <Filter>Modules\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Fonts.cpp">
+    <ClCompile Include="Source\TextManager.cpp">
       <Filter>Modules\Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Event_Chest.cpp">
@@ -114,7 +114,7 @@
     <ClInclude Include="Source\Audio.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Fonts.h">
+    <ClInclude Include="Source\TextManager.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input.h">
