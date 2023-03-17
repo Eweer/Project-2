@@ -225,5 +225,5 @@ void GuiButton::DebugDraw() const
 {
 	SDL_Rect debugRect(GetPosition().x, GetPosition().y, GetSize().x, GetSize().y);
 
-	app->render->DrawRectangle(debugRect, SDL_Color(255, 0, 0, 255), false);
+	app->render->DrawShape(debugRect, false, SDL_Color(255, 0, 0, 255));
 }

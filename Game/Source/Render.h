@@ -89,24 +89,15 @@ public:
 
 	bool DrawTexture(DrawParameters const& params) const;
 
-	bool DrawFont(
-		int textureID,
-		iPoint position,
-		fPoint scale,
-		const SDL_Rect *section,
-		double angle = 0,
-		SDL_Point pivot = SDL_Point(INT_MAX, INT_MAX)
-	) const;
-
-	bool DrawRectangle(
+	bool DrawShape(
 		const SDL_Rect &rect,
+		bool filled,
 		SDL_Color color,
-		bool filled = true,
 		bool useCamera = true,
 		SDL_BlendMode blendMode = SDL_BlendMode::SDL_BLENDMODE_BLEND
 	) const;
 
-	bool DrawLine(
+	bool DrawShape(
 		iPoint v1,
 		iPoint v2,
 		SDL_Color color,
@@ -114,7 +105,7 @@ public:
 		SDL_BlendMode blendMode = SDL_BlendMode::SDL_BLENDMODE_BLEND
 	) const;
 
-	bool DrawCircle(
+	bool DrawShape(
 		iPoint center,
 		int radius,
 		SDL_Color color,

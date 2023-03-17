@@ -207,45 +207,6 @@ void Render::ResetViewPort() const
 	SDL_RenderSetViewport(renderer.get(), &viewport);
 }
 
-// Blit to screen
-bool Render::DrawFont(int textureID, iPoint position, fPoint scale, const SDL_Rect *section, double angle, SDL_Point pivot) const
-{
-	auto texture = app->GetTexture(textureID);
-
-	SDL_Rect rect = {
-		.x = position.x + camera.x,
-		.y = position.y + camera.y,
-		.w = 0,
-		.h = 0
-	};
-
-	if(section)
-	{
-		rect.w = section->w;
-		rect.h = section->h;
-	}
-	else SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
-
-	rect.w = static_cast<int>(static_cast<float>(rect.w) * scale.x);
-	rect.h = static_cast<int>(static_cast<float>(rect.h) * scale.y);
-
-	SDL_Point const *p = nullptr;
-
-	if(pivot.x != INT_MAX && pivot.y != INT_MAX)
-	{
-		SDL_Point tempPivot{pivot.x, pivot.y};
-		p = &tempPivot;
-	}
-
-	if(SDL_RenderCopyEx(renderer.get(), texture, section, &rect, angle, p, SDL_RendererFlip::SDL_FLIP_NONE) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		return false;
-	}
-
-	return true;
-}
-
 bool Render::DrawTexture(DrawParameters const &params) const
 {
 	auto texture = app->GetTexture(params.textureID);
@@ -307,7 +268,7 @@ bool Render::DrawTexture(DrawParameters const &params) const
 	return true;
 }
 
-bool Render::DrawRectangle(const SDL_Rect& rect, SDL_Color color, bool filled, bool use_camera, SDL_BlendMode blendMode) const
+bool Render::DrawShape(const SDL_Rect& rect, bool filled, SDL_Color color, bool use_camera, SDL_BlendMode blendMode) const
 {
 	SDL_SetRenderDrawBlendMode(renderer.get(), blendMode);
 	SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
@@ -334,7 +295,7 @@ bool Render::DrawRectangle(const SDL_Rect& rect, SDL_Color color, bool filled, b
 	return true;
 }
 
-bool Render::DrawLine(iPoint v1, iPoint v2, SDL_Color color, bool use_camera, SDL_BlendMode blendMode) const
+bool Render::DrawShape(iPoint v1, iPoint v2, SDL_Color color, bool use_camera, SDL_BlendMode blendMode) const
 {
 
 	SDL_SetRenderDrawBlendMode(renderer.get(), blendMode);
@@ -356,7 +317,7 @@ bool Render::DrawLine(iPoint v1, iPoint v2, SDL_Color color, bool use_camera, SD
 	return true;
 }
 
-bool Render::DrawCircle(iPoint center, int radius, SDL_Color color, bool use_camera, SDL_BlendMode blendMode) const
+bool Render::DrawShape(iPoint center, int radius, SDL_Color color, bool use_camera, SDL_BlendMode blendMode) const
 {
 	[[maybe_unused]] float scale = app->win->GetScale();
 
