@@ -10,6 +10,58 @@
 
 #include "SDL/include/SDL.h"
 
+struct DrawParameters
+{
+	int textureID;
+	iPoint position;
+	const SDL_Rect* section = nullptr;
+	fPoint parallaxSpeed = { 1.0f, 1.0f };
+	double rotationAngle = 0;
+	SDL_Point center = SDL_Point(INT_MAX, INT_MAX);
+	iPoint rectOffset = iPoint(INT_MAX, INT_MAX);
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	float scale = 0.0f;
+
+	DrawParameters(int tex, iPoint pos)
+		: textureID(tex), position(pos) {}
+
+	DrawParameters& Section(const SDL_Rect* s)
+	{
+		section = s;
+		return *this;
+	}
+	DrawParameters& ParallaxSpeed(fPoint p)
+	{
+		parallaxSpeed = p;
+		return *this;
+	}
+	DrawParameters& RotationAngle(double a)
+	{
+		rotationAngle = a;
+		return *this;
+	}
+	DrawParameters& Center(SDL_Point p)
+	{
+		center = p;
+		return *this;
+	}
+	DrawParameters& RectOffset(iPoint p)
+	{
+		rectOffset = p;
+		return *this;
+	}
+	DrawParameters& Flip(SDL_RendererFlip f)
+	{
+		flip = f;
+		return *this;
+	}
+	DrawParameters& Scale(float s)
+	{
+		scale = s;
+		return *this;
+	}
+};
+
 class Render : public Module
 {
 public:
@@ -35,40 +87,7 @@ public:
 	// Called before quitting
 	bool CleanUp() final;
 
-	// Drawing
-	bool DrawTexture(
-		int textureID,
-		int x,
-		int y,
-		const SDL_Rect *section = nullptr,
-		float speed = 1.0f,
-		double angle = 0,
-		int pivotX = INT_MAX,
-		int pivotY = INT_MAX,
-		SDL_RendererFlip flip = SDL_FLIP_NONE
-	) const;
-
-	bool DrawCharacterTexture(
-		int textureID,
-		iPoint const &pos,
-		const bool flip = false,
-		SDL_Point pivot = SDL_Point(INT_MAX, INT_MAX),
-		const iPoint offset = iPoint(INT_MAX, INT_MAX),
-		const double angle = 0,
-		int flipValue = 0
-	) const;
-
-	bool DrawBackground(
-		int textureID,
-		fPoint pos,
-		float scale
-	) const;
-
-	bool DrawImage(
-		int textureID,
-		iPoint position,
-		float scale
-	) const;
+	bool DrawT(DrawParameters const& params) const;
 
 	bool DrawFont(
 		int textureID,

@@ -33,7 +33,7 @@ bool Window::Awake(pugi::xml_node& config)
 	// Read config.xml
 	width = config.child("resolution").attribute("width").as_int();
 	height = config.child("resolution").attribute("height").as_int();
-	scale = config.child("resolution").attribute("scale").as_int(); 
+	scale = config.child("resolution").attribute("scale").as_float(); 
 
 	bool fullscreen = config.child("fullscreen").attribute("value").as_bool();
 	bool borderless = config.child("bordeless").attribute("value").as_bool();
@@ -116,7 +116,7 @@ iPoint Window::GetWindowSize() const
 	return iPoint(width, height);
 }
 
-uint Window::GetScale() const
+float Window::GetScale() const
 {
 	return scale;
 }

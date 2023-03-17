@@ -93,30 +93,31 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-	if(app->input->GetKey(SDL_SCANCODE_V) == KeyState::KEY_DOWN)
+	using enum KeyState;
+	if(app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		vSyncOnRestart = !vSyncOnRestart;
 		app->SaveAttributeToConfig(name, "vsync", "value", vSyncOnRestart ? "true" : "false");
 	}
 
 	int cameraSpeed = 1;
-	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 		cameraSpeed *= 10;
-	if(app->input->GetKey(SDL_SCANCODE_LSHIFT) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cameraSpeed *= 100;
-	if(app->input->GetKey(SDL_SCANCODE_LALT) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		cameraSpeed *= 250;
 
-	if(app->input->GetKey(SDL_SCANCODE_UP) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		camera.y += cameraSpeed;
 
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		camera.y -= cameraSpeed;
 
-	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		camera.x += cameraSpeed;
 
-	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KeyState::KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		camera.x -= cameraSpeed;
 
 	return true;
@@ -206,102 +207,6 @@ void Render::ResetViewPort() const
 	SDL_RenderSetViewport(renderer.get(), &viewport);
 }
 
-bool Render::DrawCharacterTexture(int textureID, iPoint const &pos, const bool flip, SDL_Point pivot, const iPoint offset, const double angle, int flipValue) const
-{
-	auto texture = app->GetTexture(textureID);
-
-	SDL_Rect rect{0};
-
-	SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
-
-	rect.x = pos.x + camera.x;
-	rect.y = pos.y + camera.y;
-
-	if(flip)
-	{
-		rect.x -= pivot.x;
-	}
-
-	if(offset != iPoint(INT_MAX, INT_MAX))
-	{
-		rect.x -= offset.x;
-		rect.y -= offset.y;
-	}
-
-	SDL_Point const *p = nullptr;
-
-	if(pivot.x != INT_MAX && pivot.y != INT_MAX)
-	{
-		SDL_Point sdlPivot{pivot.x, pivot.y};
-		p = &sdlPivot;
-	}
-		
-	if(SDL_RenderCopyEx(renderer.get(), texture, nullptr, &rect, angle, p, (SDL_RendererFlip)(flip + flipValue)) == -1)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		return false;
-	}
-
-	return true;
-}
-
-// Blit to screen
-bool Render::DrawBackground(int textureID, fPoint pos, float scale) const
-{
-	auto texture = app->GetTexture(textureID);
-
-	iPoint position = {
-		static_cast<int>(floor(pos.x)),
-		static_cast<int>(floor(pos.y))
-	};
-
-	SDL_Rect rect = {
-		.x = position.x,
-		.y = position.y,
-		.w = 0,
-		.h = 0
-	};
-
-	SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
-	
-	rect.w = static_cast<int>(static_cast<float>(rect.w) * scale);
-	rect.h = static_cast<int>(static_cast<float>(rect.h) * scale);
-
-	if(SDL_RenderCopyEx(renderer.get(), texture, nullptr, &rect, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		return false;
-	}
-
-	return true;
-}
-
-// Blit to screen
-bool Render::DrawImage(int textureID, iPoint position, float scale) const
-{
-	auto texture = app->GetTexture(textureID);
-
-	SDL_Rect rect = {
-		.x = position.x,
-		.y = position.y,
-		.w = 0,
-		.h = 0
-	};
-
-	SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
-
-	rect.w = static_cast<int>(static_cast<float>(rect.w) * scale);
-	rect.h = static_cast<int>(static_cast<float>(rect.h) * scale);
-
-	if(SDL_RenderCopyEx(renderer.get(), texture, nullptr, &rect, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		return false;
-	}
-
-	return true;
-}
-
 // Blit to screen
 bool Render::DrawFont(int textureID, iPoint position, fPoint scale, const SDL_Rect *section, double angle, SDL_Point pivot) const
 {
@@ -341,42 +246,46 @@ bool Render::DrawFont(int textureID, iPoint position, fPoint scale, const SDL_Re
 	return true;
 }
 
-// Blit to screen
-bool Render::DrawTexture(int textureID, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY, SDL_RendererFlip flip) const
+bool Render::DrawTexture(DrawParameters const &params) const
 {
-	auto texture = app->GetTexture(textureID);
+	auto texture = app->GetTexture(params.textureID);
 
-	uint scale = app->win->GetScale();
+	float scale = (params.scale == 0) ? app->win->GetScale() : params.scale;
 
-	SDL_Rect rect = {
-		.x = static_cast<int>((static_cast<float>(camera.x) * speed)) + x * static_cast<int>(scale),
-		.y = static_cast<int>((static_cast<float>(camera.y) * speed)) + y * static_cast<int>(scale),
-		.w = 0,
-		.h = 0
-	};
+	SDL_Rect rect{ 0 };
+	// (camera * parallaxSpeed) + (position * scale)
+	rect.x = 
+		static_cast<int>(std::floor(static_cast<float>(camera.x) * params.parallaxSpeed.x))
+		+ static_cast<int>(static_cast<float>(params.position.x) * scale);
+	rect.y =
+		static_cast<int>(std::floor(static_cast<float>(camera.y) * params.parallaxSpeed.y))
+		+ static_cast<int>(static_cast<float>(params.position.y) * scale);
 
-	if(section != nullptr)
+	if (params.rectOffset != iPoint(INT_MAX, INT_MAX))
 	{
-		rect.w = section->w;
-		rect.h = section->h;
+		rect.x -= params.rectOffset.x;
+		rect.y -= params.rectOffset.y;
+	}
+
+	if (params.section)
+	{
+		rect.w = params.section->w;
+		rect.h = params.section->h;
 	}
 	else
 	{
 		SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
 	}
 
-	rect.w *= scale;
-	rect.h *= scale;
+	SDL_Point const* center = nullptr;
 
-	SDL_Point const *p = nullptr;
-
-	if(pivotX != INT_MAX && pivotY != INT_MAX)
+	if (params.center.x != INT_MAX && params.center.y != INT_MAX)
 	{
-		SDL_Point pivot{ pivotX, pivotY };
-		p = &pivot;
+		SDL_Point pivot{ params.center.x, params.center.y };
+		center = &pivot;
 	}
 
-	if(SDL_RenderCopyEx(renderer.get(), texture, section, &rect, angle, p, flip) != 0)
+	if (SDL_RenderCopyEx(renderer.get(), texture, params.section, &rect, params.rotationAngle, center, params.flip))
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		return false;
@@ -394,7 +303,7 @@ bool Render::DrawRectangle(const SDL_Rect& rect, SDL_Color color, bool filled, b
 	
 	if(use_camera)
 	{	
-		uint scale = app->win->GetScale();
+		float scale = app->win->GetScale();
 		rec.x = (int)(camera.x + rect.x * scale);
 		rec.y = (int)(camera.y + rect.y * scale);
 		rec.w *= scale;
@@ -418,7 +327,7 @@ bool Render::DrawLine(iPoint v1, iPoint v2, SDL_Color color, bool use_camera, SD
 	SDL_SetRenderDrawBlendMode(renderer.get(), blendMode);
 	SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
 	
-	uint scale = app->win->GetScale();
+	float scale = app->win->GetScale();
 	
 	iPoint cameraPos = use_camera ? iPoint{camera.x, camera.y} : iPoint{0, 0};
 	
@@ -436,7 +345,7 @@ bool Render::DrawLine(iPoint v1, iPoint v2, SDL_Color color, bool use_camera, SD
 
 bool Render::DrawCircle(iPoint center, int radius, SDL_Color color, bool use_camera, SDL_BlendMode blendMode) const
 {
-	[[maybe_unused]] uint scale = app->win->GetScale();
+	[[maybe_unused]] float scale = app->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer.get(), blendMode);
 	SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);

@@ -37,7 +37,7 @@ public:
 	void GetWindowSize(uint &w, uint &h) const;
 	iPoint GetWindowSize() const;
 	// Retrieve window scale
-	uint GetScale() const;
+	float GetScale() const;
 	int GetHeight() const; 
 	int GetWidth() const; 
 
@@ -51,7 +51,7 @@ private:
 	std::string title = "";
 	uint width;
 	uint height;
-	uint scale;
+	float scale;
 };
 
 #endif // __WINDOW_H__
