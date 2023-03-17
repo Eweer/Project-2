@@ -10,7 +10,7 @@
 
 #include "Log.h"
 
-void Font::Unload() const
+void TextManager::Font::Unload() const
 {
 	app->tex->Unload(textureID);
 }
@@ -107,8 +107,12 @@ int TextManager::Load(std::string const &fontName)
 				newChar
 			);
 		}
-		if(freeVectorElements.empty()) [[likely]]
+
+		// Add font into fonts vector
+		if (freeVectorElements.empty()) [[likely]]
+		{
 			fonts.push_back(newFont);
+		}
 		else [[unlikely]]
 		{
 			fonts[freeVectorElements.top()] = newFont;

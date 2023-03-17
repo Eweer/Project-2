@@ -56,27 +56,29 @@ struct TextParameters
 	}
 };
 
-struct Font
-{
-	struct CharInfo
-	{
-		int xAdvance = 0;
-		SDL_Rect rect{ 0 };
-		iPoint offset{ 0 };
-	};
-
-	// Key: chararacter || Value: <position in the texture, xAdvance>
-	std::unordered_map<char, CharInfo> charMap;
-	int textureID = -1;
-	std::string name = "";
-	int lineHeight = 0;
-	fPoint scale = {1,1};
-	iPoint spacing = {0,0};
-	void Unload() const;
-};
 
 class TextManager : public Module
 {
+private:
+	struct Font
+	{
+		struct CharInfo
+		{
+			int xAdvance = 0;
+			SDL_Rect rect{ 0 };
+			iPoint offset{ 0 };
+		};
+
+		// Key: chararacter || Value: <position in the texture, xAdvance>
+		std::unordered_map<char, CharInfo> charMap;
+		int textureID = -1;
+		std::string name = "";
+		int lineHeight = 0;
+		fPoint scale = { 1,1 };
+		iPoint spacing = { 0,0 };
+		void Unload() const;
+	};
+
 public:
 
 	TextManager();
