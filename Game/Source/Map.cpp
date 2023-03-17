@@ -1,6 +1,7 @@
 ﻿#include "Map.h"
 #include "App.h"
 #include "Render.h"
+#include "TextManager.h"
 
 #include "Log.h"
 
@@ -151,7 +152,10 @@ void Map::DrawTile(uint gid, uPoint pos) const
 
 	SDL_Rect r = (*result).GetTileRect(gid);
 
-	app->render->DrawTexture((*result).GetTextureID(), pos.x, pos.y, &r);
+	app->render->DrawTexture(
+		DrawParameters((*result).GetTextureID(), iPoint(pos.x, pos.y))
+		.Section(&r)
+	);
 }
 
 // Translates x,y coordinates from map positions to world positions
