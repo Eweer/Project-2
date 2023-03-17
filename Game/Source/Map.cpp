@@ -12,7 +12,13 @@
 Map::Map() = default;
 
 // Destructor
-Map::~Map() = default;
+Map::~Map()
+{
+	for (auto const &elem : tilesets)
+	{
+		elem.Unload();
+	}
+}
 
 bool Map::Load(const std::string& directory, const std::string& level)
 {
@@ -145,7 +151,7 @@ void Map::DrawTile(uint gid, uPoint pos) const
 
 	SDL_Rect r = (*result).GetTileRect(gid);
 
-	app->render->DrawTexture((*result).GetTexture(), pos.x, pos.y, &r);
+	app->render->DrawTexture((*result).GetTextureID(), pos.x, pos.y, &r);
 }
 
 // Translates x,y coordinates from map positions to world positions

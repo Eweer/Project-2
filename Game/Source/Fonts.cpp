@@ -1,7 +1,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "App.h"
-#include "Textures.h"
+#include "TextureManager.h"
 #include "Render.h"
 #include "Fonts.h"
 
@@ -17,7 +17,13 @@ Fonts::Fonts() : Module()
 }
 
 // Destructor
-Fonts::~Fonts() = default;
+Fonts::~Fonts()
+{
+	for (auto const& elem : fonts)
+	{
+		elem.Unload();
+	}
+}
 
 bool Fonts::Awake(pugi::xml_node &config)
 {
@@ -57,12 +63,8 @@ int Fonts::Load(std::string const &fontName)
 		
 		std::string texturePath = path + fontNode.child("properties").child("texture").attribute("file").as_string();
 		
-		if(newFont.graphic = app->tex->Load(texturePath.c_str()).get();
-		   !newFont.graphic) 
-		{
-			return -1;
-		}
-		
+		newFont.textureID = app->tex->Load(texturePath.c_str());
+				
 		auto propertiesNode = fontNode.child("properties");
 		
 		newFont.spacing = {
@@ -182,7 +184,7 @@ void Fonts::Draw(std::string_view text, iPoint position, int fontId, fPoint scal
 				position.x + xAdvance + it->second.offset.x,
 				position.y + static_cast<int>(static_cast<float>(it->second.offset.y) * scale.y));
 			app->render->DrawFont(
-				font.graphic,
+				font.textureID,
 				tempPos,
 				scale,
 				&rect,
@@ -204,7 +206,7 @@ void Fonts::Draw(std::string_view text, iPoint position, int fontId, fPoint scal
 
 void Fonts::DrawMiddlePoint(std::string_view text, iPoint position, int fontId, fPoint scale, bool isFixed, std::pair<FontDrawNewLine, int> maxX, SDL_Point pivot, double angle) const
 {
-	if(!in_range(fontId, 0, static_cast<int>(fonts.size())))
+	if(!in_range(fontId, 0, static_cast<int>(fonts.size())) || fonts.empty())
 	{
 		LOG("%s: Invalid font id %d", __func__, fontId);
 		return;

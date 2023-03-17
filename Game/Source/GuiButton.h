@@ -2,7 +2,7 @@
 #define __GUIBUTTON_H__
 
 #include "GuiElement.h"
-#include "Textures.h"
+#include "TextureManager.h"
 
 #include <memory>
 #include <string>
@@ -22,15 +22,7 @@ public:
 	GuiButton() = default;
 	~GuiButton() override
 	{
-		LOG("Button destroyed");
-		if (texture)
-		{
-			app->tex->Unload(texture.get());
-			if (texture)
-			{
-				texture.reset();
-			}
-		}
+		app->tex->Unload(textureID);
 	}
 	explicit GuiButton(
 		uPoint pos,
@@ -53,7 +45,7 @@ public:
 private:
     std::string text = "";
 	int font = 0;
-    std::shared_ptr<SDL_Texture> texture = nullptr;
+    int textureID;
 
 	int xAdvance = 4;
 	SDL_Rect normalRect;

@@ -2,7 +2,7 @@
 #include "Window.h"
 #include "Input.h"
 #include "Render.h"
-#include "Textures.h"
+#include "TextureManager.h"
 #include "Audio.h"
 #include "SceneManager.h"
 #include "Map.h"
@@ -22,7 +22,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	input = std::make_unique<Input>();
 	win = std::make_unique<Window>();
 	render = std::make_unique<Render>();
-	tex = std::make_unique<Textures>();
+	tex = std::make_unique<TextureManager>();
 	audio = std::make_unique<Audio>();
 	fonts = std::make_unique<Fonts>();
 	scene = std::make_unique<SceneManager>();
@@ -359,6 +359,16 @@ bool App::PauseGame()
 uint App::GetLevelNumber() const
 {
 	return levelNumber;
+}
+
+SDL_Texture* App::GetTexture(int id) const
+{
+	return tex->GetTexture(id);
+}
+
+SDL_Renderer* App::GetRender() const
+{
+	return render->GetRender();
 }
 
 bool App::AppendFragment(pugi::xml_node target, const char *data) const

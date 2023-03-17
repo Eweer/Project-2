@@ -11,7 +11,7 @@ GuiButton::GuiButton(uPoint pos, uPoint size, std::string const &str, std::funct
 	currentState(ButtonState::NORMAL)
 {
 	Initialize(funcPtr, pos, size);
-	texture = app->tex->Load("Assets/UI/GUI_4x_sliced.png");
+	textureID = app->tex->Load("Assets/UI/GUI_4x_sliced.png");
 	switch (buttonStates.size())
 	{
 	case 3:
@@ -57,7 +57,7 @@ int GuiButton::Update()
 
 bool GuiButton::Draw() const
 {
-	if (!texture) return false;
+	if (textureID == -1) return false;
 
 	SDL_Rect currentSlice;
 
@@ -146,7 +146,7 @@ bool GuiButton::Draw() const
 void GuiButton::DrawHorizontalSegment(iPoint topLeftPosition, SDL_Rect currentSlice) const
 {
 	// Draw left corner texture
-	app->render->DrawTexture(texture.get(), topLeftPosition.x, topLeftPosition.y, &currentSlice);
+	app->render->DrawTexture(textureID, topLeftPosition.x, topLeftPosition.y, &currentSlice);
 
 	// Go to next draw position
 	topLeftPosition.x += currentSlice.w;
@@ -165,7 +165,7 @@ void GuiButton::DrawHorizontalSegment(iPoint topLeftPosition, SDL_Rect currentSl
 	// Draw sides
 	for (int i = 0; i < xRepeats; i++)
 	{
-		app->render->DrawTexture(texture.get(), topLeftPosition.x, topLeftPosition.y, &currentSlice);
+		app->render->DrawTexture(textureID, topLeftPosition.x, topLeftPosition.y, &currentSlice);
 
 		topLeftPosition.x += currentSlice.w;
 
@@ -185,13 +185,13 @@ void GuiButton::DrawHorizontalSegment(iPoint topLeftPosition, SDL_Rect currentSl
 	}
 
 	// Draw right corner
-	app->render->DrawTexture(texture.get(), topLeftPosition.x, topLeftPosition.y, &currentSlice);
+	app->render->DrawTexture(textureID, topLeftPosition.x, topLeftPosition.y, &currentSlice);
 }
 
 void GuiButton::DrawHorizontalBox(iPoint topLeftPosition, SDL_Rect currentSlice) const
 {
 	// Draw left corner
-	app->render->DrawTexture(texture.get(), topLeftPosition.x, topLeftPosition.y, &currentSlice);
+	app->render->DrawTexture(textureID, topLeftPosition.x, topLeftPosition.y, &currentSlice);
 
 	// Go to next draw position
 	topLeftPosition.x += currentSlice.w;
@@ -200,7 +200,7 @@ void GuiButton::DrawHorizontalBox(iPoint topLeftPosition, SDL_Rect currentSlice)
 	currentSlice.x += currentSlice.w + xAdvance;
 
 	// Draw right corner
-	app->render->DrawTexture(texture.get(), topLeftPosition.x, topLeftPosition.y, &currentSlice);
+	app->render->DrawTexture(textureID, topLeftPosition.x, topLeftPosition.y, &currentSlice);
 }
 
 void GuiButton::MouseEnterHandler()

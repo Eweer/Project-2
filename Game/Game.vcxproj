@@ -114,7 +114,7 @@
     <ClCompile Include="Source\ObjectLayer.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\Render.cpp" />
-    <ClCompile Include="Source\Textures.cpp" />
+    <ClCompile Include="Source\TextureManager.cpp" />
     <ClCompile Include="Source\TileSet.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Window_Factory.cpp" />
@@ -139,7 +139,7 @@
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
-    <ClInclude Include="Source\Textures.h" />
+    <ClInclude Include="Source\TextureManager.h" />
     <ClInclude Include="Source\TileSet.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />

@@ -20,7 +20,7 @@ constexpr auto SAVE_STATE_FILENAME = "save_game.xml";
 class Window;
 class Input;
 class Render;
-class Textures;
+class TextureManager;
 class Audio;
 class SceneManager;
 class Fonts;
@@ -65,6 +65,9 @@ public:
 	std::string GetOrganization() const;
 	uint GetLevelNumber() const;
 
+	SDL_Texture* GetTexture(int id) const;
+	SDL_Renderer* GetRender() const;
+
 	bool AppendFragment(pugi::xml_node target, const char *data) const;
 	
 	// Saving / Loading
@@ -88,7 +91,7 @@ public:
 	std::unique_ptr<Window> win;
 	std::unique_ptr<Input> input;
 	std::unique_ptr<Render> render;
-	std::unique_ptr<Textures> tex;
+	std::unique_ptr<TextureManager> tex;
 	std::unique_ptr<Audio> audio;
 	std::unique_ptr<SceneManager> scene;
 	std::unique_ptr<Fonts> fonts;
