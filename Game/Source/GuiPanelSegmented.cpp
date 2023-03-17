@@ -3,6 +3,12 @@
 
 #include "Render.h"
 
+GuiPanelSegmented::GuiPanelSegmented(SDL_Rect const& r, iPoint a, int id, iPoint tSegments)
+	: rect(r), advance(a), textureID(id), textureSegments(tSegments) {}
+
+GuiPanelSegmented::GuiPanelSegmented(SDL_Rect const& r, int a, int id, iPoint tSegments)
+	: rect(r), advance(iPoint(a, a)), textureID(id), textureSegments(tSegments) {}
+
 void GuiPanelSegmented::Draw(iPoint originalPosition, iPoint size) const
 {
 	SDL_Rect currentSegment = rect;
@@ -77,20 +83,4 @@ void GuiPanelSegmented::DrawHorizontalSegment(iPoint topLeftPosition, SDL_Rect c
 void GuiPanelSegmented::Unload() const
 {
 	app->tex->Unload(textureID);
-}
-
-void GuiPanelSegmented::Create(SDL_Rect const &r, iPoint a, int id, iPoint tSegments)
-{
-	rect = r;
-	advance = a;
-	textureID = id;
-	textureSegments = tSegments;
-}
-
-void GuiPanelSegmented::Create(SDL_Rect const& r, int a, int id, iPoint tSegments)
-{
-	rect = r;
-	advance = iPoint(a, a);
-	textureID = id;
-	textureSegments = tSegments;
 }

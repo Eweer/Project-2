@@ -26,10 +26,7 @@ GuiButton::GuiButton(uPoint pos, uPoint size, std::string const &str, std::funct
 
 	for (int i = 0; auto const& elem : buttonStates)
 	{
-		GuiPanelSegmented panel = {};
-
-		panel.Create(elem, 4, textureID);
-		panels[i] = std::move(panel);
+		panels.try_emplace(i, elem, 4, textureID, iPoint(3, 3));
 		i++;
 	}
 }

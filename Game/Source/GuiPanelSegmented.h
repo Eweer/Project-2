@@ -9,10 +9,12 @@
 class GuiPanelSegmented
 {
 public:
+	GuiPanelSegmented() = delete;
+	explicit GuiPanelSegmented(SDL_Rect const& r, iPoint a, int id, iPoint tSegments);
+	explicit GuiPanelSegmented(SDL_Rect const& r, int a, int id, iPoint tSegments);
+
 	void Draw(iPoint originalPosition, iPoint size) const;
 	void Unload() const;
-	void Create(SDL_Rect const& r, iPoint a, int id, iPoint tSegments = iPoint(3, 3));
-	void Create(SDL_Rect const& r, int a, int id, iPoint tSegments = iPoint(3, 3));
 
 private:
 	void DrawHorizontalSegment(iPoint topLeftPosition, SDL_Rect currentSegment, iPoint size) const;
