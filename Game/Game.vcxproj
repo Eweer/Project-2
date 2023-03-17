@@ -100,6 +100,7 @@
     <ClCompile Include="Source\EventManager.cpp" />
     <ClCompile Include="Source\Event_Chest.cpp" />
     <ClCompile Include="Source\Event_Teleport.cpp" />
+    <ClCompile Include="Source\GuiPanelSegmented.cpp" />
     <ClCompile Include="Source\TextManager.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\Scene_Map.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="Source\EventManager.h" />
     <ClInclude Include="Source\Event_Chest.h" />
     <ClInclude Include="Source\Event_Teleport.h" />
+    <ClInclude Include="Source\GuiPanelSegmented.h" />
     <ClInclude Include="Source\TextManager.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiElement.h" />
