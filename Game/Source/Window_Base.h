@@ -2,7 +2,7 @@
 #define __WINDOW_BASE_H__
 
 #include "GuiElement.h"
-#include "Textures.h"
+#include "TextureManager.h"
 #include "Log.h"
 
 #include <functional>

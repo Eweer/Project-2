@@ -41,6 +41,11 @@ struct Font
 	int lineHeight = 0;
 	Point<float> scale = {0,0};
 	iPoint spacing = {0,0};
+
+	void Unload() const
+	{
+		app->tex->Unload(textureID);
+	}
 };
 
 class Fonts : public Module

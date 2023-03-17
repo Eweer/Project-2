@@ -1,7 +1,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "App.h"
-#include "Textures.h"
+#include "TextureManager.h"
 #include "Render.h"
 #include "Fonts.h"
 
@@ -17,7 +17,13 @@ Fonts::Fonts() : Module()
 }
 
 // Destructor
-Fonts::~Fonts() = default;
+Fonts::~Fonts()
+{
+	for (auto const& elem : fonts)
+	{
+		elem.Unload();
+	}
+}
 
 bool Fonts::Awake(pugi::xml_node &config)
 {

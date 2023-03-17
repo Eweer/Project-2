@@ -2,7 +2,7 @@
 #define __SCENE_TITLE_H__
 
 #include "Scene_Base.h"
-#include "Textures.h"
+#include "TextureManager.h"
 #include "Log.h"
 
 class Scene_Title : public Scene_Base

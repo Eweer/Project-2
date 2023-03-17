@@ -1,5 +1,5 @@
-#ifndef __TEXTURES_H__
-#define __TEXTURES_H__
+#ifndef __TEXTURES_MANAGER_H__
+#define __TEXTURES_MANAGER_H__
 
 #include "Module.h"
 
@@ -10,14 +10,14 @@
 #include "SDL_image/include/SDL_image.h"
 
 
-class Textures : public Module
+class TextureManager : public Module
 {
 public:
 
-	Textures();
+	TextureManager();
 
 	// Destructor
-	~Textures() final;
+	~TextureManager() final;
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&) final;
@@ -42,4 +42,4 @@ public:
 };
 
 
-#endif // __TEXTURES_H__
+#endif // __TEXTURES_MANAGER_H__

@@ -2,7 +2,7 @@
 #define __GUIBUTTON_H__
 
 #include "GuiElement.h"
-#include "Textures.h"
+#include "TextureManager.h"
 
 #include <memory>
 #include <string>

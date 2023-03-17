@@ -16,7 +16,7 @@
     <ClCompile Include="Source\Render.cpp">
       <Filter>Modules\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Textures.cpp">
+    <ClCompile Include="Source\TextureManager.cpp">
       <Filter>Modules\Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Window.cpp">
@@ -126,7 +126,7 @@
     <ClInclude Include="Source\Render.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Textures.h">
+    <ClInclude Include="Source\TextureManager.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Window.h">

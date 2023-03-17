@@ -1,7 +1,7 @@
 #include "TileSet.h"
 #include "App.h"
 
-#include "Textures.h"
+#include "TextureManager.h"
 
 #include "Log.h"
 

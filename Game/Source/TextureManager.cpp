@@ -1,5 +1,5 @@
 #include "App.h"
-#include "Textures.h"
+#include "TextureManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -7,16 +7,16 @@
 #include <utility>
 #include "SDL_image/include/SDL_image.h"
 
-Textures::Textures() : Module()
+TextureManager::TextureManager() : Module()
 {
 	name = "textures";
 }
 
 // Destructor
-Textures::~Textures() = default;
+TextureManager::~TextureManager() = default;
 
 // Called before render is available
-bool Textures::Awake(pugi::xml_node& config)
+bool TextureManager::Awake(pugi::xml_node& config)
 {
 	LOG("Init Image library");
 
@@ -31,14 +31,14 @@ bool Textures::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool Textures::Start()
+bool TextureManager::Start()
 {
 	LOG("Start textures");
 	return true;
 }
 
 // Called before quitting
-bool Textures::CleanUp()
+bool TextureManager::CleanUp()
 {
 	LOG("Freeing textures and Image library");
 	textures.clear();
@@ -46,7 +46,7 @@ bool Textures::CleanUp()
 	return true;
 }
 
-int Textures::Load(std::string const &path)
+int TextureManager::Load(std::string const &path)
 {
 	if (auto result = pathToInfo.find(path);
 		result != pathToInfo.end())
@@ -102,7 +102,7 @@ int Textures::Load(std::string const &path)
 	return 0;
 }
 
-void Textures::Unload(int index)
+void TextureManager::Unload(int index)
 {
 	if (auto result = textures.find(index);
 		result != textures.end() && result->second)
@@ -133,12 +133,12 @@ void Textures::Unload(int index)
 }
 
 // Retrieve size of a texture
-void Textures::GetSize(SDL_Texture* const texture, uint &width, uint &height) const
+void TextureManager::GetSize(SDL_Texture* const texture, uint &width, uint &height) const
 {
 	SDL_QueryTexture(texture, nullptr, nullptr, (int*) &width, (int*) &height);
 }
 
-SDL_Texture *Textures::GetTexture(int textureID) const
+SDL_Texture *TextureManager::GetTexture(int textureID) const
 {
 	if (auto result = textures.find(textureID);
 		result != textures.end())
