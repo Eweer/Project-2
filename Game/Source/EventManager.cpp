@@ -4,6 +4,8 @@
 #include "Event_Chest.h"
 #include "Event_Teleport.h"
 
+#include "Sprite.h"
+
 #include "Log.h"
 
 EventManager::EventManager() = default;
@@ -38,7 +40,7 @@ bool EventManager::CreateEvent(pugi::xml_node const& node)
 			continue;
 		}
 
-		event->Initialize(child);
+		event->Create(child);
 		events.push_back(std::move(event));
 	}
 	return true;
@@ -49,13 +51,28 @@ int EventManager::GetEventLayerSize() const
 	return events.size();
 }
  
-std::tuple<uint, uPoint, bool> EventManager::GetDrawEventInfo([[maybe_unused]] int index)
+std::tuple<int, iPoint, bool> EventManager::GetDrawEventInfo([[maybe_unused]] int index)
 {
 	if (events.empty() || drawIterator == events.end())
-		return std::make_tuple(0, uPoint(0, 0), false);
+		return std::make_tuple(0, iPoint(0, 0), false);
 	
-	auto gid = drawIterator->get()->gid;
-	auto pos = drawIterator->get()->position;
+	auto sprite = dynamic_cast<Sprite*>(drawIterator->get());
+	
+	if (!sprite)
+	{
+		++drawIterator;
+		
+		if (drawIterator == events.end())
+		{
+			drawIterator = events.begin();
+			return std::make_tuple(0, iPoint(0, 0), false);
+		}
+		return std::make_tuple(0, iPoint(0, 0), true);
+	}
+
+	auto gid = sprite->GetGid();
+
+	auto pos = dynamic_cast<Transform*>(drawIterator->get())->GetPosition();
 
 	do {
 		++drawIterator;

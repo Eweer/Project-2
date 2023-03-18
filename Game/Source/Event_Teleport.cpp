@@ -25,3 +25,8 @@ void Event_Teleport::parseXMLProperties(pugi::xml_node const& node)
 		}
 	}
 }
+
+void Event_Teleport::Create(pugi::xml_node const &node)
+{
+	Event_Base::Initialize(node);
+}

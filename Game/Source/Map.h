@@ -41,17 +41,17 @@ public:
 
 	bool Load(const std::string& directory, const std::string& level);
 
-	uPoint MapToWorld(uint x, uint y) const;
+	iPoint MapToWorld(int x, int y) const;
 
-	uint MapXToWorld(uint x) const;
+	int MapXToWorld(int x) const;
 
-	uPoint MapToWorld(uPoint position) const;
+	iPoint MapToWorld(iPoint position) const;
 	
 	// Called each loop iteration
 	void Draw();
 	bool DrawObjectLayer(int index);
 	void DrawTileLayer(const MapLayer& layer) const;
-	void DrawTile(uint gid, uPoint pos) const;
+	void DrawTile(int gid, iPoint pos) const;
 	
 	int GetWidth() const;
 	int GetHeight() const;
@@ -71,8 +71,8 @@ private:
 
 	MapTypes orientation = MapTypes::MAPTYPE_UNKNOWN;
 
-	uPoint size = { 0, 0 };
-	uPoint tileSize = { 0, 0 };
+	iPoint size = { 0, 0 };
+	iPoint tileSize = { 0, 0 };
 };
 
 #endif // __MAP_H__
