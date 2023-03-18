@@ -1,5 +1,7 @@
 #include "Event_Chest.h"
 
+#include "Log.h"
+
 #include <format>
 #include <string>
 
@@ -33,5 +35,16 @@ void Event_Chest::parseXMLProperties(pugi::xml_node const& node)
 			globalSwitch.emplace_back(std::make_unique<EventProperties::GlobalSwitchProperty>());
 			globalSwitch.back()->ReadProperty(child);
 		}
+		else
+		{
+			LOG("Chest property %s not implemented.", attributeName);
+		}
 	}
+}
+
+void Event_Chest::Create(pugi::xml_node const& node)
+{
+	Transform::Initialize(node);
+	Sprite::Initialize(node);
+	Event_Base::Initialize(node);
 }

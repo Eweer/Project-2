@@ -51,10 +51,10 @@ bool Map::Load(const std::string& directory, const std::string& level)
 		return false;
 	}
 
-	size.x = map.attribute("height").as_uint();
-	size.y = map.attribute("width").as_uint();
-	tileSize.x = map.attribute("tileheight").as_uint();
-	tileSize.y = map.attribute("tilewidth").as_uint();
+	size.x = map.attribute("height").as_int();
+	size.y = map.attribute("width").as_int();
+	tileSize.x = map.attribute("tileheight").as_int();
+	tileSize.y = map.attribute("tilewidth").as_int();
 
 	for (auto const& child : mapFile.child("map"))
 	{
@@ -124,11 +124,11 @@ bool Map::DrawObjectLayer(int index)
 
 void Map::DrawTileLayer(const MapLayer& layer) const
 {
-	for (uint x = 0; x < layer.GetSize().x; x++)
+	for (int x = 0; x < layer.GetSize().x; x++)
 	{
-		for (uint y = 0; y < layer.GetSize().y; y++)
+		for (int y = 0; y < layer.GetSize().y; y++)
 		{
-			uint gid = layer.GetTileGid(x, y);
+			int gid = layer.GetTileGid(x, y);
 
 			if (gid == 0) continue;
 
@@ -137,7 +137,7 @@ void Map::DrawTileLayer(const MapLayer& layer) const
 	}
 }
 
-void Map::DrawTile(uint gid, uPoint pos) const
+void Map::DrawTile(int gid, iPoint pos) const
 {
 	auto result = std::ranges::find_if(
 		tilesets,
@@ -159,19 +159,19 @@ void Map::DrawTile(uint gid, uPoint pos) const
 }
 
 // Translates x,y coordinates from map positions to world positions
-uPoint Map::MapToWorld(uint x, uint y) const
+iPoint Map::MapToWorld(int x, int y) const
 {
 	return { x * tileSize.x, y * tileSize.y };
 }
 
 // Translates x coordinates from map positions to world positions
-uint Map::MapXToWorld(uint x) const
+int Map::MapXToWorld(int x) const
 {
 	return x * tileSize.x;
 }
 
 // Translates x,y coordinates from map positions to world positions
-uPoint Map::MapToWorld(uPoint position) const
+iPoint Map::MapToWorld(iPoint position) const
 {
 	return { position.x * tileSize.x, position.y * tileSize.y };
 }

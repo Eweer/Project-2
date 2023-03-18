@@ -102,6 +102,16 @@ int TextureManager::Load(std::string const &path)
 	return 0;
 }
 
+int TextureManager::GetTextureID(std::string const& path)
+{
+	if (auto result = pathToInfo.find(path);
+		result != pathToInfo.end())
+	{
+		return result->second.first;
+	};
+	return -1;
+}
+
 void TextureManager::Unload(int index)
 {
 	if (auto result = textures.find(index);

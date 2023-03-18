@@ -1,6 +1,7 @@
 #ifndef __EVENT_BASE_H__
 #define __EVENT_BASE_H__
 
+
 #include "Point.h"
 #include "Defs.h"
 #include "PugiXml/src/pugixml.hpp"
@@ -155,13 +156,11 @@ public:
 	Event_Base() = default;
 	virtual ~Event_Base() = default;
 	virtual void parseXMLProperties(pugi::xml_node const& node) = 0;
+	virtual void Create(pugi::xml_node const &node) = 0;
 
-	virtual void Initialize(pugi::xml_node const &node) {
+	void Initialize(pugi::xml_node const &node)
+	{
 		name = node.attribute("name").as_string();
-		id = node.attribute("id").as_uint();
-		position = { node.attribute("x").as_uint(), node.attribute("y").as_uint() };
-		size = { node.attribute("width").as_uint(), node.attribute("height").as_uint() };
-		gid = node.attribute("gid").as_uint();
 
 		if (auto propertiesNode = node.child("properties");
 			!propertiesNode.empty())
@@ -176,11 +175,6 @@ public:
 	}
 
 	std::string name = "";
-	uint id = 0;
-	uint gid = 0;
-	uPoint position{ 0, 0 };
-	uPoint size{ 0, 0 };
-
 	EventProperties::CommonProperties common;
 };
 

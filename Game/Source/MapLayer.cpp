@@ -6,7 +6,7 @@
 
 MapLayer::MapLayer(const pugi::xml_node& node) :
 	name(node.attribute("name").as_string()), 
-	size(uPoint{ node.attribute("width").as_uint(), node.attribute("height").as_uint() })
+	size(iPoint{ node.attribute("width").as_int(), node.attribute("height").as_int() })
 {
 	std::string data = node.child("data").text().get();
 	
@@ -21,12 +21,12 @@ MapLayer::MapLayer(const pugi::xml_node& node) :
 	}
 }
 
-uPoint MapLayer::GetSize() const
+iPoint MapLayer::GetSize() const
 {
 	return size;
 }
 
-uint MapLayer::GetTileGid(uint x, uint y) const
+int MapLayer::GetTileGid(int x, int y) const
 {
 	return tiles[(y * size.x) + x].gid;
 }
