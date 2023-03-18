@@ -102,7 +102,6 @@
     <ClCompile Include="Source\Event_Teleport.cpp" />
     <ClCompile Include="Source\GuiPanelSegmented.cpp" />
     <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\TextManager.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\Scene_Map.cpp" />

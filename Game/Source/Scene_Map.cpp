@@ -17,6 +17,8 @@ void Scene_Map::Load(std::string const& path, LookUpXMLNodeFromString const& inf
 	{
 		LOG("Map %s couldn't be loaded.", mapToLoad);
 	}
+
+	player.Create();
 }
 
 void Scene_Map::Start()
@@ -26,10 +28,12 @@ void Scene_Map::Start()
 void Scene_Map::Draw()
 {
 	map.Draw();
+	player.Draw();
 }
 
 int Scene_Map::Update()
 {
+	player.HandleInput();
 	return 0;
 }
 

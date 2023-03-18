@@ -29,6 +29,7 @@ public:
 
 	// Load Texture
 	int Load(std::string const &path);
+	int GetTextureID(std::string const &path);
 	void Unload(int index);
 	void GetSize(SDL_Texture* const texture, uint& width, uint& height) const;
 	SDL_Texture* GetTexture(int textureID) const;

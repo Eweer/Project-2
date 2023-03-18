@@ -2,6 +2,7 @@
 #define __SCENE_MAP_H__
 
 #include "Scene_Base.h"
+#include "Player.h"
 #include "Map.h"
 
 class Scene_Map : public Scene_Base
@@ -22,6 +23,7 @@ private:
     std::string currentMap = "";
 
     Map map;
+    Player player;
 };
 
 

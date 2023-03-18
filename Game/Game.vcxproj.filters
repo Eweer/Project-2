@@ -79,7 +79,6 @@
     <ClCompile Include="Source\Player.cpp">
       <Filter>Scene_Map Components\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -93,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp">
       <Filter>External\PugiXml</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Event_Base.h">
-      <Filter>Scene_Map Components\Headers\Events</Filter>
     </ClInclude>
     <ClInclude Include="Source\Event_Chest.h">
       <Filter>Scene_Map Components\Headers\Events</Filter>
@@ -178,8 +174,15 @@
     <ClInclude Include="Source\Player.h">
       <Filter>Scene_Map Components\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Sprite.h" />
-    <ClInclude Include="Source\Transform.h" />
+    <ClInclude Include="Source\Sprite.h">
+      <Filter>Scene_Map Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transform.h">
+      <Filter>Scene_Map Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Event_Base.h">
+      <Filter>Scene_Map Components\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -256,6 +259,9 @@
     </Filter>
     <Filter Include="Scene_Map Components\Source\Map">
       <UniqueIdentifier>{424563e8-449f-4496-a9bd-700795ad9e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene_Map Components\Components">
+      <UniqueIdentifier>{91c6f8a8-4cb2-44a6-863d-0730c930582c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

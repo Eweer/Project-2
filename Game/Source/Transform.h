@@ -10,6 +10,8 @@ public:
 	iPoint GetPosition() const { return position; };
 	iPoint GetSize() const { return size; };
 
+	iPoint position = { 0 };
+	iPoint size = { 0 };
 protected:
 	void Initialize(pugi::xml_node const& node)
 	{
@@ -17,8 +19,5 @@ protected:
 		size = { node.attribute("width").as_int(), node.attribute("height").as_int() };
 
 	}
-private:
-	iPoint position = { 0 };
-	iPoint size = { 0 };
 };
 

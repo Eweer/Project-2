@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="20">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="23">
  <tileset firstgid="1" source="Tiles.tsx"/>
  <tileset firstgid="626" source="Props.tsx"/>
- <tileset firstgid="1251" source="player.tsx"/>
+ <tileset firstgid="1251" source="Slime.tsx"/>
  <layer id="2" name="Floor" width="24" height="24">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -272,6 +272,7 @@
     <property name="isOpen" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="22" gid="1252" x="48" y="272" width="48" height="48"/>
  </objectgroup>
  <layer id="4" name="Props" width="24" height="24">
   <data encoding="csv">
