@@ -46,6 +46,8 @@ public:
 	int MapXToWorld(int x) const;
 
 	iPoint MapToWorld(iPoint position) const;
+
+	iPoint WorldToMap(iPoint position) const;
 	
 	// Called each loop iteration
 	void Draw();
@@ -60,6 +62,8 @@ public:
 	int GetTileHeight() const;
 
 	int GetTileSetSize() const;
+
+	bool IsWalkable(iPoint pos) const;
 
 private:
 	std::vector<TileSet> tilesets;

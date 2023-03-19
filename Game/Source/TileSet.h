@@ -29,6 +29,8 @@ public:
 
 	int GetTextureID() const;
 
+	bool IsWalkable(uint gid) const;
+
 private:
 	uint firstGid = 0;
 	std::string source = "";
@@ -41,6 +43,8 @@ private:
 	std::string imageSource = "";
 	uPoint sourceSize = { 0, 0 };
 	int textureID = -1;
+
+	std::vector<bool> tileWalkability;
 
 	uint margin = 0;
 	uint spacing = 0;

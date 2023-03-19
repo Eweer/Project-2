@@ -176,8 +176,39 @@ iPoint Map::MapToWorld(iPoint position) const
 	return { position.x * tileSize.x, position.y * tileSize.y };
 }
 
-int Map::GetWidth() const { return size.x; };
-int Map::GetHeight() const { return size.y; };
-int Map::GetTileWidth() const { return tileSize.x; };
-int Map::GetTileHeight() const { return tileSize.y; };
-int Map::GetTileSetSize() const { return tilesets.size(); };
+iPoint Map::WorldToMap(iPoint position) const
+{
+	return { position.x / tileSize.x, position.y / tileSize.y };
+}
+
+bool Map::IsWalkable(iPoint pos) const
+{
+	pos = WorldToMap(pos);
+
+	for (auto const &layer : tileLayers)
+	{
+		auto gid = layer.GetTileGid(pos.x, pos.y);
+
+		auto result = std::ranges::find_if(
+			tilesets,
+			[gid](const TileSet &t) { return t.ContainsGid(gid); }
+		);
+
+		if (result == tilesets.end())
+		{
+			LOG("Tileset for tile gid %s not found.", gid);
+			return false;
+		}
+
+		if (!result->IsWalkable(gid))
+			return false;
+	}
+
+	return true;
+}
+
+int Map::GetWidth() const { return size.x; }
+int Map::GetHeight() const { return size.y; }
+int Map::GetTileWidth() const { return tileSize.x; }
+int Map::GetTileHeight() const { return tileSize.y; }
+int Map::GetTileSetSize() const { return tilesets.size(); }

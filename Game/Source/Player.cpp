@@ -1,6 +1,8 @@
 #include "App.h"
 #include "Player.h"
 
+#include "Map.h"
+
 #include "Input.h"
 #include "Render.h"
 
