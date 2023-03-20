@@ -41,6 +41,17 @@ TileSet::TileSet(const pugi::xml_node& node, const std::string& directory) :
 	imageSource = imgNode.attribute("source").as_string();
 	sourceSize = { imgNode.attribute("width").as_uint(), imgNode.attribute("height").as_uint() };
 	textureID = app->tex->Load((directory + imageSource).c_str());
+
+	for (auto const& tile : currentNode.children("tile"))
+	{
+		tileWalkability.push_back(
+			tile
+			.child("properties")
+			.child("property")
+			.attribute("value")
+			.as_bool()
+		);
+	}
 }
 
 void TileSet::Unload() const
@@ -69,4 +80,9 @@ SDL_Rect TileSet::GetTileRect(uint gid) const
 int TileSet::GetTextureID() const
 {
 	return textureID;
+}
+
+bool TileSet::IsWalkable(uint gid) const
+{
+	return tileWalkability[gid - firstGid];
 }

@@ -68,7 +68,7 @@
         "test.tmx"
     ],
     "project": "project-II.tiled-project",
-    "property.type": "Global Switch",
+    "property.type": "bool",
     "recentFiles": [
         "Slime.tsx",
         "test.tmx",

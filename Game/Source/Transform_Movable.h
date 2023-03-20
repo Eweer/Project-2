@@ -1,11 +1,11 @@
-#ifndef __TRANFORM_H__
-#define __TRANFORM_H__
+#ifndef __TRANFORM_MOVABLE_H__
+#define __TRANFORM_MOVABLE_H__
 
 #include "Point.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
-class Transform
+class Transform_Movable
 {
 public:
 	iPoint GetPosition() const { return position; };
@@ -22,4 +22,5 @@ protected:
 	}
 };
 
-#endif //__TRANFORM_H__
+
+#endif //__TRANFORM_MOVABLE_H__

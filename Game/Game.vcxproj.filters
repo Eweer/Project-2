@@ -183,6 +183,9 @@
     <ClInclude Include="Source\Event_Base.h">
       <Filter>Scene_Map Components\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Transform_Movable.h">
+      <Filter>Scene_Map Components\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -135,6 +135,7 @@
     <ClInclude Include="Source\Scene_Map.h" />
     <ClInclude Include="Source\Scene_Title.h" />
     <ClInclude Include="Source\Transform.h" />
+    <ClInclude Include="Source\Transform_Movable.h" />
     <ClInclude Include="Source\Window_Base.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MapLayer.h" />
