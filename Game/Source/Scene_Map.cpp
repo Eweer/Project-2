@@ -33,7 +33,20 @@ void Scene_Map::Draw()
 
 int Scene_Map::Update()
 {
-	player.HandleInput();
+	auto playerAction = player.HandleInput();
+
+	using PA = Player::PlayerAction::Action;
+
+	if ((playerAction.action & PA::MOVE) == PA::MOVE)
+	{
+		if (map.IsWalkable(playerAction.destinationTile))
+		{
+			player.StartAction(playerAction);
+		}
+	}
+
+	player.Update();
+
 	return 0;
 }
 

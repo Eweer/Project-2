@@ -10,10 +10,6 @@ Player::Player() = default;
 
 Player::~Player() = default;
 
-void Player::HandleInput()
-{
-	Move();
-}
 
 void Player::DebugDraw() const
 {
@@ -40,16 +36,79 @@ void Player::Create()
 	};
 }
 
-void Player::Move()
+Player::PlayerAction Player::HandleInput() const
+{
+	using enum KeyState;
+	using enum Player::PlayerAction::Action;
+
+	PlayerAction returnAction = { position, NONE };
+
+	if (!moveVector.IsZero())
+		return returnAction;
+
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		returnAction.action |= MOVE;
+		returnAction.destinationTile.y -= tileSize;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		returnAction.action |= MOVE;
+		returnAction.destinationTile.x -= tileSize;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		returnAction.action |= MOVE;
+		returnAction.destinationTile.y += tileSize;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		returnAction.action |= MOVE;
+		returnAction.destinationTile.x += tileSize;
+	}
+
+	return returnAction;
+}
+
+void Player::StartAction(PlayerAction playerAction)
+{
+	if (playerAction.action == PlayerAction::Action::MOVE)
+	{
+		StartMovement();
+	}
+}
+
+void Player::StartMovement()
+{
+	using enum KeyState;
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		moveVector.y = -1;
+		currentSpriteSlice.y = (GetTextureIndex().y + 3) * size.y;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		moveVector.x = -1;
+		currentSpriteSlice.y = (GetTextureIndex().y + 1) * size.y;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		moveVector.y = 1;
+		currentSpriteSlice.y = GetTextureIndex().y * size.y;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		moveVector.x = 1;
+		currentSpriteSlice.y = (GetTextureIndex().y + 2) * size.y;
+	}
+}
+
+void Player::Update()
 {
 	if (!moveVector.IsZero())
 	{
 		AnimateMove();
 		SmoothMove();
-	}
-	else
-	{
-		CheckMoveInput();
 	}
 }
 
@@ -86,29 +145,3 @@ void Player::SmoothMove()
 		moveTimer++;
 	}
 }
-
-void Player::CheckMoveInput()
-{
-	using enum KeyState;
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		moveVector.y = -1;
-		currentSpriteSlice.y = (GetTextureIndex().y + 3) * size.y;
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		moveVector.x = -1;
-		currentSpriteSlice.y = (GetTextureIndex().y + 1) * size.y;
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-		moveVector.y = 1;
-		currentSpriteSlice.y = GetTextureIndex().y * size.y;
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		moveVector.x = 1;
-		currentSpriteSlice.y = (GetTextureIndex().y + 2) * size.y;
-	}
-}
-

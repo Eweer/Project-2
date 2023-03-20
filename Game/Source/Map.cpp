@@ -189,6 +189,8 @@ bool Map::IsWalkable(iPoint pos) const
 	{
 		auto gid = layer.GetTileGid(pos.x, pos.y);
 
+		if (gid == 0) continue;
+
 		auto result = std::ranges::find_if(
 			tilesets,
 			[gid](const TileSet &t) { return t.ContainsGid(gid); }
