@@ -1,5 +1,5 @@
 {
-    "activeFile": "Base.tmx",
+    "activeFile": "Props.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -14,8 +14,8 @@
             "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 191.5,
-                "y": 192
+                "x": 190,
+                "y": 190
             }
         },
         "Props.tsx": {
@@ -70,11 +70,11 @@
     "project": "project-II.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Slime.tsx",
+        "Base.tmx",
         "test.tmx",
         "Tiles.tsx",
         "Props.tsx",
-        "Base.tmx",
+        "Slime.tsx",
         "player.tsx",
         "Test2.tmx"
     ],
