@@ -1,17 +1,17 @@
-<1>
+<item>
 	<id>1</id>
 	<general>
 		<name>Potion</name>
 		<iconIndex>176</iconIndex>
 		<description>Recovers HP by 500 points.</description>
-		<itypeId>1</itypeId> <!-- 1 - Regular Item || 2 - Key Item || 3 - Hidden Item 1 || 4 - Hidden Item 2-->
+		<itypeId>1</itypeId> <!-- 1 - Regular Item || 2 - Key Item || 3 - Hidden Item -->
 		<price>100</price>
 		<consumable>true</consumable>
 		<scope>7</scope> <!-- 0 - None || 1 - 1 enemy || 2 - All enemies || 3~6 - 1~4 Random enemies || 7 - 1 Ally || 8 - All allies || 9 - 1 Ally (Dead) || 10 - All allies (Dead) || 11 - The User -->
 		<occasion>0</occasion> <!-- 0 - Always || 1 - Battle Screen || 2 - Menu Screen || 3 - Never -->
 	</general>
 	<invocation>
-		<speed>0</speed>
+		<speed>0</speed> <!-- Speed modifier (think of quick attack in pokémon) -->
 		<successRate>100</successRate> <!-- Amount is in % -->
 		<repeats>1</repeats> <!-- How many times it does the effect -->
 		<hitType>0</hitType> <!-- 0 - True Damage || 1 - Physical Damage || 2 - Magical Damage -->
@@ -31,4 +31,4 @@
 		<value2>500</value2> <!-- Argument 2, if floating point it's a % from 0 to 1 (e.g.: 0.5 == 50%, 1.5 == 150%)  -->
 	</effects>
 	<note></note> <!-- Additional comments, mainly for development purposes -->
-</1>
+</item>
