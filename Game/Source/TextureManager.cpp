@@ -77,7 +77,7 @@ int TextureManager::Load(std::string const &path)
 		auto texID = *texIter;
 
 		// Add texture with key ID
-		textures[texID] = (texture);
+		textures[texID] = texture;
 
 		// Add texture path/id to look up maps
 		auto pairToEmplace = std::make_pair(texID, 1);
